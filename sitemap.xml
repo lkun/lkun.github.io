@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/06/18/appassembler-maven-plugin/</loc>
+    
+    <lastmod>2016-06-18T13:25:30.035Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/06/18/new-blog-site/</loc>
     
     <lastmod>2016-06-18T03:29:45.351Z</lastmod>
