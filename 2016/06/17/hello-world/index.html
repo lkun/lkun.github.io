@@ -4,26 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | lkun&#39;s</title>
+    <title>Github+HEXO搭建一个独立博客教程 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+    <meta name="description" content="知道Github Pages + Hexo的好，就很想把它分享给身边的朋友，所以我写了这篇博客，让大家在搭建的过程中少走弯路，下面就将这个安装的流程写了下来。
+
+为什么选择GitHub Pages?
+1、github pages有300M免费空间，资料自己管理，保存可靠；
+2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；
+3、顺便看看github工作原理，最好的团">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
+<meta property="og:title" content="Github+HEXO搭建一个独立博客教程">
 <meta property="og:url" content="http://yoursite.com/2016/06/17/hello-world/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-06-16T17:35:00.109Z">
+<meta property="og:description" content="知道Github Pages + Hexo的好，就很想把它分享给身边的朋友，所以我写了这篇博客，让大家在搭建的过程中少走弯路，下面就将这个安装的流程写了下来。
+
+为什么选择GitHub Pages?
+1、github pages有300M免费空间，资料自己管理，保存可靠；
+2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；
+3、顺便看看github工作原理，最好的团">
+<meta property="og:updated_time" content="2016-06-18T02:13:38.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Github+HEXO搭建一个独立博客教程">
+<meta name="twitter:description" content="知道Github Pages + Hexo的好，就很想把它分享给身边的朋友，所以我写了这篇博客，让大家在搭建的过程中少走弯路，下面就将这个安装的流程写了下来。
+
+为什么选择GitHub Pages?
+1、github pages有300M免费空间，资料自己管理，保存可靠；
+2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；
+3、顺便看看github工作原理，最好的团">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -83,7 +95,7 @@ Quick">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/17/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/06/17/hello-world/" title="Github+HEXO搭建一个独立博客教程" itemprop="url">Github+HEXO搭建一个独立博客教程</a>
   </h1>
   <p class="article-author">By
        
@@ -99,19 +111,125 @@ Quick">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么选择GitHub-Pages"><span class="toc-number">1.</span> <span class="toc-text">为什么选择GitHub Pages?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-Pages是什么？"><span class="toc-number">2.</span> <span class="toc-text">GitHub Pages是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境"><span class="toc-number">3.</span> <span class="toc-text">配置环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Github-Pages建立博客"><span class="toc-number">4.</span> <span class="toc-text">使用Github Pages建立博客</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Github上建立仓库"><span class="toc-number">4.0.1.</span> <span class="toc-text">Github上建立仓库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEXO"><span class="toc-number">5.</span> <span class="toc-text">HEXO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HEXO介绍"><span class="toc-number">5.1.</span> <span class="toc-text">HEXO介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HEXO安装"><span class="toc-number">5.2.</span> <span class="toc-text">HEXO安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换主题"><span class="toc-number">6.</span> <span class="toc-text">更换主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交到GitHub"><span class="toc-number">7.</span> <span class="toc-text">提交到GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo常用命令"><span class="toc-number">8.</span> <span class="toc-text">Hexo常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#简写"><span class="toc-number">8.0.1.</span> <span class="toc-text">简写</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">9.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生效"><span class="toc-number">10.</span> <span class="toc-text">生效</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<blockquote>
+<p>知道Github Pages + Hexo的好，就很想把它分享给身边的朋友，所以我写了这篇博客，让大家在搭建的过程中少走弯路，下面就将这个安装的流程写了下来。</p>
+</blockquote>
+<h3 id="为什么选择GitHub-Pages"><a href="#为什么选择GitHub-Pages" class="headerlink" title="为什么选择GitHub Pages?"></a>为什么选择GitHub Pages?</h3><ul>
+<li>1、github pages有300M免费空间，资料自己管理，保存可靠；</li>
+<li>2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；</li>
+<li>3、顺便看看github工作原理，最好的团队协作流程；</li>
+<li>4、github是趋势；</li>
+<li>5、你不觉得一个文科生用github很geek吗？瞬间跻身技术界；</li>
+<li>6、就算github被墙了，我可以搬到国内的gitcafe中去</li>
+</ul>
+<h3 id="GitHub-Pages是什么？"><a href="#GitHub-Pages是什么？" class="headerlink" title="GitHub Pages是什么？"></a>GitHub Pages是什么？</h3><p>GitHub Pages本用于介绍托管在GitHub的项目， 不过，由于他的空间免费稳定，用来做搭建一个博客再好不过了</p>
+<blockquote>
+<p>github Pages可以被认为是用户编写的、托管在github上的静态网页。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><ul>
+<li><p>1、Node.js  用来生成静态页面的<br><a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js下载</a> 下载最新版本，一路安装即可。</p>
+<blockquote>
+<p>Node.js 是否安装成功就不展开来说了，如果不是很清楚的可以网上搜索相关教程。</p>
+</blockquote>
+</li>
+<li><p>2、Git  把本地的hexo编译生成的public下面的内容提交到github上去.<br><a href="https://git-scm.com/downloads" target="_blank" rel="external">Git下载</a> 下载最新版本，如果对git命令不是很熟悉的话，建议在安装的时候选择“Run Git and included Unix tools from the Windows Command Prompt”,这样子就会通过客户端不需要操作命令就很方便的操作git，但是由于我个人比较喜欢直接使用命令，所以下面的内容我都会使用命令去讲解。</p>
+<blockquote>
+<p>推荐一个网上查到的一个关于git命令比较好的教程，给分享一下<a href="http://blog.csdn.net/vipzjyno1/article/details/22098621" target="_blank" rel="external">git教程</a></p>
+</blockquote>
+</li>
+<li><p>3、<a href="https://github.com/" target="_blank" rel="external">注册Github</a> 用户名和邮箱十分重要。</p>
+<blockquote>
+<p>注册过程比较简单</p>
+</blockquote>
+</li>
+<li><p>4、添加SSH Key到GitHub（这一步不是必须，如果你是希望以后每次都不需要重复的输入账号和密码就添加），详细教程不展开。</p>
+</li>
+</ul>
+<h3 id="使用Github-Pages建立博客"><a href="#使用Github-Pages建立博客" class="headerlink" title="使用Github Pages建立博客"></a>使用Github Pages建立博客</h3><ul>
+<li><p>自己的GitHub用户名建立的username.github.io这样的用户&amp;组织页（站），个人博客选择</p>
+<blockquote>
+<p>形如username.github.io这样的可访问的站，每个用户名下面只能建立一个。</p>
+</blockquote>
+</li>
+<li><p>依附项目的pages </p>
+</li>
+</ul>
+<h5 id="Github上建立仓库"><a href="#Github上建立仓库" class="headerlink" title="Github上建立仓库"></a>Github上建立仓库</h5><p>登录后系统，在github首页，点击页面右下角「New Repository」</p>
+<p>填写项目信息：</p>
+<p>Repository name：lkun.github.io</p>
+<p>Description (optional):关于该博客的一个描述，随便自己怎么写</p>
+<blockquote>
+<p>注意：Github Pages的Repository名字是特定的，比如我Github账号是lkun，那么我Github Pages Repository名字就是lkun.github.io。</p>
+</blockquote>
+<p>点击「Create Repository」 完成创建。</p>
+<h3 id="HEXO"><a href="#HEXO" class="headerlink" title="HEXO"></a>HEXO</h3><h4 id="HEXO介绍"><a href="#HEXO介绍" class="headerlink" title="HEXO介绍"></a>HEXO介绍</h4><p>Hexo是一个简单、快速、强大的博客发布工具，支持Markdown格式。</p>
+<h4 id="HEXO安装"><a href="#HEXO安装" class="headerlink" title="HEXO安装"></a>HEXO安装</h4><ul>
+<li><p>打开git</p>
+<p>  $ npm install -g hexo</p>
+</li>
+</ul>
+<blockquote>
+<p>如果出现“npm ERR”，则可以考虑换成cnpm尝试。$ npm install -g cnpm</p>
+</blockquote>
+<ul>
+<li>部署Hexo</li>
+</ul>
+<p>在我的电脑中建立一个名字叫「Hexo」的文件夹，然后在此文件夹中右键打开Git Bash。</p>
+<pre><code>$ hexo init
+</code></pre><p>Hexo随后会自动在目标文件夹建立网站所需要的所有文件。</p>
+<p>最后执行：</p>
+<pre><code>$ hexo g
+
+$ hexo s
+</code></pre><p>然后浏览器输入：localhost:4000，如果部署成功的话，则会出现一个静态博客页面了。</p>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>1、在Hexo的根目录下面执行</p>
+<pre><code>$ git clone https://github.com/wuchong/jacman.git themes/jacman
+</code></pre><p>2、启用主题</p>
+<p>修改Hexo目录下的config.yml配置文件中的theme属性，将其设置为jacman。</p>
+<p>3、生效</p>
+<pre><code>$ hexo g #生成
+$ hexo s #启动本地服务，进行文章预览调试
+</code></pre><p>4、浏览器确认修改生效  localhost:4000</p>
+<h3 id="提交到GitHub"><a href="#提交到GitHub" class="headerlink" title="提交到GitHub"></a>提交到GitHub</h3><ul>
+<li>将Hexo根目录下public中的所有内容提交给上面几步在Github上面创建的Repository（lkun.github.io）上,上传成功后，在浏览器上面直接输入：<a href="https://lkun.github.io/" target="_blank" rel="external">https://lkun.github.io/</a>  即可立马看到效果了。</li>
+<li>个人的一个博客到此就已经搭建完成了。</li>
+</ul>
+<h3 id="Hexo常用命令"><a href="#Hexo常用命令" class="headerlink" title="Hexo常用命令"></a>Hexo常用命令</h3><pre><code>hexo new &quot;postName&quot; #新建文章
+hexo new page &quot;pageName&quot; #新建页面
+hexo generate #生成静态页面至public目录
+hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）
+hexo deploy #将.deploy目录部署到GitHub
+</code></pre><h5 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h5><pre><code>hexo n == hexo new
+hexo g == hexo generate
+hexo s == hexo server
+hexo d == hexo deploy
+</code></pre><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>############## 添加sitemap和feed插件</p>
+<pre><code>$ npm install hexo-generator-sitemap
+$ npm install hexo-generator-feed
+</code></pre><p>############## 修改_config.yml，增加以下内容</p>
+<pre><code># Extensions
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+#sitemap
+sitemap:
+  path: sitemap.xml
+</code></pre><h3 id="生效"><a href="#生效" class="headerlink" title="生效"></a>生效</h3><pre><code>$ hexo clean #清除缓存
+$ hexo g #生成
+$ hexo s #启动本地服务，进行文章预览调试
+</code></pre><p>执行完这3步，再把public下面的所有内容提交到Github上去，浏览器访问即可看到更改后的效果。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +242,7 @@ Quick">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/17/hello-world/" data-title="Hello World | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/17/hello-world/" data-title="Github+HEXO搭建一个独立博客教程 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -156,7 +274,7 @@ Quick">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么选择GitHub-Pages"><span class="toc-number">1.</span> <span class="toc-text">为什么选择GitHub Pages?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-Pages是什么？"><span class="toc-number">2.</span> <span class="toc-text">GitHub Pages是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境"><span class="toc-number">3.</span> <span class="toc-text">配置环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Github-Pages建立博客"><span class="toc-number">4.</span> <span class="toc-text">使用Github Pages建立博客</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Github上建立仓库"><span class="toc-number">4.0.1.</span> <span class="toc-text">Github上建立仓库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEXO"><span class="toc-number">5.</span> <span class="toc-text">HEXO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HEXO介绍"><span class="toc-number">5.1.</span> <span class="toc-text">HEXO介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HEXO安装"><span class="toc-number">5.2.</span> <span class="toc-text">HEXO安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换主题"><span class="toc-number">6.</span> <span class="toc-text">更换主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交到GitHub"><span class="toc-number">7.</span> <span class="toc-text">提交到GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo常用命令"><span class="toc-number">8.</span> <span class="toc-text">Hexo常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#简写"><span class="toc-number">8.0.1.</span> <span class="toc-text">简写</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">9.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生效"><span class="toc-number">10.</span> <span class="toc-text">生效</span></a></li></ol>
  
   </div>
 
@@ -215,7 +333,7 @@ Quick">
 	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+		<p> Hello ,I&#39;m Lkun Comes from PPmoney. <br/>
 			This is my blog,believe it or not.</p>
 	</section>
 	 
