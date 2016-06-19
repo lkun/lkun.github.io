@@ -4,53 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客迁移至GitHub | lkun&#39;s</title>
+    <title>Spring Boot （属性、日志、Profile）配置 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+    <meta name="description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
+添加 application.properties配置文件属性server.port=9090
+s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客迁移至GitHub">
-<meta property="og:url" content="http://yoursite.com/2016/06/18/new-blog-site/index.html">
+<meta property="og:title" content="Spring Boot （属性、日志、Profile）配置">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+<meta property="og:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
-<meta property="og:updated_time" content="2016-06-18T03:29:45.351Z">
+添加 application.properties配置文件属性server.port=9090
+s">
+<meta property="og:updated_time" content="2016-06-19T14:47:52.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客迁移至GitHub">
-<meta name="twitter:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+<meta name="twitter:title" content="Spring Boot （属性、日志、Profile）配置">
+<meta name="twitter:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
+添加 application.properties配置文件属性server.port=9090
+s">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -110,14 +89,14 @@ Github.io:lkun博客">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/new-blog-site/" title="博客迁移至GitHub" itemprop="url">博客迁移至GitHub</a>
+      <a href="/2016/06/19/Spring-Boot-rule-config/" title="Spring Boot （属性、日志、Profile）配置" itemprop="url">Spring Boot （属性、日志、Profile）配置</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-19T14:10:23.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
     
   </p>
 </header>
@@ -126,37 +105,120 @@ Github.io:lkun博客">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。</p>
+<p>在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。</p>
 </blockquote>
-<h3 id="旧博客地址"><a href="#旧博客地址" class="headerlink" title="旧博客地址"></a>旧博客地址</h3><ul>
-<li>博客园:<a href="http://www.cnblogs.com/lvk618/" target="_blank" rel="external">博客园</a></li>
-<li>CSDN:<a href="http://blog.csdn.net/lk10207160511" target="_blank" rel="external">CSDN</a></li>
-</ul>
-<h3 id="新博客地址"><a href="#新博客地址" class="headerlink" title="新博客地址"></a>新博客地址</h3><blockquote>
-<p>统一由Github Page + Hexo + Markdown来写。</p>
+<h3 id="添加-application-properties配置文件属性"><a href="#添加-application-properties配置文件属性" class="headerlink" title="添加 application.properties配置文件属性"></a>添加 application.properties配置文件属性</h3><pre><code>server.port=9090
+server.context-path=/helloworld
+jmust.name=lvkun
+jmust.age=Hello World
+</code></pre><a id="more"></a>
+<h3 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h3><pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+@Component
+@ConfigurationProperties(prefix = &quot;jmust&quot;) //通过@ConfigurationProperties 加载 properties 文件内的配置，通过 prefix 属性指定properties 的配置的前缀，通过location指定properties文件的位置，例如@ConfigurationProperties(prefix = &quot;jmust&quot;，location={&quot;classpath:config/jmust.properties&quot;}),当然本例子不需要配置 location
+public class AuthorSettings {
+    private String name;
+    private Long age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+}
+</code></pre><h3 id="修改入口类"><a href="#修改入口类" class="headerlink" title="修改入口类"></a>修改入口类</h3><pre><code>import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jmust.demo.config.AuthorSettings;
+
+@RestController
+@SpringBootApplication
+public class DemoApplication {
+
+    @Autowired
+    private AuthorSettings authorSettings; //注入该配置信息
+
+    @RequestMapping(&quot;/&quot;)
+    public String index(){
+        return &quot;author name is &quot;+ authorSettings.getName()+&quot; and author age is &quot;+authorSettings.getAge();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+</code></pre><h3 id="运行，访问-http-localhost-9090-helloworld"><a href="#运行，访问-http-localhost-9090-helloworld" class="headerlink" title="运行，访问 http://localhost:9090/helloworld"></a>运行，访问 <a href="http://localhost:9090/helloworld" target="_blank" rel="external">http://localhost:9090/helloworld</a></h3><h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><blockquote>
+<p>Spring Boot 支持Java Util Logging、Log4J、 Log4J2和Logback作为日志框架，默认情况下，Spring Boot 使用Logback作为日志框架</p>
 </blockquote>
 <ul>
-<li>Github.io:<a href="https://lkun.github.io/" target="_blank" rel="external">lkun博客</a></li>
+<li><p>配置日志级别</p>
+<pre><code>logging.file=D:/log/log.log
+</code></pre></li>
+<li><p>配置日志文件，格式为logging.level.包名=级别:</p>
+<pre><code>logging.level.org.springframework.web= DEBUG
+</code></pre></li>
 </ul>
-  
+<h3 id="Profile-配置"><a href="#Profile-配置" class="headerlink" title="Profile 配置"></a>Profile 配置</h3><blockquote>
+<p>Profilr 是 Spring 用来针对不同环境对不同的配置提供支持的，全局Profile 配置使用 application-{profile}.properties (如 application-prod.properties)</p>
+<p>通过在 application.properties 中设置 spring.profiles.active=prod 来指定活动的 Profile。</p>
+</blockquote>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>生产（prod）和开发（dev）环境，生产环境下端口号为80，开发环境下端口号为9090。</p>
+<ul>
+<li><p>生产环境下的配置文件 application-prod.properties:</p>
+<pre><code>server.port=80
+</code></pre></li>
+<li><p>开发环境下的配置文件 application-dev.properties:</p>
+<pre><code>server.port=9090
+</code></pre></li>
+<li><p>application.properties中添加：</p>
+<pre><code>spring.profiles.active=dev
+</code></pre></li>
+</ul>
+<p>启动程序结果为：</p>
+<pre><code>Registering beans for JMX exposure on startuo
+Tomcat started on port(s): 9090 (http)
+Started DemoApplication in 2.403 seconds (JVM running for 2.755)
+</code></pre><ul>
+<li><p>修改application.properties:</p>
+<pre><code>spring.profiles.active=prod
+</code></pre></li>
+</ul>
+<p>启动程序结果为：</p>
+<pre><code>Registering beans for JMX exposure on startuo
+Tomcat started on port(s): 80 (http)
+Started DemoApplication in 2.403 seconds (JVM running for 2.755)
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Other/">Other</a>
+  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/博客/">博客</a>
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
   </div>
 
 </div>
@@ -165,7 +227,7 @@ Github.io:lkun博客">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/18/new-blog-site/" data-title="博客迁移至GitHub | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/" data-title="Spring Boot （属性、日志、Profile）配置 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -178,14 +240,14 @@ Github.io:lkun博客">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ ">
-  <strong>上一篇：</strong><br/>
-  <span>
-  为什么选择用github+hexo来搭建自己的博客？ </span>
+
+<div class="next">
+<a href="/2016/06/19/Spring-Boot-Config/"  title="Spring Boot 配置文件">
+ <strong>下一篇：</strong><br/> 
+ <span>Spring Boot 配置文件
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -197,7 +259,7 @@ Github.io:lkun博客">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
  
   </div>
 

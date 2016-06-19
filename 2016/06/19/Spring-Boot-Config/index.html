@@ -4,53 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客迁移至GitHub | lkun&#39;s</title>
+    <title>Spring Boot 配置文件 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
-
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
+    <meta name="description" content="Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。Spring Boot 的全局配置文件的作用是对一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客迁移至GitHub">
-<meta property="og:url" content="http://yoursite.com/2016/06/18/new-blog-site/index.html">
+<meta property="og:title" content="Spring Boot 配置文件">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/Spring-Boot-Config/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
-
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
-<meta property="og:updated_time" content="2016-06-18T03:29:45.351Z">
+<meta property="og:description" content="Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。Spring Boot 的全局配置文件的作用是对一">
+<meta property="og:updated_time" content="2016-06-19T14:07:45.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客迁移至GitHub">
-<meta name="twitter:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
-
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
-
-
-Github.io:lkun博客">
+<meta name="twitter:title" content="Spring Boot 配置文件">
+<meta name="twitter:description" content="Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。Spring Boot 的全局配置文件的作用是对一">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -110,14 +80,14 @@ Github.io:lkun博客">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/new-blog-site/" title="博客迁移至GitHub" itemprop="url">博客迁移至GitHub</a>
+      <a href="/2016/06/19/Spring-Boot-Config/" title="Spring Boot 配置文件" itemprop="url">Spring Boot 配置文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-19T13:37:56.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
     
   </p>
 </header>
@@ -126,22 +96,38 @@ Github.io:lkun博客">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单实例"><span class="toc-number">1.</span> <span class="toc-text">简单实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定制Banner"><span class="toc-number">2.</span> <span class="toc-text">定制Banner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭banner"><span class="toc-number">3.</span> <span class="toc-text">关闭banner</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。</p>
+<p>Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。<br>Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。<br>Spring Boot 的全局配置文件的作用是对一些默认配置的配置值进行修改。</p>
 </blockquote>
-<h3 id="旧博客地址"><a href="#旧博客地址" class="headerlink" title="旧博客地址"></a>旧博客地址</h3><ul>
-<li>博客园:<a href="http://www.cnblogs.com/lvk618/" target="_blank" rel="external">博客园</a></li>
-<li>CSDN:<a href="http://blog.csdn.net/lk10207160511" target="_blank" rel="external">CSDN</a></li>
+<h3 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h3><blockquote>
+<p>将Tomcat的默认端口号8080修改为9090，并将默认的访问路径”/“修改为”/helloworld”。<br>  可以在application.properties 中添加：</p>
+</blockquote>
+<pre><code>server.port=9090
+server.context-path=/helloworld
+</code></pre><a id="more"></a>
+<p>或者在 application.yml中添加：</p>
+<pre><code>server:
+    port: 9090
+    contextPath: /helloworld
+</code></pre><h3 id="定制Banner"><a href="#定制Banner" class="headerlink" title="定制Banner"></a>定制Banner</h3><ul>
+<li>修改Banner<br>在Spring Boot 启动的时候会有一个默认的启动图案Spring</li>
+<li>在src/main/resources 下新建一个banner.txt</li>
+<li>通过 <a href="http://patorjk.com/software/taag" target="_blank" rel="external">http://patorjk.com/software/taag</a> 网站生成字符，如敲入的为 “lvkun”,将网站生成的字符复制到banner.txt中。</li>
+<li>启动的时候你将会看到图案是lvkun</li>
 </ul>
-<h3 id="新博客地址"><a href="#新博客地址" class="headerlink" title="新博客地址"></a>新博客地址</h3><blockquote>
-<p>统一由Github Page + Hexo + Markdown来写。</p>
-</blockquote>
-<ul>
-<li>Github.io:<a href="https://lkun.github.io/" target="_blank" rel="external">lkun博客</a></li>
+<h3 id="关闭banner"><a href="#关闭banner" class="headerlink" title="关闭banner"></a>关闭banner</h3><ul>
+<li><p>main 里的内容修改为：</p>
+<pre><code>SpringApplication app = new SpringApplication(Demo.class);
+app.setShowBanner(false);
+app.run(args);
+</code></pre></li>
+<li><p>或使用fluent API 修改为：</p>
+<pre><code>new SpringApplicationBuilder(Demo.class).showBanner(false).run(args);
+</code></pre></li>
 </ul>
   
 	</div>
@@ -150,13 +136,13 @@ Github.io:lkun博客">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Other/">Other</a>
+  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/博客/">博客</a>
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
   </div>
 
 </div>
@@ -165,7 +151,7 @@ Github.io:lkun博客">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/18/new-blog-site/" data-title="博客迁移至GitHub | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/19/Spring-Boot-Config/" data-title="Spring Boot 配置文件 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -179,13 +165,21 @@ Github.io:lkun博客">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ ">
+ <a href="/2016/06/19/Spring-Boot-rule-config/" title="Spring Boot （属性、日志、Profile）配置">
   <strong>上一篇：</strong><br/>
   <span>
-  为什么选择用github+hexo来搭建自己的博客？ </span>
+  Spring Boot （属性、日志、Profile）配置</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2016/06/18/appassembler-maven-plugin/"  title="appassembler-maven-plugin插件的作用以及使用">
+ <strong>下一篇：</strong><br/> 
+ <span>appassembler-maven-plugin插件的作用以及使用
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -197,7 +191,7 @@ Github.io:lkun博客">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单实例"><span class="toc-number">1.</span> <span class="toc-text">简单实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定制Banner"><span class="toc-number">2.</span> <span class="toc-text">定制Banner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭banner"><span class="toc-number">3.</span> <span class="toc-text">关闭banner</span></a></li></ol>
  
   </div>
 
