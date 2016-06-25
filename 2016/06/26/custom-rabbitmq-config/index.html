@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>为什么选择用github+hexo来搭建自己的博客？  | lkun&#39;s</title>
+    <title>基于Spring Boot自定义RabbitMQ配置实例 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。">
+    <meta name="description" content="MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么选择用github+hexo来搭建自己的博客？ ">
-<meta property="og:url" content="http://yoursite.com/2016/06/18/my-new-post/index.html">
+<meta property="og:title" content="基于Spring Boot自定义RabbitMQ配置实例">
+<meta property="og:url" content="http://yoursite.com/2016/06/26/custom-rabbitmq-config/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。">
-<meta property="og:updated_time" content="2016-06-18T03:29:15.073Z">
+<meta property="og:description" content="MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：">
+<meta property="og:updated_time" content="2016-06-25T20:25:55.676Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么选择用github+hexo来搭建自己的博客？ ">
-<meta name="twitter:description" content="这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。">
+<meta name="twitter:title" content="基于Spring Boot自定义RabbitMQ配置实例">
+<meta name="twitter:description" content="MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ " itemprop="url">为什么选择用github+hexo来搭建自己的博客？ </a>
+      <a href="/2016/06/26/custom-rabbitmq-config/" title="基于Spring Boot自定义RabbitMQ配置实例" itemprop="url">基于Spring Boot自定义RabbitMQ配置实例</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-25T18:53:01.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
     
   </p>
 </header>
@@ -96,37 +96,181 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Page-Hexo"><span class="toc-number">1.</span> <span class="toc-text">Github Page + Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优势"><span class="toc-number">2.</span> <span class="toc-text">优势</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖包"><span class="toc-number">1.</span> <span class="toc-text">依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件准备"><span class="toc-number">2.</span> <span class="toc-text">配置文件准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ自定义配置文件实现"><span class="toc-number">3.</span> <span class="toc-text">RabbitMQ自定义配置文件实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">4.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目测试"><span class="toc-number">5.</span> <span class="toc-text">项目测试</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。</p>
+<p>MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="Github-Page-Hexo"><a href="#Github-Page-Hexo" class="headerlink" title="Github Page + Hexo"></a>Github Page + Hexo</h3><ul>
-<li>Markdown  自定义布局</li>
-<li>托管在github上面</li>
+<p>由于我是基于Spring Boot的来说明rabbitMQ的使用，所以首先我们需要配置好rabbitMQ。</p>
+<h2 id="依赖包"><a href="#依赖包" class="headerlink" title="依赖包"></a>依赖包</h2><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-amqp&lt;/artifactId&gt;
+    &lt;version&gt;${springboot.version}&lt;/version&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="配置文件准备"><a href="#配置文件准备" class="headerlink" title="配置文件准备"></a>配置文件准备</h2><p>在 src/main/resources/下面添加如下properties文件：</p>
+<ul>
+<li><p>application.properties</p>
+<pre><code>spring.profiles.active=@profiles.active@
+rabbitMQ.host=${rabbitMQ.host}
+rabbitMQ.port=${rabbitMQ.port}
+rabbitMQ.username=${rabbitMQ.username}
+rabbitMQ.password=${rabbitMQ.password}
+rabbitMQ.exchange=${rabbitMQ.exchange}
+</code></pre></li>
+<li><p>application-develop.properties(测试用)</p>
+<pre><code>rabbitMQ.host=192.168.100.117
+rabbitMQ.port=5672
+rabbitMQ.username=guest
+rabbitMQ.password=guest
+rabbitMQ.exchange=xxx.xxx.xxx
+</code></pre></li>
+<li><p>application-production.properties（生产用）</p>
+<pre><code>rabbitMQ.host=192.168.100.117
+rabbitMQ.port=5672
+rabbitMQ.username=guest
+rabbitMQ.password=guest
+rabbitMQ.exchange=xxx.xxx.xxx
+</code></pre></li>
 </ul>
-<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>相对CSDN，访问效率快。</li>
-<li>相对博客园，不零散不局限。</li>
-<li>相对于oschina，布局更灵活自由，效果会更好。</li>
+<h2 id="RabbitMQ自定义配置文件实现"><a href="#RabbitMQ自定义配置文件实现" class="headerlink" title="RabbitMQ自定义配置文件实现"></a>RabbitMQ自定义配置文件实现</h2><p>在src/main/java/com.jmust.service.demo下创建”RabbitMQConfiguration.java”文件</p>
+<pre><code>import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+
+@Configuration
+public class RabbitMQConfiguration {
+    @Autowired
+    private Environment env;
+
+    @Bean
+    public RabbitTemplate instance() {
+        com.rabbitmq.client.ConnectionFactory rabbitConnectionFactory = new com.rabbitmq.client.ConnectionFactory();
+        rabbitConnectionFactory.setUsername(env.getProperty(&quot;rabbitMQ.username&quot;));
+        rabbitConnectionFactory.setPassword(env.getProperty(&quot;rabbitMQ.password&quot;));
+        rabbitConnectionFactory.setHost(env.getProperty(&quot;rabbitMQ.host&quot;));
+        rabbitConnectionFactory.setPort(Integer.parseInt(env.getProperty(&quot;rabbitMQ.port&quot;)));
+
+        ConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitConnectionFactory);
+        RabbitTemplate rabbitTemplate = new RabbitTemplate();
+        rabbitTemplate.setConnectionFactory(connectionFactory);
+        rabbitTemplate.setExchange(env.getProperty(&quot;rabbitMQ.exchange&quot;));
+        return rabbitTemplate;
+    }
+}
+</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li><p>1、自定义接口类（DemoMQResource）src/main/com.jmust.service.demo.resource，定义操作契约</p>
+<pre><code>import com.jmust.service.demo.resource.entity.DemoToMQ;
+
+    @FunctionalInterface
+    public interface DemoMQResource {
+
+        void sendDemoMQ(DemoToMQ demoToMQ);
+    }
+</code></pre></li>
+<li><p>2、实现接口类，业务逻辑包含在内(src/main/com.jmust.service.demo.resource)</p>
+<pre><code>import com.jmust.server.profile.ProfileProduction;
+import com.jmust.service.demo.LogFailMqUtil;
+import com.jmust.service.demo.resource.entity.DemoToMQ;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
+
+@Component
+@ProfileProduction
+public class DemoMQResourceImpl implements DemoMQResource {
+
+    private static Logger logger = LoggerFactory.getLogger(DemoMQResourceImpl.class);
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Override
+    public void sendDemoMQ(DemoToMQ demoToMQ) {
+        //发送mq
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+        messageProperties.setContentEncoding(&quot;JSON&quot;);
+        messageProperties.setContentType(
+                &quot;xxx.xxx.xxx, xxx.xxx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot;);
+
+        String body = demoToMQ.toString();
+        Message message = new Message(body.getBytes(StandardCharsets.UTF_8), messageProperties);
+        try {
+            rabbitTemplate.send(message);
+            logger.info(&quot;send success to mq:{}&quot;, body);
+        } catch (Exception e) {
+            logger.error(&quot;send fail to mq:&quot;, e);
+        }
+    }
+}
+</code></pre></li>
 </ul>
-  
+<h2 id="项目测试"><a href="#项目测试" class="headerlink" title="项目测试"></a>项目测试</h2><pre><code>import com.jmust.service.demo.resource.entity.DemoToMQ;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+
+public class DemoMQResourceTest {
+
+    @InjectMocks
+    private DemoMQResourceImpl demoMQResourceImpl;
+
+    @Mock
+    private RabbitTemplate rabbitTemplate;
+
+    @BeforeClass
+    public void init() {
+        demoMQResourceImpl = new DemoMQResourceImpl();
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void sendMq() {
+        doThrow(new RuntimeException(&quot;send  mq  is  validate&quot;)).when(rabbitTemplate).send(any(Message.class));
+        demoMQResourceImpl.sendDemoMQ(new DemoToMQ());
+    }
+}
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
+  <a class="article-category-link" href="/categories/rabbitMQ/">rabbitMQ</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/GitHub-HEXO/">GitHub+HEXO</a>
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/rabbitMQ/">rabbitMQ</a>
   </div>
 
 </div>
@@ -135,7 +279,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/18/my-new-post/" data-title="为什么选择用github+hexo来搭建自己的博客？  | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/26/custom-rabbitmq-config/" data-title="基于Spring Boot自定义RabbitMQ配置实例 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -148,19 +292,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/18/hello-world/" title="Github+HEXO搭建一个独立博客教程">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Github+HEXO搭建一个独立博客教程</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/06/18/new-blog-site/"  title="博客迁移至GitHub">
+<a href="/2016/06/26/custom-mybatis-config/"  title="基于Spring Boot自定义Mybatis配置实例">
  <strong>下一篇：</strong><br/> 
- <span>博客迁移至GitHub
+ <span>基于Spring Boot自定义Mybatis配置实例
 </span>
 </a>
 </div>
@@ -175,7 +311,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Page-Hexo"><span class="toc-number">1.</span> <span class="toc-text">Github Page + Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优势"><span class="toc-number">2.</span> <span class="toc-text">优势</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖包"><span class="toc-number">1.</span> <span class="toc-text">依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件准备"><span class="toc-number">2.</span> <span class="toc-text">配置文件准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ自定义配置文件实现"><span class="toc-number">3.</span> <span class="toc-text">RabbitMQ自定义配置文件实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">4.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目测试"><span class="toc-number">5.</span> <span class="toc-text">项目测试</span></a></li></ol>
  
   </div>
 

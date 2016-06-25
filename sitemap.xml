@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/06/26/custom-mybatis-config/</loc>
+    
+    <lastmod>2016-06-25T20:26:08.258Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/06/26/custom-rabbitmq-config/</loc>
+    
+    <lastmod>2016-06-25T20:25:55.676Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/06/26/mockito-testng-assertj/</loc>
     
     <lastmod>2016-06-25T18:48:18.341Z</lastmod>

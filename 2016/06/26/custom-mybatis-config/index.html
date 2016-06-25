@@ -1,0 +1,824 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>基于Spring Boot自定义Mybatis配置实例 | lkun&#39;s</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="lkun&#39;s">
+    
+
+    
+    <meta name="description" content="MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Spring Boot自定义Mybatis配置实例">
+<meta property="og:url" content="http://yoursite.com/2016/06/26/custom-mybatis-config/index.html">
+<meta property="og:site_name" content="lkun's">
+<meta property="og:description" content="MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一">
+<meta property="og:updated_time" content="2016-06-25T20:26:08.258Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Spring Boot自定义Mybatis配置实例">
+<meta name="twitter:description" content="MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一">
+
+    
+    <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="lkun&#39;s" title="lkun&#39;s"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="lkun&#39;s">lkun&#39;s</a></h1>
+				<h2 class="blog-motto">没有最好，只有更好；没有做不到，只有想不到；好好加油吧！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/26/custom-mybatis-config/" title="基于Spring Boot自定义Mybatis配置实例" itemprop="url">基于Spring Boot自定义Mybatis配置实例</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-25T18:52:38.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖包"><span class="toc-number">1.</span> <span class="toc-text">依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件准备"><span class="toc-number">2.</span> <span class="toc-text">配置文件准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis自定义配置文件实现"><span class="toc-number">3.</span> <span class="toc-text">Mybatis自定义配置文件实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis代码生成"><span class="toc-number">4.</span> <span class="toc-text">Mybatis代码生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目测试"><span class="toc-number">5.</span> <span class="toc-text">项目测试</span></a></li></ol>
+		
+		</div>
+		
+		<blockquote>
+<p>MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
+</blockquote>
+<a id="more"></a>
+<p>由于我是基于Spring Boot的来说明mybatis的使用，所以首先我们需要配置好mybatis。</p>
+<h2 id="依赖包"><a href="#依赖包" class="headerlink" title="依赖包"></a>依赖包</h2><pre><code>&lt;!--依赖--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+    &lt;version&gt;9.4.1208&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.4.1&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+    &lt;version&gt;1.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;4.2.6.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;druid&lt;/artifactId&gt;
+    &lt;version&gt;1.0.20&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+    &lt;artifactId&gt;h2&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+    &lt;version&gt;1.4.192&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="配置文件准备"><a href="#配置文件准备" class="headerlink" title="配置文件准备"></a>配置文件准备</h2><p>在 src/main/resources/下面添加如下properties文件：</p>
+<ul>
+<li><p>application.properties</p>
+<pre><code>spring.profiles.active=@profiles.active@
+jdbc.url=${jdbc.url}
+jdbc.username= ${jdbc.username}
+jdbc.password= ${jdbc.password}
+jdbc.driver=${jdbc.driver}
+jdbc.poolMaximumActiveConnections=${jdbc.poolMaximumActiveConnections}
+jdbc.poolMaximumIdleConnections=${jdbc.poolMaximumIdleConnections}
+</code></pre></li>
+<li><p>application-develop.properties(测试用)</p>
+<pre><code>jdbc.url=jdbc:h2:mem:demo-db;MODE=PostgreSQL;INIT=RUNSCRIPT FROM &apos;./src/test/resources/sql/demo.sql&apos;
+jdbc.username= sa
+jdbc.password= sa
+jdbc.driver= org.h2.Driver
+jdbc.poolMaximumActiveConnections=20
+jdbc.poolMaximumIdleConnections=0
+</code></pre></li>
+<li><p>application-production.properties（生产用）</p>
+<pre><code>jdbc.url=jdbc:postgresql://192.168.100.117:5432/db_demo?characterEncoding#UTF-8
+jdbc.username= postgres
+jdbc.password= postgres
+jdbc.driver=org.postgresql.Driver
+jdbc.poolMaximumActiveConnections=30
+jdbc.poolMaximumIdleConnections=0
+</code></pre></li>
+</ul>
+<h2 id="Mybatis自定义配置文件实现"><a href="#Mybatis自定义配置文件实现" class="headerlink" title="Mybatis自定义配置文件实现"></a>Mybatis自定义配置文件实现</h2><p>在src/main/java/com.jmust.service.demo下创建”MybatisConfiguration.java”文件</p>
+<pre><code>import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
+@Configuration
+@MapperScan(basePackages = {&quot;com.jmust.service.demo.resource.mapper&quot;})
+public class MybatisConfiguration {
+
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private DataSource pooledDataSource;
+    private static Log logger = LogFactory.getLog(MybatisConfiguration.class);
+
+    @PostConstruct
+    @Bean
+    public DataSource dataSource() {
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setPassword(env.getProperty(&quot;jdbc.password&quot;));
+        druidDataSource.setUsername(env.getProperty(&quot;jdbc.username&quot;));
+        druidDataSource.setUrl(env.getProperty(&quot;jdbc.url&quot;));
+        druidDataSource.setDriverClassName(env.getProperty(&quot;jdbc.driver&quot;));
+        druidDataSource.setMaxActive(Integer.parseInt(env.getProperty(&quot;jdbc.poolMaximumActiveConnections&quot;)));
+        return druidDataSource;
+    }
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory() {
+        try {
+            SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+            sessionFactory.setDataSource(pooledDataSource);
+            sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
+                    .getResources(&quot;classpath:mapping/*.xml&quot;));
+
+            return sessionFactory.getObject();
+        } catch (Exception e) {
+            logger.error(&quot;not install sessionFactory&quot;, e);
+            throw new RuntimeException(&quot;not install sessionFactory&quot;);
+        }
+    }
+
+    @Bean
+    public DataSourceTransactionManager transaction() {
+        return new DataSourceTransactionManager(pooledDataSource);
+    }
+}
+</code></pre><h2 id="Mybatis代码生成"><a href="#Mybatis代码生成" class="headerlink" title="Mybatis代码生成"></a>Mybatis代码生成</h2><ul>
+<li>1、生成xxxMapper.java接口文件(src/main/com.jmust.service.demo.resource.mapper)，该文件主要作用是映射到xxxMapper.xml文件中的操作标签的（比如insert对应xml文件中的<insert>）</insert></li>
+<li><pre><code>import com.jmust.service.demo.resource.entity.Demo;
+import org.springframework.stereotype.Repository;
+import java.util.Date;
+
+@Repository
+public interface DemoMapper {
+    Demo select(long customerId);   
+    boolean insert(Demo demoPojo);  
+    boolean update(Demo demoPojo);
+}
+</code></pre></li>
+<li><p>2、生成xxxMapper.xml文件(src/main/resources/mapping/)，该文件的主要作用就是操作数据（插入、更改、删除……）语句的维护及管理</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+
+&lt;mapper namespace=&quot;com.jmust.service.demo.resource.mapper.DemoMapper&quot;&gt;
+
+&lt;resultMap id=&quot;demoPojo&quot; type=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
+    &lt;result column=&quot;customer_id&quot; property=&quot;customerId&quot;/&gt;
+    &lt;result column=&quot;total_times&quot; property=&quot;totalTimes&quot;/&gt;
+    &lt;result column=&quot;continue_days&quot; property=&quot;continueDays&quot;/&gt;
+    &lt;result column=&quot;last_time&quot; property=&quot;lastTime&quot;/&gt;
+&lt;/resultMap&gt;
+</code></pre></li>
+</ul>
+<pre><code>    &lt;select id=&quot;select&quot; resultMap=&quot;demoPojo&quot; parameterType=&quot;long&quot;&gt;
+        SELECT * FROM demo
+        WHERE customer_id = #{customerId}
+    &lt;/select&gt;
+
+    &lt;insert id=&quot;insert&quot; parameterType=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
+        insert into demo(customer_id,total_times,continue_days,last_time)
+        values
+        (#{customerId},1,#{continueDays},#{lastTime},#{awardType})
+    &lt;/insert&gt;
+
+    &lt;update id=&quot;update&quot; parameterType=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
+        update demo
+        &lt;set&gt;
+            &lt;if test=&quot;continueDays != null&quot;&gt;
+                continue_days = #{continueDays},
+            &lt;/if&gt;
+            &lt;if test=&quot;awardType != null&quot;&gt;
+                award_type = #{awardType},
+            &lt;/if&gt;
+            &lt;if test=&quot;lastTime != null&quot;&gt;
+                last_time = #{lastTime}
+            &lt;/if&gt;
+        &lt;/set&gt;
+        where customer_id = #{customerId}
+    &lt;/update&gt;
+
+&lt;/mapper&gt;
+</code></pre><ul>
+<li><p>3、自定义接口类（DemoResources）src/main/com.jmust.service.demo.resource，定义操作契约</p>
+<pre><code>import com.jmust.service.demo.resource.entity.Demo;
+import java.util.Date;
+
+public interface DemoResources {
+     Demo queryDemo(long customerId);
+     void update(Demo demoinPojo);
+     void insert(Demo demoPojo);
+}
+</code></pre></li>
+<li><p>4、实现接口类，业务逻辑包含在内(src/main/com.jmust.service.demo.resource)</p>
+<pre><code>import com.jmust.contract.ExtendedStatusRuntimeException;
+import com.jmust.contract.ResourceUnavailableException;
+import com.jmust.service.demo.DemoStatus;
+import com.jmust.service.demo.resource.entity.Demo;
+import com.jmust.service.demo.resource.mapper.DemoMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+@Component
+public class DemoResourcesImpl implements DemoResources{
+    @Autowired
+    private DemoMapper demoMapper;
+    @Override
+    public Demo queryDemo(long customerId) {
+        try {
+            return demoMapper.select(customerId);
+        }catch (Exception e){
+            throw new ResourceUnavailableException(&quot;Database fail select Demo&quot;,e);
+        }
+    }
+
+    @Override
+    public void update(Demo demoPojo) {
+        try {
+            if(!demoMapper.update(demoPojo)){
+                throw new ExtendedStatusRuntimeException(101, &quot;Demo process  fail  ,because Demo   update fail&quot;);
+            }
+        }catch (Exception e){
+            throw new ResourceUnavailableException(&quot;Database fail update demoPojo&quot;,e);
+        }
+    }
+
+    @Override
+    public void insert(Demo demo) {
+        try {
+            if(!demoMapper.insert(demo)){
+                throw new ExtendedStatusRuntimeException(102, &quot;demo process  fail  ,because demo insert  fail&quot;);
+            }
+        }catch (DuplicateKeyException e){
+            if(!DemoMapper.update(demo)){
+                throw new ExtendedStatusRuntimeException(102, &quot;demo process  fail  &quot; +
+                        &quot;,because demo update  fail&quot;);
+            }
+        }catch (Exception e){
+            throw new ResourceUnavailableException(&quot;Database fail insert demoPojo &quot;,e);
+        }
+    }
+
+}
+</code></pre></li>
+</ul>
+<h2 id="项目测试"><a href="#项目测试" class="headerlink" title="项目测试"></a>项目测试</h2><pre><code>import com.jmust.server.profile.ProfileDevelop;
+import com.jmust.server.profile.ProfileTest;
+import com.jmust.service.demo.DemoConstants;
+import com.jmust.service.demo.MybatisConfiguration;
+import com.jmust.service.demo.resource.entity.Demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ProfileTest
+@ProfileDevelop
+@ContextConfiguration(classes = {MybatisConfiguration.class, DemoResourcesImpl.class})
+@TestPropertySource(value = &quot;classpath:application.properties&quot;)
+public class DemoPojoResourcesTest extends AbstractTestNGSpringContextTests {
+    private Long concurrent = System.currentTimeMillis();
+    private int customerId = 11;
+
+    @Autowired
+    private DemoResources cm;
+
+    @BeforeClass
+    public void insert() {
+        Demo demoPojo = new Demo();
+        demoPojo.setCustomerId(customerId);
+        demoPojo.setCreateTime(new Timestamp(concurrent));
+        demoPojo.setAwardTypeEnum(&quot;&quot;);
+        demoPojo.setTotalTimes(0);
+        cm.insert(demoPojo);
+    }
+
+    @Test
+    public void queryDemo() {
+        Demo demoPojo = cm.queryDemo(customerId);
+        assertThat(demoPojo.getCustomerId()).isEqualTo(customerId);
+        assertThat(demoPojo.getCreateTime()).isEqualTo(new Timestamp(concurrent));
+        assertThat(demoPojo.getTotalTimes()).isEqualTo(1);
+    }
+}
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mybatis/">mybatis</a><a href="/tags/Spring-Boot/">Spring-Boot</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/06/26/custom-mybatis-config/" data-title="基于Spring Boot自定义Mybatis配置实例 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/26/custom-rabbitmq-config/" title="基于Spring Boot自定义RabbitMQ配置实例">
+  <strong>上一篇：</strong><br/>
+  <span>
+  基于Spring Boot自定义RabbitMQ配置实例</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/26/mockito-testng-assertj/"  title="Mockito+Testng+Assertj的使用实例">
+ <strong>下一篇：</strong><br/> 
+ <span>Mockito+Testng+Assertj的使用实例
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖包"><span class="toc-number">1.</span> <span class="toc-text">依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件准备"><span class="toc-number">2.</span> <span class="toc-text">配置文件准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis自定义配置文件实现"><span class="toc-number">3.</span> <span class="toc-text">Mybatis自定义配置文件实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis代码生成"><span class="toc-number">4.</span> <span class="toc-text">Mybatis代码生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目测试"><span class="toc-number">5.</span> <span class="toc-text">项目测试</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mockito/" title="mockito">mockito<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mockito-testng/" title="mockito testng">mockito testng<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GitHub-HEXO/" title="GitHub+HEXO">GitHub+HEXO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客/" title="博客">博客<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Lkun Comes from PPmoney. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="lkun&#39;s">lkun&#39;s</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
