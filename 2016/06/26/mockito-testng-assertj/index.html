@@ -4,23 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>appassembler-maven-plugin插件的作用以及使用 | lkun&#39;s</title>
+    <title>Mockito+Testng+Assertj的使用实例 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。">
+    <meta name="description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
+Mock框架在处理”黑洞”接口，有特别的效果，
+下面来分享下Mockito框架的使用：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="appassembler-maven-plugin插件的作用以及使用">
-<meta property="og:url" content="http://yoursite.com/2016/06/18/appassembler-maven-plugin/index.html">
+<meta property="og:title" content="Mockito+Testng+Assertj的使用实例">
+<meta property="og:url" content="http://yoursite.com/2016/06/26/mockito-testng-assertj/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。">
-<meta property="og:updated_time" content="2016-06-18T13:33:16.748Z">
+<meta property="og:description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
+Mock框架在处理”黑洞”接口，有特别的效果，
+下面来分享下Mockito框架的使用：">
+<meta property="og:updated_time" content="2016-06-25T18:48:18.341Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="appassembler-maven-plugin插件的作用以及使用">
-<meta name="twitter:description" content="appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。">
+<meta name="twitter:title" content="Mockito+Testng+Assertj的使用实例">
+<meta name="twitter:description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
+Mock框架在处理”黑洞”接口，有特别的效果，
+下面来分享下Mockito框架的使用：">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -80,14 +86,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/appassembler-maven-plugin/" title="appassembler-maven-plugin插件的作用以及使用" itemprop="url">appassembler-maven-plugin插件的作用以及使用</a>
+      <a href="/2016/06/26/mockito-testng-assertj/" title="Mockito+Testng+Assertj的使用实例" itemprop="url">Mockito+Testng+Assertj的使用实例</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T13:02:13.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-25T17:30:44.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
     
   </p>
 </header>
@@ -96,150 +102,174 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom中配置"><span class="toc-number">1.</span> <span class="toc-text">pom中配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven命令"><span class="toc-number">2.</span> <span class="toc-text">maven命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置说明"><span class="toc-number">3.</span> <span class="toc-text">配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsw生成"><span class="toc-number">4.</span> <span class="toc-text">jsw生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完毕！"><span class="toc-number">5.</span> <span class="toc-text">完毕！</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">1.</span> <span class="toc-text">单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试access层，跳过business和resource层"><span class="toc-number">1.0.1.</span> <span class="toc-text">单独测试access层，跳过business和resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试business层，跳过resource层"><span class="toc-number">1.0.2.</span> <span class="toc-text">单独测试business层，跳过resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试resource层，跳过直接访问数据库"><span class="toc-number">1.0.3.</span> <span class="toc-text">单独测试resource层，跳过直接访问数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成测试"><span class="toc-number">2.</span> <span class="toc-text">集成测试</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。</p>
+<p>写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；</p>
+<p>Mock框架在处理”黑洞”接口，有特别的效果，</p>
+<p>下面来分享下Mockito框架的使用：</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="pom中配置"><a href="#pom中配置" class="headerlink" title="pom中配置"></a>pom中配置</h3><pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-    &lt;artifactId&gt;appassembler-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.10&lt;/version&gt;
-    &lt;configuration&gt;
-        &lt;configurationDirectory&gt;conf&lt;/configurationDirectory&gt;  
-        &lt;configurationSourceDirectory&gt;src/main/resources&lt;/configurationSourceDirectory&gt;  
-        &lt;copyConfigurationDirectory&gt;true&lt;/copyConfigurationDirectory&gt;  
-        &lt;includeConfigurationDirectoryInClasspath&gt;true&lt;/includeConfigurationDirectoryInClasspath&gt;  
-        &lt;assembleDirectory&gt;${project.build.directory}/app&lt;/assembleDirectory&gt;  
-        &lt;extraJvmArguments&gt;-Xms128m&lt;/extraJvmArguments&gt;  
-        &lt;binFileExtensions&gt;  
-            &lt;unix&gt;.sh&lt;/unix&gt;  
-        &lt;/binFileExtensions&gt;  
-        &lt;platforms&gt;
-            &lt;platform&gt;windows&lt;/platform&gt;
-            &lt;platform&gt;unix&lt;/platform&gt;
-        &lt;/platforms&gt;
-        &lt;repositoryName&gt;lib&lt;/repositoryName&gt;
-        &lt;programs&gt;
-            &lt;program&gt;
-                &lt;id&gt;app&lt;/id&gt;
-                &lt;mainClass&gt;com.app.Main&lt;/mainClass&gt;
-                &lt;jvmSettings&gt;
-                    &lt;extraArguments&gt;
-                        &lt;extraArgument&gt;-server &lt;/extraArgument&gt;
-                        &lt;extraArgument&gt;-Xmx2G&lt;/extraArgument&gt;
-                        &lt;extraArgument&gt;-Xms2G&lt;/extraArgument&gt;
-                    &lt;/extraArguments&gt;
-                &lt;/jvmSettings&gt;
-            &lt;/program&gt;
-        &lt;/programs&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre><h3 id="maven命令"><a href="#maven命令" class="headerlink" title="maven命令"></a>maven命令</h3><pre><code>mvn package appassembler:assemble
-</code></pre><p>这样子就可以自动生成整个依赖文件，配置文件和运行脚本了。</p>
-<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><ul>
-<li>configurationDirectory：生成配置文件路径</li>
-<li>configurationSourceDirectory：配置文件原路径，默认为src/main/config</li>
-<li>assembleDirectory:整体包目录</li>
-<li>extraJvmArguments：jvm参数</li>
-<li>binFileExtensions：生成脚本的后缀</li>
-<li>platforms：生成哪几种平台</li>
-<li>repositoryName：依赖包目录，默认repo</li>
-<li>programs：这个必须参数，启动的主class</li>
+<p>假如说我现在项目有三层，</p>
+<ul>
+<li>第一层是入口层，我把它叫做”access”;</li>
+<li>第二层是业务处理层，我把它叫做”business”;</li>
+<li>第三层是数据处理层，我把她叫做”resource”;</li>
 </ul>
-<h3 id="jsw生成"><a href="#jsw生成" class="headerlink" title="jsw生成"></a>jsw生成</h3><pre><code>&lt;plugin&gt;  
-        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;  
-        &lt;artifactId&gt;appassembler-maven-plugin&lt;/artifactId&gt;  
-        &lt;version&gt;1.2.1&lt;/version&gt;  
-        &lt;configuration&gt;  
-            &lt;repositoryLayout&gt;flat&lt;/repositoryLayout&gt;  
-            &lt;repositoryName&gt;lib&lt;/repositoryName&gt;  
-            &lt;includeConfigurationDirectoryInClasspath&gt;true&lt;/includeConfigurationDirectoryInClasspath&gt;  
-            &lt;copyConfigurationDirectory&gt;src/main/resources&lt;/copyConfigurationDirectory&gt;  
-            &lt;target&gt;${project.build.directory}&lt;/target&gt;  
-            &lt;daemons&gt;  
-                &lt;daemon&gt;  
-                    &lt;id&gt;client&lt;/id&gt;  
-                    &lt;mainClass&gt;com.demo.client.App&lt;/mainClass&gt;  
-                    &lt;commandLineArguments&gt;  
-                        &lt;commandLineArgument&gt;start&lt;/commandLineArgument&gt;  
-                    &lt;/commandLineArguments&gt;  
-                    &lt;platforms&gt;  
-                        &lt;platform&gt;jsw&lt;/platform&gt;  
-                    &lt;/platforms&gt;  
-                    &lt;generatorConfigurations&gt;  
-                        &lt;generatorConfiguration&gt;  
-                            &lt;generator&gt;jsw&lt;/generator&gt;  
-                            &lt;includes&gt;  
-                                &lt;include&gt;linux-x86-32&lt;/include&gt;  
-                                &lt;include&gt;linux-x86-64&lt;/include&gt;  
-                                &lt;include&gt;windows-x86-32&lt;/include&gt;  
-                                &lt;include&gt;windows-x86-64&lt;/include&gt;  
-                            &lt;/includes&gt;  
-                            &lt;configuration&gt;  
-                                &lt;property&gt;  
-                                    &lt;name&gt;configuration.directory.in.classpath.first&lt;/name&gt;  
-                                    &lt;value&gt;etc&lt;/value&gt;  
-                                &lt;/property&gt;  
-                                &lt;property&gt;  
-                                    &lt;name&gt;set.default.REPO_DIR&lt;/name&gt;  
-                                    &lt;value&gt;lib&lt;/value&gt;  
-                                &lt;/property&gt;  
-                                &lt;property&gt;  
-                                    &lt;name&gt;wrapper.logfile&lt;/name&gt;  
-                                    &lt;value&gt;../logs/wrapper.log&lt;/value&gt;  
-                                &lt;/property&gt;  
-                                &lt;property&gt;  
-                                    &lt;name&gt;run.as.user.envvar&lt;/name&gt;  
-                                    &lt;value&gt;johndoe&lt;/value&gt;  
-                                &lt;/property&gt;  
-                            &lt;/configuration&gt;  
-                        &lt;/generatorConfiguration&gt;  
-                    &lt;/generatorConfigurations&gt;  
-                    &lt;jvmSettings&gt;  
-                        &lt;initialMemorySize&gt;256M&lt;/initialMemorySize&gt;  
-                        &lt;maxMemorySize&gt;512M&lt;/maxMemorySize&gt;  
-                        &lt;systemProperties&gt;  
-                            &lt;systemProperty&gt;java.security.policy=conf/policy.all&lt;/systemProperty&gt;  
-                            &lt;systemProperty&gt;com.sun.management.jmxremote&lt;/systemProperty&gt;  
-                            &lt;systemProperty&gt;com.sun.management.jmxremote.port=8999&lt;/systemProperty&gt;  
-                            &lt;systemProperty&gt;com.sun.management.jmxremote.authenticate=false&lt;/systemProperty&gt;  
-                            &lt;systemProperty&gt;com.sun.management.jmxremote.ssl=false&lt;/systemProperty&gt;  
-                        &lt;/systemProperties&gt;  
-                        &lt;extraArguments&gt;  
-                            &lt;extraArgument&gt;-server&lt;/extraArgument&gt;  
-                        &lt;/extraArguments&gt;  
-                    &lt;/jvmSettings&gt;  
-                &lt;/daemon&gt;  
-            &lt;/daemons&gt;  
-        &lt;/configuration&gt;  
-        &lt;executions&gt;  
-            &lt;execution&gt;  
-                &lt;id&gt;generate-jsw-scripts&lt;/id&gt;  
-                &lt;phase&gt;package&lt;/phase&gt;  
-                &lt;goals&gt;  
-                    &lt;goal&gt;generate-daemons&lt;/goal&gt;  
-                &lt;/goals&gt;  
-            &lt;/execution&gt;  
-        &lt;/executions&gt;  
-    &lt;/plugin&gt; 
-</code></pre><h3 id="完毕！"><a href="#完毕！" class="headerlink" title="完毕！"></a>完毕！</h3>  
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><blockquote>
+<p>是指对软件中的最小可测试单元进行检查和验证。</p>
+</blockquote>
+<p>现在我分情况来说明一下怎么利用Mockito框架去进行Mock测试；</p>
+<h4 id="单独测试access层，跳过business和resource层"><a href="#单独测试access层，跳过business和resource层" class="headerlink" title="单独测试access层，跳过business和resource层"></a>单独测试access层，跳过business和resource层</h4><blockquote>
+<p>只需要把business层Mock掉就可以了，因为resource层是有business层去调用，所以不必理会，下面上例子：</p>
+</blockquote>
+<pre><code>import io.grpc.StatusRuntimeException;
+import io.grpc.stub.StreamObserver;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.Date;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.*;
+
+public class ServiceAccessTest {
+private  int customerId = 2;
+private int invalidCustomerId =0;
+
+@Mock
+private DemoBusiness demoBusiness; //需要Mock的business层
+
+@Mock
+private StreamObserver&lt;DemoResponse&gt; demoSO;
+
+@InjectMocks
+DemoServiceAccess demoServiceAccess;//需要测试的access层
+
+//跑测试前要进行的初始化
+@BeforeMethod
+public void setup() {
+    demoServiceAccess = new DemoServiceAccess();
+    MockitoAnnotations.initMocks(this);
+}
+
+//测试跑完后需要做的事情
+@AfterMethod
+public void after() {
+    reset(demoBusiness, demoSO);
+    reset(demoBusiness, helpDemoSO);
+    reset(demoBusiness, getDemoLogSO);
+}
+
+@Test
+public void DemoTest_Success() {
+    DemoBusinessPojo demoPojo = new DemoBusinessPojo();
+    demoPojo.setContinueDays(5);
+    demoPojo.setIncreaseScore(5);
+    demoPojo.setLastTime(new Date().getTime());
+    demoPojo.setTotalTimes(11);
+    when(demoBusiness.summit(customerId)).thenReturn(demoPojo);
+
+    ArgumentCaptor&lt;DemoResponse&gt; ac = ArgumentCaptor.forClass(DemoResponse.class);
+    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
+    verify(demoSO).onNext(ac.capture());
+    reset(demoBusiness);
+}
+
+@Test(expectedExceptions = InvalidArgumentException.class)
+public void DemoFailTest() {
+    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(invalidCustomerId).build(), demoSO);
+}
+
+@SuppressWarnings(&quot;unchecked&quot;)
+@Test(expectedExceptions = StatusRuntimeException.class)
+public void DemoFailTest1() {
+    when(demoBusiness.summit(customerId)).thenThrow(ResourceUnavailableException.class);
+    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
+}
+
+@SuppressWarnings(&quot;unchecked&quot;)
+@Test(expectedExceptions = Exception.class)
+public void DemoFailTest2() {
+    when(demoBusiness.summit(customerId)).thenThrow(Exception.class);
+    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
+}
+</code></pre><h4 id="单独测试business层，跳过resource层"><a href="#单独测试business层，跳过resource层" class="headerlink" title="单独测试business层，跳过resource层"></a>单独测试business层，跳过resource层</h4><blockquote>
+<p>因为是单元测试，所以之前的access层我们也不必去理会了，从而只Mock层就OK了，下面上例子：</p>
+</blockquote>
+<pre><code>import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.annotations.Test;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+@ProfileTest
+@ProfileDevelop //环境为dev
+@ContextConfiguration(classes = {DemoBusiness.class})//加载类，如果有多个类，可以用&quot;,&quot;隔开，往后添加
+@TestPropertySource(value = &quot;classpath:application.properties&quot;)//加载配置文件
+public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTests {
+
+    @Autowired
+    private DemoBusiness demoBusiness;//需要测试的business层
+
+
+    @Autowired
+    private DemoResources demoResources;//需要Mock层
+
+    @Test
+    public void demoNormal() {
+        long helpCustomerId = 111;
+        long customerId = 100;
+        DemoBusinessPojo demoPojo = new DemoBusinessPojo();
+        demoPojo.setContinueDays(5);
+        demoPojo.setIncreaseScore(5);
+        demoPojo.setLastTime(new Date().getTime());
+        demoPojo.setTotalTimes(11);
+        //如果传过去的对象或者是参数，而在方法后面又进行重新new了一个新的对象或者参数，那么我们应该传进去的是任何的对象或者参数，
+        比如说，customerId传进去，但是真正到达demoBusiness.summit()里面，customerId的值动态变化，那么我们就应该
+        //when(demoResources.summit(any(customerId))).thenReturn(demoPojo);//Mock层
+        when(demoResources.summit(customerId)).thenReturn(demoPojo);//Mock层
+
+        DemoBusinessPojo demoBusinessPojo = demoBusiness.summit(customerId,
+                101, helpCustomerId);//测试层
+
+        assertThat(demoBusinessPojo.getIncreaseScore()).isGreaterThanOrEqualTo(1);
+        assertThat(demoBusinessPojo.getContinueDays()).isGreaterThanOrEqualTo(1);
+        assertThat(demoBusinessPojo.getLastTime()).isGreaterThan(1);
+        assertThat(demoBusinessPojo.getTotalTimes()).isGreaterThanOrEqualTo(1);
+    }
+}
+</code></pre><h4 id="单独测试resource层，跳过直接访问数据库"><a href="#单独测试resource层，跳过直接访问数据库" class="headerlink" title="单独测试resource层，跳过直接访问数据库"></a>单独测试resource层，跳过直接访问数据库</h4><blockquote>
+<p>由于到这层是需要直接访问数据库的，所以我们需要直接Mock数据库了，下面上例子：</p>
+</blockquote>
+<p>有待完善……</p>
+<h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><blockquote>
+<p>在单元测试的基础上，将所有模块按照设计要求（如根据结构图）组装成为子系统或系统，进行集成测试。</p>
+</blockquote>
+<p>有待完善……</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  <a class="article-category-link" href="/categories/mockito/">mockito</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Maven/">Maven</a>
+  <span></span> <a href="/tags/mockito-testng/">mockito testng</a>
   </div>
 
 </div>
@@ -248,7 +278,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/18/appassembler-maven-plugin/" data-title="appassembler-maven-plugin插件的作用以及使用 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/06/26/mockito-testng-assertj/" data-title="Mockito+Testng+Assertj的使用实例 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -261,19 +291,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/19/Spring-Boot-Config/" title="Spring Boot 配置文件">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Spring Boot 配置文件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/06/18/hello-world/"  title="Github+HEXO搭建一个独立博客教程">
+<a href="/2016/06/19/Spring-Boot-rule-config/"  title="Spring Boot （属性、日志、Profile）配置">
  <strong>下一篇：</strong><br/> 
- <span>Github+HEXO搭建一个独立博客教程
+ <span>Spring Boot （属性、日志、Profile）配置
 </span>
 </a>
 </div>
@@ -288,7 +310,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom中配置"><span class="toc-number">1.</span> <span class="toc-text">pom中配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven命令"><span class="toc-number">2.</span> <span class="toc-text">maven命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置说明"><span class="toc-number">3.</span> <span class="toc-text">配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsw生成"><span class="toc-number">4.</span> <span class="toc-text">jsw生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完毕！"><span class="toc-number">5.</span> <span class="toc-text">完毕！</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">1.</span> <span class="toc-text">单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试access层，跳过business和resource层"><span class="toc-number">1.0.1.</span> <span class="toc-text">单独测试access层，跳过business和resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试business层，跳过resource层"><span class="toc-number">1.0.2.</span> <span class="toc-text">单独测试business层，跳过resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试resource层，跳过直接访问数据库"><span class="toc-number">1.0.3.</span> <span class="toc-text">单独测试resource层，跳过直接访问数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成测试"><span class="toc-number">2.</span> <span class="toc-text">集成测试</span></a></li></ol>
  
   </div>
 

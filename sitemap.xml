@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/06/26/mockito-testng-assertj/</loc>
+    
+    <lastmod>2016-06-25T18:48:18.341Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/06/19/Spring-Boot-rule-config/</loc>
     
     <lastmod>2016-06-19T14:47:52.841Z</lastmod>
