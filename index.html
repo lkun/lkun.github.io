@@ -81,6 +81,77 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/26/my-auto-config/" title="模仿HttpEncodingConfiguration创建自定义自动配置,application.properties中的信息自动加载" itemprop="url">模仿HttpEncodingConfiguration创建自定义自动配置,application.properties中的信息自动加载</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-26T11:09:33.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>Spring Boot封装好的自动配置很简单，在用得很轻松的同时，有没有想过，我们自己的项目中也根据自己的需求写一个具备Spring Boot自动配置功能的冲动呢？首先，来说说Http编码配置的例子，然后参考这个例子，我们自己来实现一个自动配置的功能。</p>
+</blockquote>
+<h2 id="Http编码配置"><a href="#Http编码配置" class="headerlink" title="Http编码配置"></a>Http编码配置</h2><ul>
+<li><p>添加配置，即在 application.properties 上添加：</p>
+<pre><code>#HTTP encoding (HttpEncodingProperties)
+spring.http.encoding.charset=UTF-8  # the encoding of HTTP request/response
+spring.http.encoding.enabled=true #enabled http encoding support
+spring.http.encoding.force=true #force the configured encoding
+</code></pre></li>
+</ul>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/26/my-auto-config/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/26/custom-rabbitmq-config/" title="基于Spring Boot自定义RabbitMQ配置实例" itemprop="url">基于Spring Boot自定义RabbitMQ配置实例</a>
   </h1>
   <p class="article-author">By
@@ -179,7 +250,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mybatis/">mybatis</a><a href="/tags/Spring-Boot/">Spring-Boot</a>
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/mybatis/">mybatis</a>
   </div>
 
 </div>
@@ -709,7 +780,7 @@ server.context-path=/helloworld
 		  
 		
 		  
-			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>2</sup></a></li>
+			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>3</sup></a></li>
 		  
 		
 		  
@@ -734,15 +805,7 @@ server.context-path=/helloworld
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>5</sup></a></li>
 			
 		
 			
@@ -750,11 +813,15 @@ server.context-path=/helloworld
 			
 		
 			
-				<li><a href="/tags/mockito-testng/" title="mockito testng">mockito testng<sup>1</sup></a></li>
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mockito-testng/" title="mockito testng">mockito testng<sup>1</sup></a></li>
 			
 		
 			
@@ -763,6 +830,10 @@ server.context-path=/helloworld
 		
 			
 				<li><a href="/tags/博客/" title="博客">博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
 			
 		
 		</ul>

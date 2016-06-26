@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/06/26/my-auto-config/</loc>
+    
+    <lastmod>2016-06-26T14:45:28.236Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/06/26/custom-mybatis-config/</loc>
     
     <lastmod>2016-06-25T20:26:08.258Z</lastmod>
