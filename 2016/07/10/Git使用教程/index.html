@@ -4,53 +4,59 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客迁移至GitHub | lkun&#39;s</title>
+    <title>Git使用教程---针对刚入职的同事 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+    <meta name="description" content="一、关于版本控制(GIT/SVN)两者都是优秀的版本管理工具
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
+Git
+git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；
 
 
-Github.io:lkun博客">
+Svn
+svn集中式：只有在服务器上有一个代码管理仓库；
+
+
+
+二、Git使用概述
+使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客迁移至GitHub">
-<meta property="og:url" content="http://yoursite.com/2016/06/18/new-blog-site/index.html">
+<meta property="og:title" content="Git使用教程---针对刚入职的同事">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/Git使用教程/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+<meta property="og:description" content="一、关于版本控制(GIT/SVN)两者都是优秀的版本管理工具
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
+Git
+git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；
 
 
-Github.io:lkun博客">
-<meta property="og:updated_time" content="2016-06-18T03:29:45.351Z">
+Svn
+svn集中式：只有在服务器上有一个代码管理仓库；
+
+
+
+二、Git使用概述
+使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。">
+<meta property="og:updated_time" content="2016-07-10T13:39:52.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客迁移至GitHub">
-<meta name="twitter:description" content="之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。
+<meta name="twitter:title" content="Git使用教程---针对刚入职的同事">
+<meta name="twitter:description" content="一、关于版本控制(GIT/SVN)两者都是优秀的版本管理工具
 
-旧博客地址
-博客园:博客园
-CSDN:CSDN
-
-新博客地址
-统一由Github Page + Hexo + Markdown来写。
+Git
+git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；
 
 
-Github.io:lkun博客">
+Svn
+svn集中式：只有在服务器上有一个代码管理仓库；
+
+
+
+二、Git使用概述
+使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -110,14 +116,14 @@ Github.io:lkun博客">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/new-blog-site/" title="博客迁移至GitHub" itemprop="url">博客迁移至GitHub</a>
+      <a href="/2016/07/10/Git使用教程/" title="Git使用教程---针对刚入职的同事" itemprop="url">Git使用教程---针对刚入职的同事</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-07-10T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-07-10</time>
     
   </p>
 </header>
@@ -126,23 +132,136 @@ Github.io:lkun博客">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、关于版本控制-GIT-SVN"><span class="toc-number">1.</span> <span class="toc-text">一、关于版本控制(GIT/SVN)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Git使用"><span class="toc-number">2.</span> <span class="toc-text">二、Git使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用"><span class="toc-number">2.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-拉取代码"><span class="toc-number">2.2.1.</span> <span class="toc-text">(1) 拉取代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-代码提交"><span class="toc-number">2.2.2.</span> <span class="toc-text">(2) 代码提交</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
 		
 		</div>
 		
-		<blockquote>
-<p>之前写的博客依然还是留在原来的博客网站上面，以后的博客统一在Github上边来写。</p>
+		<h3 id="一、关于版本控制-GIT-SVN"><a href="#一、关于版本控制-GIT-SVN" class="headerlink" title="一、关于版本控制(GIT/SVN)"></a>一、关于版本控制(GIT/SVN)</h3><p>两者都是优秀的版本管理工具</p>
+<ul>
+<li>Git<blockquote>
+<p>git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；</p>
 </blockquote>
-<h3 id="旧博客地址"><a href="#旧博客地址" class="headerlink" title="旧博客地址"></a>旧博客地址</h3><ul>
-<li>博客园:<a href="http://www.cnblogs.com/lvk618/" target="_blank" rel="external">博客园</a></li>
-<li>CSDN:<a href="http://blog.csdn.net/lk10207160511" target="_blank" rel="external">CSDN</a></li>
+</li>
+<li>Svn<blockquote>
+<p>svn集中式：只有在服务器上有一个代码管理仓库；</p>
+</blockquote>
+</li>
 </ul>
-<h3 id="新博客地址"><a href="#新博客地址" class="headerlink" title="新博客地址"></a>新博客地址</h3><blockquote>
-<p>统一由Github Page + Hexo + Markdown来写。</p>
+<h3 id="二、Git使用"><a href="#二、Git使用" class="headerlink" title="二、Git使用"></a>二、Git使用</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><blockquote>
+<p>使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>master分支：只有一个，作为主分支；</li>
+<li>dev分支：项目当前版本的开发分支，程序员会基于此分支 来切 本地分支，进行开发。</li>
+<li><p>其他的分支：项目每个版本，在开发测试完成后，最终的稳定代码。每当一个版本的开发测试完成后，都会将当前版本的稳定代码合并到master分支。</p>
+</li>
+<li><p>说明：假如在开发当前版本时，发现dev7.0.0版本线上出现了bug。此时，就可以基于dev7.0.0分支，进行修复，这是维护其它版本分支最大的好处。</p>
+</li>
+</ul>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p> 先安装好Git，配置好SSH，配置SSH的好处就是，本地向服务器push代码时就不用总是填写用户名和密码了，具体操作再说。</p>
+<h5 id="1-拉取代码"><a href="#1-拉取代码" class="headerlink" title="(1) 拉取代码"></a>(1) 拉取代码</h5><ul>
+<li>git clone 克隆代码</li>
+</ul>
+<blockquote>
+<p>该命令后会在本地生成一个目录，与origin的版本库同名，目录下面包含 .git文件（默认是隐藏的），和服务器上master分支的代码（也有可能没有，因为master分支上一般没有权限获取）；要注意此时是在master分支上的，可以使用 $ git branch 命令查看！ 但是我们是要切dev分支上的代码！</p>
+</blockquote>
+<pre><code>   lvkun@PC-LVK ~
+$ git clone 项目地址
+</code></pre><ul>
+<li>git checkout dev1.0.0</li>
+</ul>
+<blockquote>
+<p>该命令是将本地版本库（local）切换到dev1.0.0分支，建立local与origin对应分支.此分支可以直接与origin对应分支进行通信。如执行代码的上传(push)和更新（pull）操作. ps(也可以使用 $ git checkout -b dev1.0.0 origin/dev命令代替)    </p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git checkout dev1.0.0
+</code></pre><ul>
+<li><p>git pull</p>
+<blockquote>
+<p>该命令将origin/dev1.0.0分支上的代码，pull或更新到local/dev1.0.0 分支上。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git pull
+</code></pre></li>
+<li><p>git checkout -b 自己的开发分支（feature/项目名_功能_xxx）</p>
+</li>
+</ul>
+<blockquote>
+<p>该命令，基于dev1.0.0分支，创建新分支 feature/example_test_local,并切换到 feature/example_test_local分支，一定要创建新分支进行开发，决不能基于本地dev1.0.0分支开发，最后就可以将代码导入开发工具了！此时执行 $ git branch 命令应该可以看到 dev1.0.0 和feature/example_test_local 两个分支。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git checkout -b feature/项目名_功能_xxx
+</code></pre><h5 id="2-代码提交"><a href="#2-代码提交" class="headerlink" title="(2) 代码提交"></a>(2) 代码提交</h5><blockquote>
+<p>分析：如果一切正常，我们目前应该是在基于本地dev1.0.0分支基础上创建的feature/example_test_local分支上，前面已经说过，本地只有dev1.0.0分支才能与服务器dev分支进行通信，执行代码的pull和push操作。那么我们要做的就是 将 feature/example_test_local分支上的代码，提交到本地dev1.0.0分支上，之后切换到dev1.0.0分支，执行push命令，就ok了！！强烈建议，最好不要将自己的feature/example_test_local这个分支推到自己的远程分之后，直接再推这个分支到远程的dev1.0.0的分支上，如果这样子操作，很可能出现代码拉取下来报错。</p>
 </blockquote>
 <ul>
-<li>Github.io:<a href="https://lkun.github.io/" target="_blank" rel="external">lkun博客</a></li>
+<li>git status</li>
 </ul>
+<blockquote>
+<p>此命令可以查看当前分支上有哪些文件改动了，建议首先执行一下，查看改动的文件，避免提交不需要提交的文件。如果想恢复改动的文件，执行 $ git checkout — 文件路径/文件名 。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git status
+</code></pre><ul>
+<li>git add .</li>
+</ul>
+<blockquote>
+<p>该命令将分支上改动的文件（即工作区改动文件），添加到暂存区，如果增加了新文件最好执行以下这个命令，否则会少上传自己新添的文件，拉取下来报错。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git add .
+</code></pre><ul>
+<li>git commit -m “修改说明”</li>
+</ul>
+<blockquote>
+<p>将暂存区的文件提交到版本库(dev1.0.0本地版本库)</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git commit -m &quot;xxxxx&quot;
+</code></pre><ul>
+<li>git checkout dev1.0.0</li>
+</ul>
+<blockquote>
+<p>切换到本地分支 dev1.0.0</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git checkout dev1.0.0
+</code></pre><ul>
+<li>git pull</li>
+</ul>
+<blockquote>
+<p>该命令将origin/dev1.0.0分支上的代码，更新到local/dev1.0.0 分支上。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git pull
+</code></pre><ul>
+<li>git checkout feature/example_test_local</li>
+</ul>
+<blockquote>
+<p>该命令切换到本地feature/example_test_local分支</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git checkout feature/example_test_local
+</code></pre><ul>
+<li>git rebase dev1.0.0</li>
+</ul>
+<blockquote>
+<p>该命令将 dev1.0.0分支上的最新代码，合并到 本地feature/example_test_local分支上。此时很可能会遇到文件冲突的问题，需要到冲突所在的文件下手动修改，修改好后，执行 gitadd.执行 git rebase –continue，此时应该可以成功合并。</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git rebase dev1.0.0
+</code></pre><ul>
+<li>git push orgin head:refs/for/dev1.0.0</li>
+</ul>
+<blockquote>
+<p>此命令将本地local分支上修改的代码提交到服务器上</p>
+</blockquote>
+<pre><code>lvkun@PC-LVK ~
+$ git push orgin head:refs/for/dev1.0.0
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>在git的使用过程中，提交到远程的dev1.0.0分支的时候，一定要保证代码没有任何的报错，否则的话，到时候大家合并的时候都报错，这是个很严重的问题。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -150,13 +269,13 @@ Github.io:lkun博客">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Other/">Other</a>
+  <a class="article-category-link" href="/categories/git/">git</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/博客/">博客</a>
+  <span></span> <a href="/tags/git/">git</a>
   </div>
 
 </div>
@@ -165,7 +284,7 @@ Github.io:lkun博客">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/18/new-blog-site/" data-title="博客迁移至GitHub | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/07/10/Git使用教程/" data-title="Git使用教程---针对刚入职的同事 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -178,14 +297,14 @@ Github.io:lkun博客">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ ">
-  <strong>上一篇：</strong><br/>
-  <span>
-  为什么选择用github+hexo来搭建自己的博客？ </span>
+
+<div class="next">
+<a href="/2016/06/26/my-auto-config/"  title="模仿HttpEncodingConfiguration创建自定义自动配置,application.properties中的信息自动加载">
+ <strong>下一篇：</strong><br/> 
+ <span>模仿HttpEncodingConfiguration创建自定义自动配置,application.properties中的信息自动加载
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -197,7 +316,7 @@ Github.io:lkun博客">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧博客地址"><span class="toc-number">1.</span> <span class="toc-text">旧博客地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新博客地址"><span class="toc-number">2.</span> <span class="toc-text">新博客地址</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、关于版本控制-GIT-SVN"><span class="toc-number">1.</span> <span class="toc-text">一、关于版本控制(GIT/SVN)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Git使用"><span class="toc-number">2.</span> <span class="toc-text">二、Git使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用"><span class="toc-number">2.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-拉取代码"><span class="toc-number">2.2.1.</span> <span class="toc-text">(1) 拉取代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-代码提交"><span class="toc-number">2.2.2.</span> <span class="toc-text">(2) 代码提交</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
  
   </div>
 
