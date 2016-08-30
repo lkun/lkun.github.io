@@ -4,29 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Mockito+Testng+Assertj的使用实例 | lkun&#39;s</title>
+    <title>Flume--日志收集系统之初见 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
-Mock框架在处理”黑洞”接口，有特别的效果，
-下面来分享下Mockito框架的使用：">
+    <meta name="description" content="Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming dat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mockito+Testng+Assertj的使用实例">
-<meta property="og:url" content="http://yoursite.com/2016/06/26/mockito-testng-assertj/index.html">
+<meta property="og:title" content="Flume--日志收集系统之初见">
+<meta property="og:url" content="http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
-Mock框架在处理”黑洞”接口，有特别的效果，
-下面来分享下Mockito框架的使用：">
-<meta property="og:updated_time" content="2016-06-25T18:48:18.341Z">
+<meta property="og:description" content="Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming dat">
+<meta property="og:image" content="http://img2.tuicool.com/3QjQ32.jpg!web">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png">
+<meta property="og:image" content="http://img0.tuicool.com/3iQ73aj.jpg!web">
+<meta property="og:image" content="http://yoursite.com/image/flume1.jpg">
+<meta property="og:updated_time" content="2016-08-30T15:31:27.583Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mockito+Testng+Assertj的使用实例">
-<meta name="twitter:description" content="写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；
-Mock框架在处理”黑洞”接口，有特别的效果，
-下面来分享下Mockito框架的使用：">
+<meta name="twitter:title" content="Flume--日志收集系统之初见">
+<meta name="twitter:description" content="Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming dat">
+<meta name="twitter:image" content="http://img2.tuicool.com/3QjQ32.jpg!web">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -86,14 +85,14 @@ Mock框架在处理”黑洞”接口，有特别的效果，
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/26/mockito-testng-assertj/" title="Mockito+Testng+Assertj的使用实例" itemprop="url">Mockito+Testng+Assertj的使用实例</a>
+      <a href="/2016/08/18/Flume--日志收集系统之初见/" title="Flume--日志收集系统之初见" itemprop="url">Flume--日志收集系统之初见</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-25T17:30:44.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
+    <time datetime="2016-08-18T14:00:38.000Z" itemprop="datePublished"> 发表于 2016-08-18</time>
     
   </p>
 </header>
@@ -102,160 +101,66 @@ Mock框架在处理”黑洞”接口，有特别的效果，
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">1.</span> <span class="toc-text">单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试access层，跳过business和resource层"><span class="toc-number">1.0.1.</span> <span class="toc-text">单独测试access层，跳过business和resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试business层，跳过resource层"><span class="toc-number">1.0.2.</span> <span class="toc-text">单独测试business层，跳过resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试resource层，跳过直接访问数据库"><span class="toc-number">1.0.3.</span> <span class="toc-text">单独测试resource层，跳过直接访问数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成测试"><span class="toc-number">2.</span> <span class="toc-text">集成测试</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#架构图及数据流模型："><span class="toc-number">1.</span> <span class="toc-text">架构图及数据流模型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8大组件（-components）"><span class="toc-number">2.</span> <span class="toc-text">8大组件（ components）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flume整体架构介绍"><span class="toc-number">3.</span> <span class="toc-text">Flume整体架构介绍</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；</p>
-<p>Mock框架在处理”黑洞”接口，有特别的效果，</p>
-<p>下面来分享下Mockito框架的使用：</p>
+<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
 </blockquote>
 <a id="more"></a>
-<p>假如说我现在项目有三层，</p>
-<ul>
-<li>第一层是入口层，我把它叫做”access”;</li>
-<li>第二层是业务处理层，我把它叫做”business”;</li>
-<li>第三层是数据处理层，我把她叫做”resource”;</li>
+<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
+<li>简单</li>
 </ul>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><blockquote>
-<p>是指对软件中的最小可测试单元进行检查和验证。</p>
+<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
+<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
+<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
+<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
+<ul>
+<li>复杂</li>
+</ul>
+<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
+<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
+<li><p>Event</p>
+<blockquote>
+<p>An event is a singular unit of data that can be transported by Flume NG. </p>
 </blockquote>
-<p>现在我分情况来说明一下怎么利用Mockito框架去进行Mock测试；</p>
-<h4 id="单独测试access层，跳过business和resource层"><a href="#单独测试access层，跳过business和resource层" class="headerlink" title="单独测试access层，跳过business和resource层"></a>单独测试access层，跳过business和resource层</h4><blockquote>
-<p>只需要把business层Mock掉就可以了，因为resource层是有business层去调用，所以不必理会，下面上例子：</p>
+</li>
+<li><p>Source</p>
+<blockquote>
+<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
 </blockquote>
-<pre><code>import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import java.util.Date;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.*;
-
-public class ServiceAccessTest {
-private  int customerId = 2;
-private int invalidCustomerId =0;
-
-@Mock
-private DemoBusiness demoBusiness; //需要Mock的business层
-
-@Mock
-private StreamObserver&lt;DemoResponse&gt; demoSO;
-
-@InjectMocks
-DemoServiceAccess demoServiceAccess;//需要测试的access层
-
-//跑测试前要进行的初始化
-@BeforeMethod
-public void setup() {
-    demoServiceAccess = new DemoServiceAccess();
-    MockitoAnnotations.initMocks(this);
-}
-
-//测试跑完后需要做的事情
-@AfterMethod
-public void after() {
-    reset(demoBusiness, demoSO);
-    reset(demoBusiness, helpDemoSO);
-    reset(demoBusiness, getDemoLogSO);
-}
-
-@Test
-public void DemoTest_Success() {
-    DemoBusinessPojo demoPojo = new DemoBusinessPojo();
-    demoPojo.setContinueDays(5);
-    demoPojo.setIncreaseScore(5);
-    demoPojo.setLastTime(new Date().getTime());
-    demoPojo.setTotalTimes(11);
-    when(demoBusiness.summit(customerId)).thenReturn(demoPojo);
-
-    ArgumentCaptor&lt;DemoResponse&gt; ac = ArgumentCaptor.forClass(DemoResponse.class);
-    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
-    verify(demoSO).onNext(ac.capture());
-    reset(demoBusiness);
-}
-
-@Test(expectedExceptions = InvalidArgumentException.class)
-public void DemoFailTest() {
-    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(invalidCustomerId).build(), demoSO);
-}
-
-@SuppressWarnings(&quot;unchecked&quot;)
-@Test(expectedExceptions = StatusRuntimeException.class)
-public void DemoFailTest1() {
-    when(demoBusiness.summit(customerId)).thenThrow(ResourceUnavailableException.class);
-    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
-}
-
-@SuppressWarnings(&quot;unchecked&quot;)
-@Test(expectedExceptions = Exception.class)
-public void DemoFailTest2() {
-    when(demoBusiness.summit(customerId)).thenThrow(Exception.class);
-    demoServiceAccess.summit(DemoRequest.newBuilder().setCustomerId(customerId).build(), demoSO);
-}
-</code></pre><h4 id="单独测试business层，跳过resource层"><a href="#单独测试business层，跳过resource层" class="headerlink" title="单独测试business层，跳过resource层"></a>单独测试business层，跳过resource层</h4><blockquote>
-<p>因为是单元测试，所以之前的access层我们也不必去理会了，从而只Mock层就OK了，下面上例子：</p>
+</li>
+<li><p>Sink</p>
+<blockquote>
+<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
 </blockquote>
-<pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.testng.annotations.Test;
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
-import static org.assertj.core.api.Assertions.assertThat;
-
-
-@ProfileTest
-@ProfileDevelop //环境为dev
-@ContextConfiguration(classes = {DemoBusiness.class})//加载类，如果有多个类，可以用&quot;,&quot;隔开，往后添加
-@TestPropertySource(value = &quot;classpath:application.properties&quot;)//加载配置文件
-public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTests {
-
-    @Autowired
-    private DemoBusiness demoBusiness;//需要测试的business层
-
-
-    @Autowired
-    private DemoResources demoResources;//需要Mock层
-
-    @Test
-    public void demoNormal() {
-        long helpCustomerId = 111;
-        long customerId = 100;
-        DemoBusinessPojo demoPojo = new DemoBusinessPojo();
-        demoPojo.setContinueDays(5);
-        demoPojo.setIncreaseScore(5);
-        demoPojo.setLastTime(new Date().getTime());
-        demoPojo.setTotalTimes(11);
-        //如果传过去的对象或者是参数，而在方法后面又进行重新new了一个新的对象或者参数，那么我们应该传进去的是任何的对象或者参数，
-        比如说，customerId传进去，但是真正到达demoBusiness.summit()里面，customerId的值动态变化，那么我们就应该
-        //when(demoResources.summit(any(customerId))).thenReturn(demoPojo);//Mock层
-        when(demoResources.summit(customerId)).thenReturn(demoPojo);//Mock层
-
-        DemoBusinessPojo demoBusinessPojo = demoBusiness.summit(customerId,
-                101, helpCustomerId);//测试层
-
-        assertThat(demoBusinessPojo.getIncreaseScore()).isGreaterThanOrEqualTo(1);
-        assertThat(demoBusinessPojo.getContinueDays()).isGreaterThanOrEqualTo(1);
-        assertThat(demoBusinessPojo.getLastTime()).isGreaterThan(1);
-        assertThat(demoBusinessPojo.getTotalTimes()).isGreaterThanOrEqualTo(1);
-    }
-}
-</code></pre><h4 id="单独测试resource层，跳过直接访问数据库"><a href="#单独测试resource层，跳过直接访问数据库" class="headerlink" title="单独测试resource层，跳过直接访问数据库"></a>单独测试resource层，跳过直接访问数据库</h4><blockquote>
-<p>由于到这层是需要直接访问数据库的，所以我们需要直接Mock数据库了，下面上例子：</p>
+</li>
+<li><p>Channel</p>
+<blockquote>
+<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
 </blockquote>
-<p>有待完善……</p>
-<h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><blockquote>
-<p>在单元测试的基础上，将所有模块按照设计要求（如根据结构图）组装成为子系统或系统，进行集成测试。</p>
+</li>
+<li><p>Source and Sink Runners</p>
+</li>
+<li><p>Agent</p>
+<blockquote>
+<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
 </blockquote>
-<p>有待完善……</p>
+</li>
+<li><p>Configuration Provider</p>
+</li>
+<li><p>Client</p>
+<blockquote>
+<p>生产数据，运行在一个独立的线程。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
+<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
+</blockquote>
+<p><img src="image/flume1.jpg" alt="flume1"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -263,13 +168,13 @@ public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTe
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/mockito/">mockito</a>
+  <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mockito-testng/">mockito testng</a>
+  <span></span> <a href="/tags/源码分析/">源码分析</a><a href="/tags/Flume/">Flume</a>
   </div>
 
 </div>
@@ -278,7 +183,7 @@ public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTe
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/26/mockito-testng-assertj/" data-title="Mockito+Testng+Assertj的使用实例 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/" data-title="Flume--日志收集系统之初见 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -291,19 +196,11 @@ public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTe
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/26/custom-mybatis-config/" title="基于Spring Boot自定义Mybatis配置实例">
-  <strong>上一篇：</strong><br/>
-  <span>
-  基于Spring Boot自定义Mybatis配置实例</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/06/19/Spring-Boot-rule-config/"  title="Spring Boot （属性、日志、Profile）配置">
+<a href="/2016/08/18/Flume部署及应用实例/"  title="Flume部署及应用实例">
  <strong>下一篇：</strong><br/> 
- <span>Spring Boot （属性、日志、Profile）配置
+ <span>Flume部署及应用实例
 </span>
 </a>
 </div>
@@ -318,7 +215,7 @@ public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTe
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">1.</span> <span class="toc-text">单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试access层，跳过business和resource层"><span class="toc-number">1.0.1.</span> <span class="toc-text">单独测试access层，跳过business和resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试business层，跳过resource层"><span class="toc-number">1.0.2.</span> <span class="toc-text">单独测试business层，跳过resource层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单独测试resource层，跳过直接访问数据库"><span class="toc-number">1.0.3.</span> <span class="toc-text">单独测试resource层，跳过直接访问数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成测试"><span class="toc-number">2.</span> <span class="toc-text">集成测试</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#架构图及数据流模型："><span class="toc-number">1.</span> <span class="toc-text">架构图及数据流模型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8大组件（-components）"><span class="toc-number">2.</span> <span class="toc-text">8大组件（ components）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flume整体架构介绍"><span class="toc-number">3.</span> <span class="toc-text">Flume整体架构介绍</span></a></li></ol>
  
   </div>
 
