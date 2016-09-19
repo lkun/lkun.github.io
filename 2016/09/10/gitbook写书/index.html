@@ -4,32 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Spring Boot （属性、日志、Profile）配置 | lkun&#39;s</title>
+    <title>如何快速搭建自己的GitBook | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
+    <meta name="description" content="对于编程的爱好者来说，都希望凭自己的经验写一些东西分享给业内别的爱好者和记录一些自己的经验，以防日后忘记，也有历史跟踪。GitBook是一个结合GitHub和Markdown来制作精美在线读物的工具。你可以自己或和任何人合作，编著一本在线书籍，还能够销售，当作家不再只是梦。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Boot （属性、日志、Profile）配置">
-<meta property="og:url" content="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/index.html">
+<meta property="og:title" content="如何快速搭建自己的GitBook">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/gitbook写书/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
-<meta property="og:updated_time" content="2016-06-19T14:47:52.841Z">
+<meta property="og:description" content="对于编程的爱好者来说，都希望凭自己的经验写一些东西分享给业内别的爱好者和记录一些自己的经验，以防日后忘记，也有历史跟踪。GitBook是一个结合GitHub和Markdown来制作精美在线读物的工具。你可以自己或和任何人合作，编著一本在线书籍，还能够销售，当作家不再只是梦。">
+<meta property="og:updated_time" content="2016-09-10T06:59:25.890Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Boot （属性、日志、Profile）配置">
-<meta name="twitter:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
+<meta name="twitter:title" content="如何快速搭建自己的GitBook">
+<meta name="twitter:description" content="对于编程的爱好者来说，都希望凭自己的经验写一些东西分享给业内别的爱好者和记录一些自己的经验，以防日后忘记，也有历史跟踪。GitBook是一个结合GitHub和Markdown来制作精美在线读物的工具。你可以自己或和任何人合作，编著一本在线书籍，还能够销售，当作家不再只是梦。">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -89,14 +80,14 @@ s">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/19/Spring-Boot-rule-config/" title="Spring Boot （属性、日志、Profile）配置" itemprop="url">Spring Boot （属性、日志、Profile）配置</a>
+      <a href="/2016/09/10/gitbook写书/" title="如何快速搭建自己的GitBook" itemprop="url">如何快速搭建自己的GitBook</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-19T14:10:23.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
+    <time datetime="2016-09-10T04:09:51.000Z" itemprop="datePublished"> 发表于 2016-09-10</time>
     
   </p>
 </header>
@@ -105,120 +96,131 @@ s">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源准备"><span class="toc-number">1.</span> <span class="toc-text">资源准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建项目"><span class="toc-number">2.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitBook使用"><span class="toc-number">3.</span> <span class="toc-text">GitBook使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#根据目录生成图书结构"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">根据目录生成图书结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#生成图书"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">生成图书</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发布书籍"><span class="toc-number">4.</span> <span class="toc-text">发布书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ref"><span class="toc-number">5.</span> <span class="toc-text">ref</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。</p>
+<p>对于编程的爱好者来说，都希望凭自己的经验写一些东西分享给业内别的爱好者和记录一些自己的经验，以防日后忘记，也有历史跟踪。GitBook是一个结合GitHub和Markdown来制作精美在线读物的工具。你可以自己或和任何人合作，编著一本在线书籍，还能够销售，当作家不再只是梦。</p>
 </blockquote>
-<h3 id="添加-application-properties配置文件属性"><a href="#添加-application-properties配置文件属性" class="headerlink" title="添加 application.properties配置文件属性"></a>添加 application.properties配置文件属性</h3><pre><code>server.port=9090
-server.context-path=/helloworld
-jmust.name=lvkun
-jmust.age=Hello World
-</code></pre><a id="more"></a>
-<h3 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h3><pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-@Component
-@ConfigurationProperties(prefix = &quot;jmust&quot;) //通过@ConfigurationProperties 加载 properties 文件内的配置，通过 prefix 属性指定properties 的配置的前缀，通过location指定properties文件的位置，例如@ConfigurationProperties(prefix = &quot;jmust&quot;，location={&quot;classpath:config/jmust.properties&quot;}),当然本例子不需要配置 location
-public class AuthorSettings {
-    private String name;
-    private Long age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
-}
-</code></pre><h3 id="修改入口类"><a href="#修改入口类" class="headerlink" title="修改入口类"></a>修改入口类</h3><pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.jmust.demo.config.AuthorSettings;
-
-@RestController
-@SpringBootApplication
-public class DemoApplication {
-
-    @Autowired
-    private AuthorSettings authorSettings; //注入该配置信息
-
-    @RequestMapping(&quot;/&quot;)
-    public String index(){
-        return &quot;author name is &quot;+ authorSettings.getName()+&quot; and author age is &quot;+authorSettings.getAge();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-    }
-}
-</code></pre><h3 id="运行，访问-http-localhost-9090-helloworld"><a href="#运行，访问-http-localhost-9090-helloworld" class="headerlink" title="运行，访问 http://localhost:9090/helloworld"></a>运行，访问 <a href="http://localhost:9090/helloworld" target="_blank" rel="external">http://localhost:9090/helloworld</a></h3><h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><blockquote>
-<p>Spring Boot 支持Java Util Logging、Log4J、 Log4J2和Logback作为日志框架，默认情况下，Spring Boot 使用Logback作为日志框架</p>
-</blockquote>
-<ul>
-<li><p>配置日志级别</p>
-<pre><code>logging.file=D:/log/log.log
-</code></pre></li>
-<li><p>配置日志文件，格式为logging.level.包名=级别:</p>
-<pre><code>logging.level.org.springframework.web= DEBUG
+<a id="more"></a>
+<h2 id="资源准备"><a href="#资源准备" class="headerlink" title="资源准备"></a>资源准备</h2><ul>
+<li>Github账号（用户名、邮箱非常重要）<a href="https://github.com/join" title="注册地址" target="_blank" rel="external">注册地址</a></li>
+<li>机器安装Node.js <a href="https://nodejs.org/en/download/" title="NodeJs" target="_blank" rel="external">下载最新版本</a>，默认安装</li>
+<li>机器安装Git，<a href="https://git-scm.com/downloads" title="Git安装" target="_blank" rel="external">下载最新版本</a> </li>
+<li><p>Hexo安装 </p>
+<pre><code>npm install -g hexo
+</code></pre><p>注意：如果出现”npm ERR”，则可考虑换成cnpm尝试。</p>
+<pre><code>npm install -g cnpm hexo
 </code></pre></li>
 </ul>
-<h3 id="Profile-配置"><a href="#Profile-配置" class="headerlink" title="Profile 配置"></a>Profile 配置</h3><blockquote>
-<p>Profilr 是 Spring 用来针对不同环境对不同的配置提供支持的，全局Profile 配置使用 application-{profile}.properties (如 application-prod.properties)</p>
-<p>通过在 application.properties 中设置 spring.profiles.active=prod 来指定活动的 Profile。</p>
-</blockquote>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>生产（prod）和开发（dev）环境，生产环境下端口号为80，开发环境下端口号为9090。</p>
 <ul>
-<li><p>生产环境下的配置文件 application-prod.properties:</p>
-<pre><code>server.port=80
+<li><p>GitBook安装</p>
+<pre><code>npm install -g gitbook-cli  //安装gitbook
+
+gitbook -V //查看gitbook是否安装成功
 </code></pre></li>
-<li><p>开发环境下的配置文件 application-dev.properties:</p>
-<pre><code>server.port=9090
-</code></pre></li>
-<li><p>application.properties中添加：</p>
-<pre><code>spring.profiles.active=dev
-</code></pre></li>
+<li><p>GitBook Editor 书的编写工具，可以看到书的目录（可以不用这个写，个人比较喜欢用MarkDownPad来写）</p>
+</li>
+<li>MarkDownPad</li>
 </ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 9090 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><ul>
+<li>GitHub上面创建一个项目，用来保存每次发布的项目，项目名称Repository name：账户名称.github.io（lkun.github.io）</li>
+</ul>
+<h2 id="GitBook使用"><a href="#GitBook使用" class="headerlink" title="GitBook使用"></a>GitBook使用</h2><h5 id="根据目录生成图书结构"><a href="#根据目录生成图书结构" class="headerlink" title="根据目录生成图书结构"></a>根据目录生成图书结构</h5><ul>
+<li>1.1 README.md</li>
+</ul>
+<blockquote>
+<p>readme.md文件相当于一本GitBook的简介。</p>
+</blockquote>
+<pre><code>D:\&gt;mkdir mygitbookTest
+D:\test_gitbook&gt;ECHO xxx&gt;README.md
 </code></pre><ul>
-<li><p>修改application.properties:</p>
-<pre><code>spring.profiles.active=prod
+<li>1.2 SUMMARY.md</li>
+</ul>
+<blockquote>
+<p>summary.md 是一本书的目录结构.</p>
+</blockquote>
+<pre><code>D:\test_gitbook&gt;ECHO A&gt;SUMMARY.md
+</code></pre><p>输入    </p>
+<pre><code># Summary
+
+* [Introduction](README.md)
+* [A](a.md)
+* [B](b.md)
+</code></pre><ul>
+<li>1.3 生成图书结构</li>
+</ul>
+<blockquote>
+<p>当这个目录文件创建好之后，我们可以使用Gitbook<br>的命令行工具将这个目录结构生成相应的目录及文件：</p>
+</blockquote>
+<pre><code>$ gitbook init
+</code></pre><p>执行完之后，我们发现gitbook给我们生成了与SUMMARY.md所对应的目录及文件。</p>
+<h5 id="生成图书"><a href="#生成图书" class="headerlink" title="生成图书"></a>生成图书</h5><ul>
+<li><p>1.1 输出为静态网站</p>
+<ul>
+<li><p>本地预览时自动生成</p>
+<pre><code>#执行命令 
+
+D:\test_gitbook&gt;gitbook serve
 </code></pre></li>
 </ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 80 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
-</code></pre>  
+</li>
+</ul>
+<pre><code>    Live reload server started on port: 35729
+    Press CTRL+C to quit ...
+
+    info: 7 plugins are installed
+    info: loading plugin &quot;livereload&quot;... OK
+    info: loading plugin &quot;highlight&quot;... OK
+    info: loading plugin &quot;search&quot;... OK
+    info: loading plugin &quot;lunr&quot;... OK
+    info: loading plugin &quot;sharing&quot;... OK
+    info: loading plugin &quot;fontsettings&quot;... OK
+    info: loading plugin &quot;theme-default&quot;... OK
+    info: found 3 pages
+    info: found 0 asset files
+    info: &gt;&gt; generation finished with success in 2.7s !
+
+    Starting server ...
+    Serving book on http://localhost:4000
+
+&gt; 然后,浏览器中输入 http://localhost:4000 就可以预览生
+成的以网页形式组织的书籍。
+这里你会发现，你在你的图书项目的目录中多了一个名为
+_book的文件目录，而这个目录中的文件，即是生成的静态
+网站内容。
+</code></pre><ul>
+<li><p>通过build指定路径手动生成</p>
+<pre><code>&gt; 你可以将内容输入到你所想要的目录中去：
+
+   D:\test_gitbook&gt;mkdir temp/gitbook
+   D:\test_gitbook&gt;gitbook build --output=D:\test_gitbook\temp\gitbook
+</code></pre></li>
+</ul>
+<h2 id="发布书籍"><a href="#发布书籍" class="headerlink" title="发布书籍"></a>发布书籍</h2><blockquote>
+<p>这是最关键的一步了，为了能让自己写好的书在网上能够给别人看到，所以，现在讲上一步build生成的静态网站放在hexo的D:\Books\Hexo\public\2016\08\31目录下，应该也可以放在public的根目录下，还没有试过，比如说你不想放在2016\08\31下，你也可以放在2016\09\10下，这个按照日期来建也是可以的。把文件拷过来了之后，我们就把它push到lkun.github.io这个项目上，然后就可以访问了。</p>
+</blockquote>
+<p>访问路径：<a href="https://lkun.github.io/2016/08/31/mygitbooktest/index.html" target="_blank" rel="external">https://lkun.github.io/2016/08/31/mygitbooktest/index.html</a></p>
+<p>完毕！</p>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a href="https://lkun.github.io/2016/06/18/hello-world/" title="Hexo配置过程" target="_blank" rel="external">Hexo配置过程</a></li>
+<li><a href="https://lkun.github.io/2016/06/18/new-blog-site/" title="博客关联" target="_blank" rel="external">博客关联</a></li>
+</ul>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
+  <a class="article-category-link" href="/categories/GitBook/">GitBook</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
+  <span></span> <a href="/tags/GitBook/">GitBook</a>
   </div>
 
 </div>
@@ -227,7 +229,7 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/" data-title="Spring Boot （属性、日志、Profile）配置 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/09/10/gitbook写书/" data-title="如何快速搭建自己的GitBook | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -240,19 +242,11 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/06/26/mockito-testng-assertj/" title="Mockito+Testng+Assertj的使用实例">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Mockito+Testng+Assertj的使用实例</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/06/19/Spring-Boot-Config/"  title="Spring Boot 配置文件">
+<a href="/2016/08/18/Flume--日志收集系统之初见/"  title="Flume--日志收集系统之初见">
  <strong>下一篇：</strong><br/> 
- <span>Spring Boot 配置文件
+ <span>Flume--日志收集系统之初见
 </span>
 </a>
 </div>
@@ -267,7 +261,7 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源准备"><span class="toc-number">1.</span> <span class="toc-text">资源准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建项目"><span class="toc-number">2.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitBook使用"><span class="toc-number">3.</span> <span class="toc-text">GitBook使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#根据目录生成图书结构"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">根据目录生成图书结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#生成图书"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">生成图书</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发布书籍"><span class="toc-number">4.</span> <span class="toc-text">发布书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ref"><span class="toc-number">5.</span> <span class="toc-text">ref</span></a></li></ol>
  
   </div>
 

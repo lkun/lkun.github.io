@@ -4,32 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Spring Boot （属性、日志、Profile）配置 | lkun&#39;s</title>
+    <title>SSL | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
+    <meta name="description" content="SSL证书生成，及在SpringBoot中应用，兼容http和https证书生成1、生成密钥库（自签名的证书和私钥）
+keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
+2、查看密钥库
+keytool -list -v -keys">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Boot （属性、日志、Profile）配置">
-<meta property="og:url" content="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/index.html">
+<meta property="og:title" content="SSL">
+<meta property="og:url" content="http://yoursite.com/2016/07/24/SSL证书生成，及在SpringBoot中应用，兼容http和https/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
-<meta property="og:updated_time" content="2016-06-19T14:47:52.841Z">
+<meta property="og:description" content="SSL证书生成，及在SpringBoot中应用，兼容http和https证书生成1、生成密钥库（自签名的证书和私钥）
+keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
+2、查看密钥库
+keytool -list -v -keys">
+<meta property="og:updated_time" content="2016-09-19T14:28:32.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Boot （属性、日志、Profile）配置">
-<meta name="twitter:description" content="在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。
-
-添加 application.properties配置文件属性server.port=9090
-s">
+<meta name="twitter:title" content="SSL">
+<meta name="twitter:description" content="SSL证书生成，及在SpringBoot中应用，兼容http和https证书生成1、生成密钥库（自签名的证书和私钥）
+keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
+2、查看密钥库
+keytool -list -v -keys">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -89,14 +92,14 @@ s">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/19/Spring-Boot-rule-config/" title="Spring Boot （属性、日志、Profile）配置" itemprop="url">Spring Boot （属性、日志、Profile）配置</a>
+      <a href="/2016/07/24/SSL证书生成，及在SpringBoot中应用，兼容http和https/" title="SSL" itemprop="url">SSL</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-19T14:10:23.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
+    <time datetime="2016-07-24T12:00:38.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
     
   </p>
 </header>
@@ -105,106 +108,132 @@ s">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL证书生成，及在SpringBoot中应用，兼容http和https"><span class="toc-number">1.</span> <span class="toc-text">SSL证书生成，及在SpringBoot中应用，兼容http和https</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#证书生成"><span class="toc-number">1.0.1.</span> <span class="toc-text">证书生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot中发布https服务"><span class="toc-number">1.0.2.</span> <span class="toc-text">SpringBoot中发布https服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot中请求https服务"><span class="toc-number">1.0.3.</span> <span class="toc-text">SpringBoot中请求https服务</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<blockquote>
-<p>在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。</p>
-</blockquote>
-<h3 id="添加-application-properties配置文件属性"><a href="#添加-application-properties配置文件属性" class="headerlink" title="添加 application.properties配置文件属性"></a>添加 application.properties配置文件属性</h3><pre><code>server.port=9090
-server.context-path=/helloworld
-jmust.name=lvkun
-jmust.age=Hello World
+		<h1 id="SSL证书生成，及在SpringBoot中应用，兼容http和https"><a href="#SSL证书生成，及在SpringBoot中应用，兼容http和https" class="headerlink" title="SSL证书生成，及在SpringBoot中应用，兼容http和https"></a>SSL证书生成，及在SpringBoot中应用，兼容http和https</h1><h3 id="证书生成"><a href="#证书生成" class="headerlink" title="证书生成"></a>证书生成</h3><p>1、生成密钥库（自签名的证书和私钥）</p>
+<pre><code>keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
+</code></pre><p>2、查看密钥库</p>
+<pre><code>keytool -list -v -keystore keystore.jks
+</code></pre><p>3、导出密钥库公钥、信息等到证书中</p>
+<pre><code>keytool -export -alias mykey -keystore keystore.jks -storepass 123456 -file scert.cer
 </code></pre><a id="more"></a>
-<h3 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h3><pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-@Component
-@ConfigurationProperties(prefix = &quot;jmust&quot;) //通过@ConfigurationProperties 加载 properties 文件内的配置，通过 prefix 属性指定properties 的配置的前缀，通过location指定properties文件的位置，例如@ConfigurationProperties(prefix = &quot;jmust&quot;，location={&quot;classpath:config/jmust.properties&quot;}),当然本例子不需要配置 location
-public class AuthorSettings {
-    private String name;
-    private Long age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
-}
-</code></pre><h3 id="修改入口类"><a href="#修改入口类" class="headerlink" title="修改入口类"></a>修改入口类</h3><pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.jmust.demo.config.AuthorSettings;
-
-@RestController
-@SpringBootApplication
-public class DemoApplication {
+<p>4、建立信任密钥库（将服务端证书，导入到客户端的信任密钥库中）</p>
+<pre><code>keytool -import -alias  mykey  -file scert.cer -keystore truststore.jks
+</code></pre><p>5、查看信任密钥库</p>
+<pre><code>keytool -list -v -keystore truststore.jks
+</code></pre><p>6、生成客户端的密钥库和证书，客户端证书导入到服务器端</p>
+<pre><code>keytool -genkey -alias smsClient -keyalg RSA -keystore ckeystore.jks
+keytool -export -alias smsClient -keystore ckeystore.jks -storepass 123456 -file ccert.cer
+keytool -import -alias  smsClient  -file ccert.cer -keystore struststore
+</code></pre><h3 id="SpringBoot中发布https服务"><a href="#SpringBoot中发布https服务" class="headerlink" title="SpringBoot中发布https服务"></a>SpringBoot中发布https服务</h3><p>1、tomcat.https.properties</p>
+<pre><code>custom.tomcat.https.port=8443
+custom.tomcat.https.secure=true
+custom.tomcat.https.scheme=https
+custom.tomcat.https.ssl=true
+custom.tomcat.https.password=123456
+custom.tomcat.https.alias=smsserver
+custom.tomcat.https.store_name=keystore.jks
+</code></pre><p>2、WebConfiguration.java</p>
+<pre><code>@Configuration
+public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
-    private AuthorSettings authorSettings; //注入该配置信息
+    private TomcatSslConnectorProperties sslConnectorProperties;
 
-    @RequestMapping(&quot;/&quot;)
-    public String index(){
-        return &quot;author name is &quot;+ authorSettings.getName()+&quot; and author age is &quot;+authorSettings.getAge();
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+        tomcat.addAdditionalTomcatConnectors(createSslConnector(sslConnectorProperties));
+        return tomcat;
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+    private Connector createSslConnector(TomcatSslConnectorProperties properties) {
+
+        return properties.configureConnector();
     }
 }
-</code></pre><h3 id="运行，访问-http-localhost-9090-helloworld"><a href="#运行，访问-http-localhost-9090-helloworld" class="headerlink" title="运行，访问 http://localhost:9090/helloworld"></a>运行，访问 <a href="http://localhost:9090/helloworld" target="_blank" rel="external">http://localhost:9090/helloworld</a></h3><h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><blockquote>
-<p>Spring Boot 支持Java Util Logging、Log4J、 Log4J2和Logback作为日志框架，默认情况下，Spring Boot 使用Logback作为日志框架</p>
-</blockquote>
-<ul>
-<li><p>配置日志级别</p>
-<pre><code>logging.file=D:/log/log.log
-</code></pre></li>
-<li><p>配置日志文件，格式为logging.level.包名=级别:</p>
-<pre><code>logging.level.org.springframework.web= DEBUG
-</code></pre></li>
-</ul>
-<h3 id="Profile-配置"><a href="#Profile-配置" class="headerlink" title="Profile 配置"></a>Profile 配置</h3><blockquote>
-<p>Profilr 是 Spring 用来针对不同环境对不同的配置提供支持的，全局Profile 配置使用 application-{profile}.properties (如 application-prod.properties)</p>
-<p>通过在 application.properties 中设置 spring.profiles.active=prod 来指定活动的 Profile。</p>
-</blockquote>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>生产（prod）和开发（dev）环境，生产环境下端口号为80，开发环境下端口号为9090。</p>
-<ul>
-<li><p>生产环境下的配置文件 application-prod.properties:</p>
-<pre><code>server.port=80
-</code></pre></li>
-<li><p>开发环境下的配置文件 application-dev.properties:</p>
-<pre><code>server.port=9090
-</code></pre></li>
-<li><p>application.properties中添加：</p>
-<pre><code>spring.profiles.active=dev
-</code></pre></li>
-</ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 9090 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
-</code></pre><ul>
-<li><p>修改application.properties:</p>
-<pre><code>spring.profiles.active=prod
-</code></pre></li>
-</ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 80 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
+</code></pre><p>3、TomcatSslConnectorProperties.java</p>
+<pre><code>   @ConfigurationProperties(prefix = &quot;custom.tomcat.https&quot;, locations = &quot;classpath:/tomcat.https.properties&quot;)
+public class TomcatSslConnectorProperties {
+    private Integer port;
+    private Boolean ssl = true;
+    private Boolean secure = true;
+    private String scheme = &quot;https&quot;;
+    private String key_store;
+    private String password;
+    private String alias;
+
+    //shengl省略省略了get set方法
+
+public Connector configureConnector() {
+    Connector connector = new Connector(&quot;org.apache.coyote.http11.Http11NioProtocol&quot;);
+    Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
+    try {
+
+        File keystore = new ClassPathResource(key_store).getFile();
+        connector.setScheme(scheme);
+        connector.setSecure(secure);
+        connector.setPort(port);
+        protocol.setSSLEnabled(ssl);
+        protocol.setKeystoreFile(keystore.getAbsolutePath());
+        protocol.setKeystorePass(password);
+        protocol.setKeyAlias(alias);
+        return connector;
+    }
+    catch (Exception ex) {
+        throw new IllegalStateException(&quot;can&apos;t access keystore: [&quot; + &quot;keystore&quot;
+                + &quot;] or truststore: [&quot; + &quot;keystore&quot; + &quot;]&quot;, ex);
+    }
+}
+</code></pre><p>4、 </p>
+<pre><code>@SpringBootApplication
+@EnableConfigurationProperties({TomcatSslConnectorProperties.class})
+public class TianRunMockServer {
+    public static void main(String[] args) {
+        SpringApplication.run(TianRunMockServer.class, args);
+    }
+}
+</code></pre><h3 id="SpringBoot中请求https服务"><a href="#SpringBoot中请求https服务" class="headerlink" title="SpringBoot中请求https服务"></a>SpringBoot中请求https服务</h3><p>1、main调用</p>
+<pre><code>public static void main(String[] args) throws Exception {
+        String[] keyInfo = &quot;spring2.jks=123456&quot;.split(&quot;=&quot;);
+        String aa = HttpRequestUtil.sslHttpsPost(&quot;https://127.0.0.1:8443/sms/submit&quot;, keyInfo,new UrlEncodedFormEntity(new ArrayList&lt;NameValuePair&gt;(), &quot;UTF-8&quot;));
+        System.out.println(aa);
+    }
+</code></pre><p>2、HttpRequestUtil工具封装</p>
+<pre><code>public static String sslHttpsPost(String url, String[] keyInfo, HttpEntity httpEntity) throws Exception {
+    HttpClientBuilder builder = HttpClients.custom();
+    builder.setSSLContext(SSLHttpClient.getSSLContext(keyInfo[0], keyInfo[1]));
+    CloseableHttpClient httpclient = builder.build();
+    HttpPost httppost = new HttpPost(url);
+    String result = &quot;&quot;;
+    try {
+        httppost.setEntity(httpEntity);
+        CloseableHttpResponse response = httpclient.execute(httppost);
+        HttpEntity entity = response.getEntity();
+        result = EntityUtils.toString(entity, Consts.UTF_8.name());
+    } finally {
+        httppost.releaseConnection();
+    }
+    return result;
+}
+</code></pre><p>3、SSLContext工具</p>
+<pre><code>public static SSLContext getSSLContext(String fileName,String password) throws Exception {
+    KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+    InputStream input = ClassLoader.getSystemResourceAsStream(path);
+    ks.load(input, password.toCharArray());
+
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+    tmf.init(ks);
+
+    SSLContext context = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+    // 这里只指定了受信任的证书（单向认证），如果是双向认证的话，则第一个参数不能为null
+    context.init(null, tmf.getTrustManagers(), null);
+    input.close();
+    return context;
+}
 </code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
@@ -212,13 +241,13 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
+  <a class="article-category-link" href="/categories/SSL/">SSL</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
+  <span></span> <a href="/tags/SSL/">SSL</a><a href="/tags/HTTPS/">HTTPS</a>
   </div>
 
 </div>
@@ -227,7 +256,7 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/" data-title="Spring Boot （属性、日志、Profile）配置 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/07/24/SSL证书生成，及在SpringBoot中应用，兼容http和https/" data-title="SSL | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -241,18 +270,18 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/06/26/mockito-testng-assertj/" title="Mockito+Testng+Assertj的使用实例">
+ <a href="/2016/08/18/Flume部署及应用实例/" title="Flume部署及应用实例">
   <strong>上一篇：</strong><br/>
   <span>
-  Mockito+Testng+Assertj的使用实例</span>
+  Flume部署及应用实例</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/06/19/Spring-Boot-Config/"  title="Spring Boot 配置文件">
+<a href="/2016/07/24/设计模式-策略/"  title="设计模式--策略模式">
  <strong>下一篇：</strong><br/> 
- <span>Spring Boot 配置文件
+ <span>设计模式--策略模式
 </span>
 </a>
 </div>
@@ -267,7 +296,7 @@ Started DemoApplication in 2.403 seconds (JVM running for 2.755)
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-application-properties配置文件属性"><span class="toc-number">1.</span> <span class="toc-text">添加 application.properties配置文件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加配置类"><span class="toc-number">2.</span> <span class="toc-text">添加配置类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改入口类"><span class="toc-number">3.</span> <span class="toc-text">修改入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行，访问-http-localhost-9090-helloworld"><span class="toc-number">4.</span> <span class="toc-text">运行，访问 http://localhost:9090/helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-number">5.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile-配置"><span class="toc-number">6.</span> <span class="toc-text">Profile 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">7.</span> <span class="toc-text">实例</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL证书生成，及在SpringBoot中应用，兼容http和https"><span class="toc-number">1.</span> <span class="toc-text">SSL证书生成，及在SpringBoot中应用，兼容http和https</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#证书生成"><span class="toc-number">1.0.1.</span> <span class="toc-text">证书生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot中发布https服务"><span class="toc-number">1.0.2.</span> <span class="toc-text">SpringBoot中发布https服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot中请求https服务"><span class="toc-number">1.0.3.</span> <span class="toc-text">SpringBoot中请求https服务</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
