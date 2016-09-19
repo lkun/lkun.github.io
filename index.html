@@ -81,6 +81,74 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/09/19/SSL证书生成，及在SpringBoot中应用，兼容http和https/" title="SSL证书生成，及在SpringBoot中应用，兼容http和https" itemprop="url">SSL证书生成，及在SpringBoot中应用，兼容http和https</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-19T12:00:38.000Z" itemprop="datePublished"> 发表于 2016-09-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="SSL证书生成，及在SpringBoot中应用，兼容http和https"><a href="#SSL证书生成，及在SpringBoot中应用，兼容http和https" class="headerlink" title="SSL证书生成，及在SpringBoot中应用，兼容http和https"></a>SSL证书生成，及在SpringBoot中应用，兼容http和https</h1><h3 id="证书生成"><a href="#证书生成" class="headerlink" title="证书生成"></a>证书生成</h3><p>1、生成密钥库（自签名的证书和私钥）</p>
+<pre><code>keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
+</code></pre><p>2、查看密钥库</p>
+<pre><code>keytool -list -v -keystore keystore.jks
+</code></pre><p>3、导出密钥库公钥、信息等到证书中</p>
+<pre><code>keytool -export -alias mykey -keystore keystore.jks -storepass 123456 -file scert.cer
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/09/19/SSL证书生成，及在SpringBoot中应用，兼容http和https/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/SSL/">SSL</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SSL/">SSL</a><a href="/tags/HTTPS/">HTTPS</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/09/10/gitbook写书/" title="如何快速搭建自己的GitBook" itemprop="url">如何快速搭建自己的GitBook</a>
   </h1>
   <p class="article-author">By
@@ -248,74 +316,6 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
   <div class="article-tags">
   
   <span></span> <a href="/tags/Flume/">Flume</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/07/24/SSL证书生成，及在SpringBoot中应用，兼容http和https/" title="SSL" itemprop="url">SSL</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-07-24T12:00:38.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="SSL证书生成，及在SpringBoot中应用，兼容http和https"><a href="#SSL证书生成，及在SpringBoot中应用，兼容http和https" class="headerlink" title="SSL证书生成，及在SpringBoot中应用，兼容http和https"></a>SSL证书生成，及在SpringBoot中应用，兼容http和https</h1><h3 id="证书生成"><a href="#证书生成" class="headerlink" title="证书生成"></a>证书生成</h3><p>1、生成密钥库（自签名的证书和私钥）</p>
-<pre><code>keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
-CN=127.0.0.1, OU=PP, O=IT, L=GZ, ST=GD, C=CN  
-</code></pre><p>2、查看密钥库</p>
-<pre><code>keytool -list -v -keystore keystore.jks
-</code></pre><p>3、导出密钥库公钥、信息等到证书中</p>
-<pre><code>keytool -export -alias mykey -keystore keystore.jks -storepass 123456 -file scert.cer
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/07/24/SSL证书生成，及在SpringBoot中应用，兼容http和https/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/SSL/">SSL</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/SSL/">SSL</a><a href="/tags/HTTPS/">HTTPS</a>
   </div>
 
 </div>
