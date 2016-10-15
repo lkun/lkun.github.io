@@ -81,6 +81,145 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/10/15/批量修改项目版本号方法（Maven）/" title="批量修改项目版本号方法（Maven）" itemprop="url">批量修改项目版本号方法（Maven）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-15T07:00:38.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="批量修改项目版本号方法（Maven）"><a href="#批量修改项目版本号方法（Maven）" class="headerlink" title="批量修改项目版本号方法（Maven）"></a>批量修改项目版本号方法（Maven）</h1><blockquote>
+<p>基于Maven管理的项目，目前一般的做法都是，如果项目还是处于开发阶段，我们为了方便maven管理，我们一般都是版本号xxx-SNAPSHOT ,为什么这么做呢？假如说，我们等版本稳定了怎么办呢？我们不可能打开每一个pom.xml文件修改每一个版本号把？这太浪费时间和精力了，我们肯定不这么做，下面介绍一种批量更改版本号的方法。</p>
+</blockquote>
+<h3 id="更改Maven版本号方法"><a href="#更改Maven版本号方法" class="headerlink" title="更改Maven版本号方法"></a>更改Maven版本号方法</h3><pre><code>mvn versions:set -DnewVersion=指定版本号
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Maven/">Maven</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/15/非Maven的Jar转成Maven的Jar方法/" title="如何将jar手动安装到maven私服" itemprop="url">如何将jar手动安装到maven私服</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-15T07:00:38.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="如何将非maven格式jar转成maven格式的jar？"><a href="#如何将非maven格式jar转成maven格式的jar？" class="headerlink" title="如何将非maven格式jar转成maven格式的jar？"></a>如何将非maven格式jar转成maven格式的jar？</h1><blockquote>
+<p>目前java项目当中还是依然存在很多不是用maven去管理的项目，但是我们又有很多maven去管理的项目需要引用不是maven管理的项目，怎么办？当然是将不是maven项目管理的jar包转换成maven管理格式的jar包啦。</p>
+</blockquote>
+<h3 id="Install到本地repo命令"><a href="#Install到本地repo命令" class="headerlink" title="Install到本地repo命令"></a>Install到本地repo命令</h3><pre><code>mvn install:install-file 
+-DgroupId=com.microsoft.sqlserver 
+-DartifactId=sqljdbc 
+-Dversion=4.0.2206 
+-Dpackaging=jar 
+-Dfile=d:\sqljdbc-4.0.2206.jar
+</code></pre><h3 id="deploy到nexus-repo命令"><a href="#deploy到nexus-repo命令" class="headerlink" title="deploy到nexus repo命令"></a>deploy到nexus repo命令</h3><pre><code>mvn deploy:deploy-file 
+-DgroupId=com.microsoft.sqlserver 
+-DartifactId=sqljdbc 
+-Dversion=4.0.2206 
+-Dpackaging=jar 
+-Dfile=d:\sqljdbc-4.0.2206.jar 
+-DrepositoryId=your-nexus-releases-repo 
+-Durl=http://yourcorp.com:8081/nexus/content/repositories/yourreleaserepo
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Maven/">Maven</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/09/19/SSL证书生成，及在SpringBoot中应用，兼容http和https/" title="SSL证书生成，及在SpringBoot中应用，兼容http和https" itemprop="url">SSL证书生成，及在SpringBoot中应用，兼容http和https</a>
   </h1>
   <p class="article-author">By
@@ -634,132 +773,6 @@ spring.http.encoding.force=true #force the configured encoding
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/26/custom-rabbitmq-config/" title="基于Spring Boot自定义RabbitMQ配置实例" itemprop="url">基于Spring Boot自定义RabbitMQ配置实例</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-25T18:53:01.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/26/custom-rabbitmq-config/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/rabbitMQ/">rabbitMQ</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/rabbitMQ/">rabbitMQ</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/26/custom-mybatis-config/" title="基于Spring Boot自定义Mybatis配置实例" itemprop="url">基于Spring Boot自定义Mybatis配置实例</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-25T18:52:38.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/26/custom-mybatis-config/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/mybatis/">mybatis</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -797,7 +810,7 @@ spring.http.encoding.force=true #force the configured encoding
 		  
 		
 		  
-			<li><a href="/categories/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>3</sup></a></li>
 		  
 		
 		  
@@ -850,15 +863,15 @@ spring.http.encoding.force=true #force the configured encoding
 			
 		
 			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Flume/" title="Flume">Flume<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
 			
 		
 			
@@ -878,7 +891,7 @@ spring.http.encoding.force=true #force the configured encoding
 			
 		
 			
-				<li><a href="/tags/Maven/" title="Maven">Maven<sup>1</sup></a></li>
+				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
 			
 		
 			
