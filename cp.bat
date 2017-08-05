@@ -1,0 +1,1 @@
+xcopy F:\lk\techblog\Hexo\public\*.* F:\lk\techblog\lkun.github.io\ /s /h /c /y
