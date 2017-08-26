@@ -1,0 +1,793 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>react+dva+antd实现CRUD简单功能 | lkun&#39;s</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="lkun&#39;s">
+    
+
+    
+    <meta name="description" content="环境准备
+确保 node 版本是 6.5 +
+用 cnpm 或 yarn 能节约你安装依赖的时间
+
+安装dva-clibi并创建应用
+安装 dva-cli，并确保版本是 0.7 或以上  $ cnpm i dva-cli -g
+$ dva -v
+0.7.0
+
+创建应用  $ dva new user-dashboard  $ cd user-dashboard
+
+启动项目(创建出来的目录根路径)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react+dva+antd实现CRUD简单功能">
+<meta property="og:url" content="http://yoursite.com/2017/08/26/react+dva+antd实现CRUD简单功能/index.html">
+<meta property="og:site_name" content="lkun's">
+<meta property="og:description" content="环境准备
+确保 node 版本是 6.5 +
+用 cnpm 或 yarn 能节约你安装依赖的时间
+
+安装dva-clibi并创建应用
+安装 dva-cli，并确保版本是 0.7 或以上  $ cnpm i dva-cli -g
+$ dva -v
+0.7.0
+
+创建应用  $ dva new user-dashboard  $ cd user-dashboard
+
+启动项目(创建出来的目录根路径)">
+<meta property="og:updated_time" content="2017-08-25T23:34:51.213Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react+dva+antd实现CRUD简单功能">
+<meta name="twitter:description" content="环境准备
+确保 node 版本是 6.5 +
+用 cnpm 或 yarn 能节约你安装依赖的时间
+
+安装dva-clibi并创建应用
+安装 dva-cli，并确保版本是 0.7 或以上  $ cnpm i dva-cli -g
+$ dva -v
+0.7.0
+
+创建应用  $ dva new user-dashboard  $ cd user-dashboard
+
+启动项目(创建出来的目录根路径)">
+
+    
+    <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="lkun&#39;s" title="lkun&#39;s"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="lkun&#39;s">lkun&#39;s</a></h1>
+				<h2 class="blog-motto">没有最好，只有更好；没有做不到，只有想不到；好好加油吧！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/26/react+dva+antd实现CRUD简单功能/" title="react+dva+antd实现CRUD简单功能" itemprop="url">react+dva+antd实现CRUD简单功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-25T22:29:51.000Z" itemprop="datePublished"> 发表于 2017-08-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装dva-clibi并创建应用"><span class="toc-number">2.</span> <span class="toc-text">安装dva-clibi并创建应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置-antd-和-babel-plugin-import"><span class="toc-number">3.</span> <span class="toc-text">配置 antd 和 babel-plugin-import</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置代理，能通过-RESTFul-的方式访问-http-127-0-0-1-8000-api-users"><span class="toc-number">4.</span> <span class="toc-text">配置代理，能通过 RESTFul 的方式访问 (http://127.0.0.1:8000/api/users)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成users路由"><span class="toc-number">5.</span> <span class="toc-text">生成users路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构造users-model和service"><span class="toc-number">6.</span> <span class="toc-text">构造users model和service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加界面，让用户列表展现出来"><span class="toc-number">7.</span> <span class="toc-text">添加界面，让用户列表展现出来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加layout"><span class="toc-number">8.</span> <span class="toc-text">添加layout</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#通过-dva-loading-处理-loading-状态"><span class="toc-number">9.</span> <span class="toc-text">通过 dva-loading 处理 loading 状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理分页"><span class="toc-number">10.</span> <span class="toc-text">处理分页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理用户删除"><span class="toc-number">11.</span> <span class="toc-text">处理用户删除</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><ul>
+<li>确保 node 版本是 6.5 +</li>
+<li>用 <a href="https://github.com/cnpm/cnpm" target="_blank" rel="external">cnpm</a> 或 <a href="https://github.com/yarnpkg/yarn" target="_blank" rel="external">yarn</a> 能节约你安装依赖的时间</li>
+</ul>
+<h1 id="安装dva-clibi并创建应用"><a href="#安装dva-clibi并创建应用" class="headerlink" title="安装dva-clibi并创建应用"></a>安装dva-clibi并创建应用</h1><ul>
+<li><p>安装 dva-cli，并确保版本是 0.7 或以上<br>  <code>$ cnpm i dva-cli -g</code></p>
+<pre><code>$ dva -v
+0.7.0
+</code></pre></li>
+<li><p>创建应用<br>  <code>$ dva new user-dashboard</code><br>  <code>$ cd user-dashboard</code></p>
+</li>
+<li><p>启动项目(创建出来的目录根路径)<br>  <code>npm start</code></p>
+<a id="more"></a>
+</li>
+</ul>
+<h1 id="配置-antd-和-babel-plugin-import"><a href="#配置-antd-和-babel-plugin-import" class="headerlink" title="配置 antd 和 babel-plugin-import"></a>配置 antd 和 babel-plugin-import</h1><ul>
+<li>babel-plugin-import 用于按需引入 antd 的 JavaScript 和 CSS（这样打包出来的文件不至于太大）<br>  <code>cnpm i antd --save</code><br>  <code>cnpm i babel-plugin-import --save-dev</code></li>
+<li>修改 .roadhogrc，在 “extraBabelPlugins” 里加上：<br>  <code>[&quot;import&quot;, { &quot;libraryName&quot;: &quot;antd&quot;, &quot;style&quot;: &quot;css&quot; }]</code></li>
+</ul>
+<h1 id="配置代理，能通过-RESTFul-的方式访问-http-127-0-0-1-8000-api-users"><a href="#配置代理，能通过-RESTFul-的方式访问-http-127-0-0-1-8000-api-users" class="headerlink" title="配置代理，能通过 RESTFul 的方式访问 (http://127.0.0.1:8000/api/users)"></a>配置代理，能通过 RESTFul 的方式访问 (<a href="http://127.0.0.1:8000/api/users" target="_blank" rel="external">http://127.0.0.1:8000/api/users</a>)</h1><ul>
+<li><p>修改 .roadhogrc，加上 “proxy” 配置：</p>
+<pre><code>&quot;proxy&quot;: {
+  &quot;/api&quot;: {
+    &quot;target&quot;: &quot;http://jsonplaceholder.typicode.com/&quot;,
+    &quot;changeOrigin&quot;: true,
+    &quot;pathRewrite&quot;: { &quot;^/api&quot; : &quot;&quot; }
+  }
+},
+</code></pre></li>
+<li><p>启动应用：(这个命令一直开着，后面不需要重启)<br>  <code>npm start</code></p>
+<h1 id="生成users路由"><a href="#生成users路由" class="headerlink" title="生成users路由"></a>生成users路由</h1></li>
+<li>用dva-cli生成路由<br>  <code>dva g route users</code><br>访问：<a href="http://localhost:8000/#/users" target="_blank" rel="external">http://localhost:8000/#/users</a>   立即生效<h1 id="构造users-model和service"><a href="#构造users-model和service" class="headerlink" title="构造users model和service"></a>构造users model和service</h1></li>
+<li><p>用dva-cli生成Model<br>  <code>dva g model users</code></p>
+<ul>
+<li><p>修改 <code>src/models/users.js</code></p>
+<pre><code>import * as usersService from &apos;../services/users&apos;;
+export default {
+  namespace: &apos;users&apos;,
+  state: {
+    list: [],
+    total: null,
+    page: null,
+  },
+  reducers: {
+    save(state, { payload: { data: list, total, page } }) {
+      return { ...state, list, total, page };
+    },
+  },
+  effects: {
+    *fetch({ payload: { page = 1 } }, { call, put }) {
+      const { data, headers } = yield call(usersService.fetch, { page });
+      yield put({
+        type: &apos;save&apos;,
+        payload: {
+          data,
+          total: parseInt(headers[&apos;x-total-count&apos;], 10),
+          page: parseInt(page, 10),
+        },
+      });
+    },
+    *remove({ payload: id }, { call, put }) {
+      yield call(usersService.remove, id);
+      yield put({ type: &apos;reload&apos; });
+    },
+    *patch({ payload: { id, values } }, { call, put }) {
+      yield call(usersService.patch, id, values);
+      yield put({ type: &apos;reload&apos; });
+    },
+    *create({ payload: values }, { call, put }) {
+      yield call(usersService.create, values);
+      yield put({ type: &apos;reload&apos; });
+    },
+    *reload(action, { put, select }) {
+      const page = yield select(state =&gt; state.users.page);
+      yield put({ type: &apos;fetch&apos;, payload: { page } });
+    },
+  },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname, query }) =&gt; {
+        if (pathname === &apos;/users&apos;) {
+          dispatch({ type: &apos;fetch&apos;, payload: query });
+        }
+      });
+    },
+  },
+};
+</code></pre></li>
+<li><p>新增 src/services/users.js</p>
+<pre><code>import request from &apos;../utils/request&apos;;
+import { PAGE_SIZE } from &apos;../constants&apos;;
+
+export function fetch({ page }) {
+  return request(`/api/users?_page=${page}&amp;_limit=${PAGE_SIZE}`);
+}
+
+export function remove(id) {
+  return request(`/api/users/${id}`, {
+    method: &apos;DELETE&apos;,
+  });
+}
+
+export function patch(id, values) {
+  return request(`/api/users/${id}`, {
+    method: &apos;PATCH&apos;,
+    body: JSON.stringify(values),
+  });
+}
+
+export function create(values) {
+  return request(&apos;/api/users&apos;, {
+    method: &apos;POST&apos;,
+    body: JSON.stringify(values),
+  });
+}
+</code></pre><p>切换到浏览器（会自动刷新），应该没任何变化，因为数据虽然好了，但并没有视图与之关联。但是打开 Redux 开发者工具，应该可以看到 users/fetch 和 users/save 的 action 以及相关的 state 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="添加界面，让用户列表展现出来"><a href="#添加界面，让用户列表展现出来" class="headerlink" title="添加界面，让用户列表展现出来"></a>添加界面，让用户列表展现出来</h1><ul>
+<li><p>用dva-cli 生成component<br><code>dva g component Users/Users</code></p>
+<p>  然后修改生成出来的 src/components/Users/Users.js 和 src/components/Users/Users.css，并在 src/routes/Users.js 中引用他。</p>
+</li>
+</ul>
+<h1 id="添加layout"><a href="#添加layout" class="headerlink" title="添加layout"></a>添加layout</h1><ul>
+<li>添加布局  <code>dva g component MainLayout/MainLayout</code><br><code>src/components/MainLayout/MainLayout.js</code></li>
+<li><p>在 <code>src/routes</code> 文件中引用</p>
+<pre><code>import React from &apos;react&apos;;
+import { connect } from &apos;dva&apos;;
+import styles from &apos;./Users.css&apos;;
+import UsersComponent from &apos;../components/Users/Users&apos;;
+import MainLayout from &apos;../components/MainLayout/MainLayout&apos;;
+
+function Users() {
+  return (
+   &lt;MainLayout location={location}&gt;
+        &lt;div className={styles.normal}&gt;
+          &lt;UsersComponent /&gt;
+        &lt;/div&gt;
+    &lt;/MainLayout&gt;
+  );
+}
+
+export default connect()(Users);
+</code></pre><h1 id="通过-dva-loading-处理-loading-状态"><a href="#通过-dva-loading-处理-loading-状态" class="headerlink" title="通过 dva-loading 处理 loading 状态"></a>通过 dva-loading 处理 loading 状态</h1></li>
+<li>安装 dva-loading<br><code>cnpm i dva-loading --save</code></li>
+<li><p>修改 src/index.js 加载插件</p>
+<pre><code>import createLoading from &apos;dva-loading&apos;;
+app.use(createLoading());
+</code></pre></li>
+<li><p>在 src/components/Users/Users.js 里绑定 loading 数据<br><code>loading: state.loading.models.users,</code></p>
+</li>
+</ul>
+<h1 id="处理分页"><a href="#处理分页" class="headerlink" title="处理分页"></a>处理分页</h1><ul>
+<li>更改 <code>src/components/Users/Users.js</code> 文件即可</li>
+</ul>
+<h1 id="处理用户删除"><a href="#处理用户删除" class="headerlink" title="处理用户删除"></a>处理用户删除</h1>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/react/">react</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/react/">react</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/08/26/react+dva+antd实现CRUD简单功能/" data-title="react+dva+antd实现CRUD简单功能 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/08/05/LDAP 默认返回1000用户的坑/"  title="LDAP 默认返回1000用户的坑">
+ <strong>下一篇：</strong><br/> 
+ <span>LDAP 默认返回1000用户的坑
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装dva-clibi并创建应用"><span class="toc-number">2.</span> <span class="toc-text">安装dva-clibi并创建应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置-antd-和-babel-plugin-import"><span class="toc-number">3.</span> <span class="toc-text">配置 antd 和 babel-plugin-import</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置代理，能通过-RESTFul-的方式访问-http-127-0-0-1-8000-api-users"><span class="toc-number">4.</span> <span class="toc-text">配置代理，能通过 RESTFul 的方式访问 (http://127.0.0.1:8000/api/users)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成users路由"><span class="toc-number">5.</span> <span class="toc-text">生成users路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构造users-model和service"><span class="toc-number">6.</span> <span class="toc-text">构造users model和service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加界面，让用户列表展现出来"><span class="toc-number">7.</span> <span class="toc-text">添加界面，让用户列表展现出来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加layout"><span class="toc-number">8.</span> <span class="toc-text">添加layout</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#通过-dva-loading-处理-loading-状态"><span class="toc-number">9.</span> <span class="toc-text">通过 dva-loading 处理 loading 状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理分页"><span class="toc-number">10.</span> <span class="toc-text">处理分页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理用户删除"><span class="toc-number">11.</span> <span class="toc-text">处理用户删除</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Flume/" title="Flume">Flume<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/React/" title="React">React<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SSL/" title="SSL">SSL<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ldap/" title="ldap">ldap<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mockito/" title="mockito">mockito<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/react/" title="react">react<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flume/" title="Flume">Flume<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SSL/" title="SSL">SSL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/HTTPS/" title="HTTPS">HTTPS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ldap/" title="ldap">ldap<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mockito-testng/" title="mockito testng">mockito testng<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GitHub-HEXO/" title="GitHub+HEXO">GitHub+HEXO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客/" title="博客">博客<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/strategy/" title="strategy">strategy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/factory/" title="factory">factory<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Lkun Comes from PPmoney. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="lkun&#39;s">lkun&#39;s</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
