@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-09T03:50:49.352Z</updated>
+  <updated>2018-09-09T04:30:01.180Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Docker构建Mariadb数据库</title>
+    <link href="http://yoursite.com/2018/09/09/docker/Docker%E6%9E%84%E5%BB%BAMariadb%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://yoursite.com/2018/09/09/docker/Docker构建Mariadb数据库/</id>
+    <published>2018-09-09T04:52:38.000Z</published>
+    <updated>2018-09-09T04:30:01.180Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483667&amp;idx=1&amp;sn=70781512cae37ac5a7a527795574728d&amp;chksm=f9512c17ce26a5016061a893c4ebf67820de0c38eb4783d2bc237fd3eb966616d3e90a5b75f6&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">Docker构建Mariadb数据库</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483667&amp;amp;idx=1&amp;amp;sn=70781512cae37ac5a7a527795574728d&amp;amp;chksm
+    
+    </summary>
+    
+      <category term="docker" scheme="http://yoursite.com/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title>gradle项目打包到maven仓库</title>
     <link href="http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/"/>
     <id>http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/</id>
     <published>2018-09-09T03:52:38.000Z</published>
-    <updated>2018-09-09T03:50:49.352Z</updated>
+    <updated>2018-09-09T04:05:40.194Z</updated>
     
     <content type="html"><![CDATA[<h2 id="gradle项目打包到maven仓库"><a href="#gradle项目打包到maven仓库" class="headerlink" title="gradle项目打包到maven仓库"></a>gradle项目打包到maven仓库</h2><p>引入插件：</p>
 <p>apply plugin: ‘java’</p>
@@ -47,6 +70,29 @@
     
     
       <category term="maven" scheme="http://yoursite.com/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（UML）那么多箭头指来指去，什么意思嘛？</title>
+    <link href="http://yoursite.com/2018/09/09/pack/UML/UML%E7%AE%AD%E5%A4%B4%E5%90%AB%E4%B9%89/"/>
+    <id>http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/</id>
+    <published>2018-09-09T03:52:38.000Z</published>
+    <updated>2018-09-09T04:27:07.371Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483663&amp;amp;idx=1&amp;amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;amp;chksm
+    
+    </summary>
+    
+      <category term="UML" scheme="http://yoursite.com/categories/UML/"/>
+    
+    
+      <category term="UML" scheme="http://yoursite.com/tags/UML/"/>
     
   </entry>
   
@@ -245,7 +291,7 @@ app.use(createLoading());
     <link href="http://yoursite.com/2017/08/05/LDAP%20%E9%BB%98%E8%AE%A4%E8%BF%94%E5%9B%9E1000%E7%94%A8%E6%88%B7%E7%9A%84%E5%9D%91/"/>
     <id>http://yoursite.com/2017/08/05/LDAP 默认返回1000用户的坑/</id>
     <published>2017-08-05T06:23:51.000Z</published>
-    <updated>2017-08-05T06:48:39.507Z</updated>
+    <updated>2017-08-05T06:48:39.508Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在测试中，常遇到需要测试我们系统的AD/LDAP大用户量展现和下载功能，但win2003server似乎限制该查询数量为1000，使用包括ldap browser在内的工具，也不能将我们AD server上面的10000用户展现完全。</p>
@@ -823,94 +869,11 @@ _book的文件目录，而这个目录中的文件，即是生成的静态
   </entry>
   
   <entry>
-    <title>Flume--日志收集系统之初见</title>
-    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
-    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
-    <published>2016-08-18T14:00:38.000Z</published>
-    <updated>2016-08-30T15:31:27.583Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
-<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
-<li>简单</li>
-</ul>
-<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
-<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
-<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
-<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
-<ul>
-<li>复杂</li>
-</ul>
-<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
-<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
-<li><p>Event</p>
-<blockquote>
-<p>An event is a singular unit of data that can be transported by Flume NG. </p>
-</blockquote>
-</li>
-<li><p>Source</p>
-<blockquote>
-<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
-</blockquote>
-</li>
-<li><p>Sink</p>
-<blockquote>
-<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
-</blockquote>
-</li>
-<li><p>Channel</p>
-<blockquote>
-<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
-</blockquote>
-</li>
-<li><p>Source and Sink Runners</p>
-</li>
-<li><p>Agent</p>
-<blockquote>
-<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
-</blockquote>
-</li>
-<li><p>Configuration Provider</p>
-</li>
-<li><p>Client</p>
-<blockquote>
-<p>生产数据，运行在一个独立的线程。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
-<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
-</blockquote>
-<p><img src="image/flume1.jpg" alt="flume1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
-&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Flume部署及应用实例</title>
     <link href="http://yoursite.com/2016/08/18/Flume%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B/"/>
     <id>http://yoursite.com/2016/08/18/Flume部署及应用实例/</id>
     <published>2016-08-18T14:00:38.000Z</published>
-    <updated>2016-08-30T15:37:04.349Z</updated>
+    <updated>2016-08-30T15:37:04.350Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Flume部署及应用实例"><a href="#Flume部署及应用实例" class="headerlink" title="Flume部署及应用实例"></a>Flume部署及应用实例</h1><h3 id="版本下载"><a href="#版本下载" class="headerlink" title="版本下载"></a>版本下载</h3><p><a href="http://www.apache.org/dyn/closer.lua/flume/1.6.0/apache-flume-1.6.0-bin.tar.gz" target="_blank" rel="external">Flume下载地址</a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
@@ -1049,11 +1012,94 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
   </entry>
   
   <entry>
+    <title>Flume--日志收集系统之初见</title>
+    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
+    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
+    <published>2016-08-18T14:00:38.000Z</published>
+    <updated>2016-08-30T15:31:27.584Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
+<li>简单</li>
+</ul>
+<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
+<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
+<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
+<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
+<ul>
+<li>复杂</li>
+</ul>
+<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
+<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
+<li><p>Event</p>
+<blockquote>
+<p>An event is a singular unit of data that can be transported by Flume NG. </p>
+</blockquote>
+</li>
+<li><p>Source</p>
+<blockquote>
+<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
+</blockquote>
+</li>
+<li><p>Sink</p>
+<blockquote>
+<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
+</blockquote>
+</li>
+<li><p>Channel</p>
+<blockquote>
+<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
+</blockquote>
+</li>
+<li><p>Source and Sink Runners</p>
+</li>
+<li><p>Agent</p>
+<blockquote>
+<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
+</blockquote>
+</li>
+<li><p>Configuration Provider</p>
+</li>
+<li><p>Client</p>
+<blockquote>
+<p>生产数据，运行在一个独立的线程。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
+<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
+</blockquote>
+<p><img src="image/flume1.jpg" alt="flume1"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
+&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式--策略模式</title>
     <link href="http://yoursite.com/2016/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5/"/>
     <id>http://yoursite.com/2016/07/24/设计模式-策略/</id>
     <published>2016-07-24T12:00:38.000Z</published>
-    <updated>2016-07-24T12:33:53.184Z</updated>
+    <updated>2016-07-24T12:33:53.185Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>策略模式 ，实现某一个功能有多种算法或者策略，我们可以根据环境或者条件的不同选择不同的算法或者策略来完成该功能。如查找、排序等，一种常用的方法是硬编码(Hard Coding)在一个类中，如需要提供多种查找算法，可以将这些算法写到一个类中，在该类中提供多个方法，每一个方法对应一个具体的查找算法；当然也可以将这些查找算法封装在一个统一的方法中，通过if…else…或者case等条件判断语句来进行选择。这两种实现方法我们都可以称之为硬编码，如果需要增加一种新的查找算法，需要修改封装算法类的源代码；更换查找算法，也需要修改客户端调用代码。在这个算法类中封装了大量查找算法，该类代码将较复杂，维护较为困难。如果我们将这些策略包含在客户端，这种做法更不可取，将导致客户端程序庞大而且难以维护，如果存在大量可供选择的算法时问题将变得更加严重。—抄自百度</p>
@@ -1326,7 +1372,7 @@ return oper;
     <link href="http://yoursite.com/2016/07/10/Git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
     <id>http://yoursite.com/2016/07/10/Git使用教程/</id>
     <published>2016-07-10T03:23:51.000Z</published>
-    <updated>2016-07-10T13:39:52.620Z</updated>
+    <updated>2016-07-10T13:39:52.621Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、关于版本控制-GIT-SVN"><a href="#一、关于版本控制-GIT-SVN" class="headerlink" title="一、关于版本控制(GIT/SVN)"></a>一、关于版本控制(GIT/SVN)</h3><p>两者都是优秀的版本管理工具</p>
 <ul>
@@ -1487,7 +1533,7 @@ $ git push orgin head:refs/for/dev1.0.0
     <link href="http://yoursite.com/2016/06/26/my-auto-config/"/>
     <id>http://yoursite.com/2016/06/26/my-auto-config/</id>
     <published>2016-06-26T11:09:33.000Z</published>
-    <updated>2016-06-26T14:45:28.236Z</updated>
+    <updated>2016-06-26T14:45:28.237Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Spring Boot封装好的自动配置很简单，在用得很轻松的同时，有没有想过，我们自己的项目中也根据自己的需求写一个具备Spring Boot自动配置功能的冲动呢？首先，来说说Http编码配置的例子，然后参考这个例子，我们自己来实现一个自动配置的功能。</p>
@@ -1719,7 +1765,7 @@ spring.http.encoding.force=true #force the configured encoding
     <link href="http://yoursite.com/2016/06/26/custom-rabbitmq-config/"/>
     <id>http://yoursite.com/2016/06/26/custom-rabbitmq-config/</id>
     <published>2016-06-25T18:53:01.000Z</published>
-    <updated>2016-06-25T20:25:55.676Z</updated>
+    <updated>2016-06-25T20:25:55.677Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
@@ -2223,7 +2269,7 @@ public class DemoPojoResourcesTest extends AbstractTestNGSpringContextTests {
     <link href="http://yoursite.com/2016/06/26/mockito-testng-assertj/"/>
     <id>http://yoursite.com/2016/06/26/mockito-testng-assertj/</id>
     <published>2016-06-25T17:30:44.000Z</published>
-    <updated>2016-06-25T18:48:18.341Z</updated>
+    <updated>2016-06-25T18:48:18.342Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>写测试用例时，如果只关注输入、输出或是否被调用，建议使用Mock框架，能使用Mock的框架有EasyMock、Mockito、PowerMock、JMock等；</p>
@@ -2391,190 +2437,6 @@ public class DemoBusinessTest extends AbstractTransactionalTestNGSpringContextTe
     
     
       <category term="mockito testng" scheme="http://yoursite.com/tags/mockito-testng/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Boot （属性、日志、Profile）配置</title>
-    <link href="http://yoursite.com/2016/06/19/Spring-Boot-rule-config/"/>
-    <id>http://yoursite.com/2016/06/19/Spring-Boot-rule-config/</id>
-    <published>2016-06-19T14:10:23.000Z</published>
-    <updated>2016-06-19T14:47:52.841Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。</p>
-</blockquote>
-<h3 id="添加-application-properties配置文件属性"><a href="#添加-application-properties配置文件属性" class="headerlink" title="添加 application.properties配置文件属性"></a>添加 application.properties配置文件属性</h3><pre><code>server.port=9090
-server.context-path=/helloworld
-jmust.name=lvkun
-jmust.age=Hello World
-</code></pre><a id="more"></a>
-<h3 id="添加配置类"><a href="#添加配置类" class="headerlink" title="添加配置类"></a>添加配置类</h3><pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-@Component
-@ConfigurationProperties(prefix = &quot;jmust&quot;) //通过@ConfigurationProperties 加载 properties 文件内的配置，通过 prefix 属性指定properties 的配置的前缀，通过location指定properties文件的位置，例如@ConfigurationProperties(prefix = &quot;jmust&quot;，location={&quot;classpath:config/jmust.properties&quot;}),当然本例子不需要配置 location
-public class AuthorSettings {
-    private String name;
-    private Long age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
-}
-</code></pre><h3 id="修改入口类"><a href="#修改入口类" class="headerlink" title="修改入口类"></a>修改入口类</h3><pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.jmust.demo.config.AuthorSettings;
-
-@RestController
-@SpringBootApplication
-public class DemoApplication {
-
-    @Autowired
-    private AuthorSettings authorSettings; //注入该配置信息
-
-    @RequestMapping(&quot;/&quot;)
-    public String index(){
-        return &quot;author name is &quot;+ authorSettings.getName()+&quot; and author age is &quot;+authorSettings.getAge();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-    }
-}
-</code></pre><h3 id="运行，访问-http-localhost-9090-helloworld"><a href="#运行，访问-http-localhost-9090-helloworld" class="headerlink" title="运行，访问 http://localhost:9090/helloworld"></a>运行，访问 <a href="http://localhost:9090/helloworld" target="_blank" rel="external">http://localhost:9090/helloworld</a></h3><h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><blockquote>
-<p>Spring Boot 支持Java Util Logging、Log4J、 Log4J2和Logback作为日志框架，默认情况下，Spring Boot 使用Logback作为日志框架</p>
-</blockquote>
-<ul>
-<li><p>配置日志级别</p>
-<pre><code>logging.file=D:/log/log.log
-</code></pre></li>
-<li><p>配置日志文件，格式为logging.level.包名=级别:</p>
-<pre><code>logging.level.org.springframework.web= DEBUG
-</code></pre></li>
-</ul>
-<h3 id="Profile-配置"><a href="#Profile-配置" class="headerlink" title="Profile 配置"></a>Profile 配置</h3><blockquote>
-<p>Profilr 是 Spring 用来针对不同环境对不同的配置提供支持的，全局Profile 配置使用 application-{profile}.properties (如 application-prod.properties)</p>
-<p>通过在 application.properties 中设置 spring.profiles.active=prod 来指定活动的 Profile。</p>
-</blockquote>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>生产（prod）和开发（dev）环境，生产环境下端口号为80，开发环境下端口号为9090。</p>
-<ul>
-<li><p>生产环境下的配置文件 application-prod.properties:</p>
-<pre><code>server.port=80
-</code></pre></li>
-<li><p>开发环境下的配置文件 application-dev.properties:</p>
-<pre><code>server.port=9090
-</code></pre></li>
-<li><p>application.properties中添加：</p>
-<pre><code>spring.profiles.active=dev
-</code></pre></li>
-</ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 9090 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
-</code></pre><ul>
-<li><p>修改application.properties:</p>
-<pre><code>spring.profiles.active=prod
-</code></pre></li>
-</ul>
-<p>启动程序结果为：</p>
-<pre><code>Registering beans for JMX exposure on startuo
-Tomcat started on port(s): 80 (http)
-Started DemoApplication in 2.403 seconds (JVM running for 2.755)
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;在常规Spring 环境下，注入 properties 文件里的值得方式，通过@PropertySource指明properties 文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties定义属性，直接使用@Value注入即可。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;添加-application-properties配置文件属性&quot;&gt;&lt;a href=&quot;#添加-application-properties配置文件属性&quot; class=&quot;headerlink&quot; title=&quot;添加 application.properties配置文件属性&quot;&gt;&lt;/a&gt;添加 application.properties配置文件属性&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;server.port=9090
-server.context-path=/helloworld
-jmust.name=lvkun
-jmust.age=Hello World
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Boot 配置文件</title>
-    <link href="http://yoursite.com/2016/06/19/Spring-Boot-Config/"/>
-    <id>http://yoursite.com/2016/06/19/Spring-Boot-Config/</id>
-    <published>2016-06-19T13:37:56.000Z</published>
-    <updated>2016-06-19T14:07:45.999Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。<br>Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。<br>Spring Boot 的全局配置文件的作用是对一些默认配置的配置值进行修改。</p>
-</blockquote>
-<h3 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h3><blockquote>
-<p>将Tomcat的默认端口号8080修改为9090，并将默认的访问路径”/“修改为”/helloworld”。<br>  可以在application.properties 中添加：</p>
-</blockquote>
-<pre><code>server.port=9090
-server.context-path=/helloworld
-</code></pre><a id="more"></a>
-<p>或者在 application.yml中添加：</p>
-<pre><code>server:
-    port: 9090
-    contextPath: /helloworld
-</code></pre><h3 id="定制Banner"><a href="#定制Banner" class="headerlink" title="定制Banner"></a>定制Banner</h3><ul>
-<li>修改Banner<br>在Spring Boot 启动的时候会有一个默认的启动图案Spring</li>
-<li>在src/main/resources 下新建一个banner.txt</li>
-<li>通过 <a href="http://patorjk.com/software/taag" target="_blank" rel="external">http://patorjk.com/software/taag</a> 网站生成字符，如敲入的为 “lvkun”,将网站生成的字符复制到banner.txt中。</li>
-<li>启动的时候你将会看到图案是lvkun</li>
-</ul>
-<h3 id="关闭banner"><a href="#关闭banner" class="headerlink" title="关闭banner"></a>关闭banner</h3><ul>
-<li><p>main 里的内容修改为：</p>
-<pre><code>SpringApplication app = new SpringApplication(Demo.class);
-app.setShowBanner(false);
-app.run(args);
-</code></pre></li>
-<li><p>或使用fluent API 修改为：</p>
-<pre><code>new SpringApplicationBuilder(Demo.class).showBanner(false).run(args);
-</code></pre></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。&lt;br&gt;Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。&lt;br&gt;Spring Boot 的全局配置文件的作用是对一些默认配置的配置值进行修改。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;简单实例&quot;&gt;&lt;a href=&quot;#简单实例&quot; class=&quot;headerlink&quot; title=&quot;简单实例&quot;&gt;&lt;/a&gt;简单实例&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;将Tomcat的默认端口号8080修改为9090，并将默认的访问路径”/“修改为”/helloworld”。&lt;br&gt;  可以在application.properties 中添加：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;server.port=9090
-server.context-path=/helloworld
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
     
   </entry>
   
