@@ -82,6 +82,75 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class" itemprop="url">【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-10-13T02:23:51.000Z" itemprop="datePublished"> 发表于 2018-10-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？</p>
+</blockquote>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp">官方例子</a></p>
+<h3 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h3><ul>
+<li>生产者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Product </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">	@Scheduled(fixedDelay = 100L)</span><br><span class="line">	public void product() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(24545);</span><br><span class="line">        user.serName(&quot;lvk&quot;);</span><br><span class="line">        user.setAdress(&quot;GDGZTH&quot;);</span><br><span class="line">		this.rabbitTemplate.convertAndSend(&quot;queueName&quot;, user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/rabbitMQ/">rabbitMQ</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/rabbitMQ/">rabbitMQ</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/10/13/【备忘】LocalDate&LocalDateTime常用API互相转换/" title="LocalDate&amp;LocalDateTime常用API互相转换" itemprop="url">LocalDate&amp;LocalDateTime常用API互相转换</a>
   </h1>
   <p class="article-author">By
@@ -698,70 +767,6 @@
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/15/批量修改项目版本号方法（Maven）/" title="批量修改项目版本号方法（Maven）" itemprop="url">批量修改项目版本号方法（Maven）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-15T07:00:38.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="批量修改项目版本号方法（Maven）"><a href="#批量修改项目版本号方法（Maven）" class="headerlink" title="批量修改项目版本号方法（Maven）"></a>批量修改项目版本号方法（Maven）</h1><blockquote>
-<p>基于Maven管理的项目，目前一般的做法都是，如果项目还是处于开发阶段，我们为了方便maven管理，我们一般都是版本号xxx-SNAPSHOT ,为什么这么做呢？假如说，我们等版本稳定了怎么办呢？我们不可能打开每一个pom.xml文件修改每一个版本号把？这太浪费时间和精力了，我们肯定不这么做，下面介绍一种批量更改版本号的方法。</p>
-</blockquote>
-<h3 id="更改Maven版本号方法"><a href="#更改Maven版本号方法" class="headerlink" title="更改Maven版本号方法"></a>更改Maven版本号方法</h3><pre><code>mvn versions:set -DnewVersion=指定版本号
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Maven/">Maven</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Maven/">Maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -855,7 +860,7 @@
 		  
 		
 		  
-			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
 		  
 		
 		  
@@ -888,6 +893,10 @@
 			
 		
 			
+				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Flume/" title="Flume">Flume<sup>2</sup></a></li>
 			
 		
@@ -897,10 +906,6 @@
 		
 			
 				<li><a href="/tags/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
 			
 		
 			
@@ -924,11 +929,11 @@
 			
 		
 			
-				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>1</sup></a></li>
+				<li><a href="/tags/ldap/" title="ldap">ldap<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/ldap/" title="ldap">ldap<sup>1</sup></a></li>
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
 			
 		
 			
@@ -952,7 +957,7 @@
 			
 		
 			
-				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
 			
 		
 			

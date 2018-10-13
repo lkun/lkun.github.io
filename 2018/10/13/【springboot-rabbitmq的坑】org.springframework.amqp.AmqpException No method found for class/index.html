@@ -4,35 +4,41 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>设计模式--简单工厂 | lkun&#39;s</title>
+    <title>【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="简单工厂模式，  就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。
+    <meta name="description" content="都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？
 
-下面以一个计算器的实现举例，简单工厂模式的场景描述：
+参考官方例子
+自己的代码
+生产者
 
-+-*/ 等运算不希望混合在一起，因为以后需要扩展的时候，比如说增加一个平方的运算，不希望在同一个方法里面或者同一个类里面去修改，因为这样子的危险性太高了，如果因为增加一个平方的运算，从而影响之前的运算，那肯定不是我们所希望的，所以有简单工厂模式的出现，下面主">
+123456789101112131415public class Product &amp;#123;	@Autowired	private RabbitTemplate rabbitTemplate;	@S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式--简单工厂">
-<meta property="og:url" content="http://yoursite.com/2016/07/24/设计模式-简单工厂/index.html">
+<meta property="og:title" content="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class">
+<meta property="og:url" content="http://yoursite.com/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="简单工厂模式，  就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。
+<meta property="og:description" content="都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？
 
-下面以一个计算器的实现举例，简单工厂模式的场景描述：
+参考官方例子
+自己的代码
+生产者
 
-+-*/ 等运算不希望混合在一起，因为以后需要扩展的时候，比如说增加一个平方的运算，不希望在同一个方法里面或者同一个类里面去修改，因为这样子的危险性太高了，如果因为增加一个平方的运算，从而影响之前的运算，那肯定不是我们所希望的，所以有简单工厂模式的出现，下面主">
-<meta property="og:updated_time" content="2016-07-24T11:59:02.528Z">
+123456789101112131415public class Product &amp;#123;	@Autowired	private RabbitTemplate rabbitTemplate;	@S">
+<meta property="og:updated_time" content="2018-10-13T02:38:28.863Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式--简单工厂">
-<meta name="twitter:description" content="简单工厂模式，  就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。
+<meta name="twitter:title" content="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class">
+<meta name="twitter:description" content="都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？
 
-下面以一个计算器的实现举例，简单工厂模式的场景描述：
+参考官方例子
+自己的代码
+生产者
 
-+-*/ 等运算不希望混合在一起，因为以后需要扩展的时候，比如说增加一个平方的运算，不希望在同一个方法里面或者同一个类里面去修改，因为这样子的危险性太高了，如果因为增加一个平方的运算，从而影响之前的运算，那肯定不是我们所希望的，所以有简单工厂模式的出现，下面主">
+123456789101112131415public class Product &amp;#123;	@Autowired	private RabbitTemplate rabbitTemplate;	@S">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -92,14 +98,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/24/设计模式-简单工厂/" title="设计模式--简单工厂" itemprop="url">设计模式--简单工厂</a>
+      <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class" itemprop="url">【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-24T11:41:38.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
+    <time datetime="2018-10-13T02:23:51.000Z" itemprop="datePublished"> 发表于 2018-10-13</time>
     
   </p>
 </header>
@@ -108,107 +114,37 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试AppMain"><span class="toc-number">1.</span> <span class="toc-text">测试AppMain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单工厂-OperationFactory，是各种运算的桥梁"><span class="toc-number">2.</span> <span class="toc-text">简单工厂 OperationFactory，是各种运算的桥梁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算的抽象操作-Operation"><span class="toc-number">3.</span> <span class="toc-text">运算的抽象操作 Operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加法实现抽象-OperationAdd"><span class="toc-number">4.</span> <span class="toc-text">加法实现抽象 OperationAdd</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">1.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己的代码"><span class="toc-number">2.</span> <span class="toc-text">自己的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案如下"><span class="toc-number">3.</span> <span class="toc-text">解决方案如下</span></a></li></ol>
 		
 		</div>
 		
 		<blockquote>
-<p>简单工厂模式，  就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。</p>
+<p>都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？</p>
 </blockquote>
-<p>下面以一个计算器的实现举例，简单工厂模式的场景描述：</p>
-<blockquote>
-<p>+-*/ 等运算不希望混合在一起，因为以后需要扩展的时候，比如说增加一个平方的运算，不希望在同一个方法里面或者同一个类里面去修改，因为这样子的危险性太高了，如果因为增加一个平方的运算，从而影响之前的运算，那肯定不是我们所希望的，所以有简单工厂模式的出现，下面主要是以贴代码为主：</p>
-</blockquote>
-<h3 id="测试AppMain"><a href="#测试AppMain" class="headerlink" title="测试AppMain"></a>测试AppMain</h3><pre><code>public static void main(String[] args) throws Exception {
-    Operation operation = OperationFactory.createOperate(&quot;-&quot;);
-    operation.setNumberA(3);
-    operation.setNumberB(2);
-    double result = operation.getResult();
-    System.out.println(result);
-}
-</code></pre><a id="more"></a>
-<h3 id="简单工厂-OperationFactory，是各种运算的桥梁"><a href="#简单工厂-OperationFactory，是各种运算的桥梁" class="headerlink" title="简单工厂 OperationFactory，是各种运算的桥梁"></a>简单工厂 OperationFactory，是各种运算的桥梁</h3><pre><code>public static Operation createOperate(String operate){
-Operation oper = null;
-switch (operate)
-{
-    case &quot;+&quot;:
-    {
-        oper = new OperationAdd();
-        break;
-    }
-    case &quot;-&quot;:
-    {
-        oper = new OperationSub();
-        break;
-    }
-    case &quot;*&quot;:
-    {
-        oper = new OperationMul();
-        break;
-    }
-    case &quot;/&quot;:
-    {
-        oper = new OperationDiv();
-        break;
-    }
-    case &quot;sqr&quot;:
-    {
-        oper = new OperationSqr();
-        break;
-    }
-    case &quot;sqrt&quot;:
-    {
-        oper = new OperationSqrt();
-        break;
-    }
-    case &quot;+/-&quot;:
-    {
-        oper = new OperationReverse();
-        break;
-    }
-}
-
-return oper;
-}
-</code></pre><h3 id="运算的抽象操作-Operation"><a href="#运算的抽象操作-Operation" class="headerlink" title="运算的抽象操作 Operation"></a>运算的抽象操作 Operation</h3><pre><code>public abstract class Operation {
-    private double numberA = 0;
-    private double numberB = 0;
-
-    public double getNumberA() {
-        return numberA;
-    }
-
-    public void setNumberA(double numberA) {
-        this.numberA = numberA;
-    }
-
-    public double getNumberB() {
-        return numberB;
-    }
-
-    public void setNumberB(double numberB) {
-        this.numberB = numberB;
-    }
-
-    /**
-     * 抽象获取结果方法，子类实现
-     * @return
-     * @throws Exception
-     */
-    public abstract double getResult() throws Exception;
-}
-</code></pre><h3 id="加法实现抽象-OperationAdd"><a href="#加法实现抽象-OperationAdd" class="headerlink" title="加法实现抽象 OperationAdd"></a>加法实现抽象 OperationAdd</h3><pre><code>public class OperationAdd extends Operation{
-
-    @Override
-    public double getResult() {
-        double result = 0;
-        result = getNumberA() + getNumberB();
-        System.out.println(result);
-        return result;
-    }
-}
-</code></pre><p>…….</p>
-<p>其他的运算一样，具体不贴码了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp" target="_blank" rel="external">官方例子</a></p>
+<h3 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h3><ul>
+<li>生产者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Product </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">	@Scheduled(fixedDelay = 100L)</span><br><span class="line">	public void product() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(24545);</span><br><span class="line">        user.serName(&quot;lvk&quot;);</span><br><span class="line">        user.setAdress(&quot;GDGZTH&quot;);</span><br><span class="line">		this.rabbitTemplate.convertAndSend(&quot;queueName&quot;, user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>消费者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">@RabbitListener(queues = &quot;queueName&quot;)</span><br><span class="line">public class Consumer  &#123;</span><br><span class="line">    protected Logger logger = Logger.getLogger(Consumer.class); </span><br><span class="line">  </span><br><span class="line">    @RabbitHandler</span><br><span class="line">    public void process(@Payload User user) &#123;</span><br><span class="line">        UserResponse response = new UserResponse();</span><br><span class="line">        logger.info(user.getId() + &quot;-&gt;&quot; + response.getRetCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看控制台日志输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.amqp.AmqpException: No method found for class </span><br><span class="line"></span><br><span class="line">死循环似的输出......</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案如下"><a href="#解决方案如下" class="headerlink" title="解决方案如下"></a>解决方案如下</h3><p>在初始化的时候先构建如下两个bean：</p>
+<ul>
+<li>RabbitTemplate</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) </span><br><span class="line">&#123;</span><br><span class="line">    RabbitTemplate template = new RabbitTemplate(connectionFactory);</span><br><span class="line">    template.setMessageConverter(new Jackson2JsonMessageConverter());</span><br><span class="line">    return template;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SimpleRabbitListenerContainerFactory (消息监听器工厂)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) </span><br><span class="line">&#123;</span><br><span class="line">    SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();</span><br><span class="line">    factory.setConnectionFactory(connectionFactory);</span><br><span class="line">    factory.setMessageConverter(new Jackson2JsonMessageConverter());</span><br><span class="line">    return factory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后将以上消费者的代码修改为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class Consumer  </span><br><span class="line">&#123;</span><br><span class="line">    protected Logger logger = Logger.getLogger(Consumer.class); </span><br><span class="line"></span><br><span class="line">    @RabbitListener(queues = &quot;queueName&quot;, containerFactory=&quot;rabbitListenerContainerFactory&quot;)</span><br><span class="line">    public void process(@Payload User user) </span><br><span class="line">    &#123; </span><br><span class="line">        UserResponse response = new UserResponse();</span><br><span class="line">        logger.info(request.getId() + &quot;-&gt;&quot; + response.getRetCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续看控制台日志，没有报错，并输出正确的日志，问题解决！</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -216,13 +152,13 @@ return oper;
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  <a class="article-category-link" href="/categories/rabbitMQ/">rabbitMQ</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/设计模式/">设计模式</a><a href="/tags/factory/">factory</a>
+  <span></span> <a href="/tags/rabbitMQ/">rabbitMQ</a>
   </div>
 
 </div>
@@ -231,7 +167,7 @@ return oper;
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/07/24/设计模式-简单工厂/" data-title="设计模式--简单工厂 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" data-title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -244,19 +180,11 @@ return oper;
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/24/设计模式-策略/" title="设计模式--策略模式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  设计模式--策略模式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/10/Git使用教程/"  title="Git使用教程---针对刚入职的同事">
+<a href="/2018/10/13/【备忘】LocalDate&LocalDateTime常用API互相转换/"  title="LocalDate&amp;LocalDateTime常用API互相转换">
  <strong>下一篇：</strong><br/> 
- <span>Git使用教程---针对刚入职的同事
+ <span>LocalDate&amp;LocalDateTime常用API互相转换
 </span>
 </a>
 </div>
@@ -271,7 +199,7 @@ return oper;
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试AppMain"><span class="toc-number">1.</span> <span class="toc-text">测试AppMain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单工厂-OperationFactory，是各种运算的桥梁"><span class="toc-number">2.</span> <span class="toc-text">简单工厂 OperationFactory，是各种运算的桥梁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算的抽象操作-Operation"><span class="toc-number">3.</span> <span class="toc-text">运算的抽象操作 Operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加法实现抽象-OperationAdd"><span class="toc-number">4.</span> <span class="toc-text">加法实现抽象 OperationAdd</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">1.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己的代码"><span class="toc-number">2.</span> <span class="toc-text">自己的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案如下"><span class="toc-number">3.</span> <span class="toc-text">解决方案如下</span></a></li></ol>
  
   </div>
 

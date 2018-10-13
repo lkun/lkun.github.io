@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-13T01:48:15.066Z</updated>
+  <updated>2018-10-13T02:38:28.863Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</title>
+    <link href="http://yoursite.com/2018/10/13/%E3%80%90springboot-rabbitmq%E7%9A%84%E5%9D%91%E3%80%91org.springframework.amqp.AmqpException%20No%20method%20found%20for%20class/"/>
+    <id>http://yoursite.com/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/</id>
+    <published>2018-10-13T02:23:51.000Z</published>
+    <updated>2018-10-13T02:38:28.863Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？</p>
+</blockquote>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp" target="_blank" rel="external">官方例子</a></p>
+<h3 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h3><ul>
+<li>生产者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Product </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">	@Scheduled(fixedDelay = 100L)</span><br><span class="line">	public void product() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(24545);</span><br><span class="line">        user.serName(&quot;lvk&quot;);</span><br><span class="line">        user.setAdress(&quot;GDGZTH&quot;);</span><br><span class="line">		this.rabbitTemplate.convertAndSend(&quot;queueName&quot;, user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>消费者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">@RabbitListener(queues = &quot;queueName&quot;)</span><br><span class="line">public class Consumer  &#123;</span><br><span class="line">    protected Logger logger = Logger.getLogger(Consumer.class); </span><br><span class="line">  </span><br><span class="line">    @RabbitHandler</span><br><span class="line">    public void process(@Payload User user) &#123;</span><br><span class="line">        UserResponse response = new UserResponse();</span><br><span class="line">        logger.info(user.getId() + &quot;-&gt;&quot; + response.getRetCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看控制台日志输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.amqp.AmqpException: No method found for class </span><br><span class="line"></span><br><span class="line">死循环似的输出......</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案如下"><a href="#解决方案如下" class="headerlink" title="解决方案如下"></a>解决方案如下</h3><p>在初始化的时候先构建如下两个bean：</p>
+<ul>
+<li>RabbitTemplate</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) </span><br><span class="line">&#123;</span><br><span class="line">    RabbitTemplate template = new RabbitTemplate(connectionFactory);</span><br><span class="line">    template.setMessageConverter(new Jackson2JsonMessageConverter());</span><br><span class="line">    return template;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SimpleRabbitListenerContainerFactory (消息监听器工厂)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) </span><br><span class="line">&#123;</span><br><span class="line">    SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();</span><br><span class="line">    factory.setConnectionFactory(connectionFactory);</span><br><span class="line">    factory.setMessageConverter(new Jackson2JsonMessageConverter());</span><br><span class="line">    return factory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后将以上消费者的代码修改为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class Consumer  </span><br><span class="line">&#123;</span><br><span class="line">    protected Logger logger = Logger.getLogger(Consumer.class); </span><br><span class="line"></span><br><span class="line">    @RabbitListener(queues = &quot;queueName&quot;, containerFactory=&quot;rabbitListenerContainerFactory&quot;)</span><br><span class="line">    public void process(@Payload User user) </span><br><span class="line">    &#123; </span><br><span class="line">        UserResponse response = new UserResponse();</span><br><span class="line">        logger.info(request.getId() + &quot;-&gt;&quot; + response.getRetCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续看控制台日志，没有报错，并输出正确的日志，问题解决！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp&quot;&gt;官方例子&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;自己的代码&quot;&gt;&lt;a href=&quot;#自己的代码&quot; class=&quot;headerlink&quot; title=&quot;自己的代码&quot;&gt;&lt;/a&gt;自己的代码&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;生产者&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class Product &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@Autowired&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	private RabbitTemplate rabbitTemplate;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@Scheduled(fixedDelay = 100L)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	public void product() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        User user = new User();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        user.setId(24545);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        user.serName(&amp;quot;lvk&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        user.setAdress(&amp;quot;GDGZTH&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		this.rabbitTemplate.convertAndSend(&amp;quot;queueName&amp;quot;, user);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="rabbitMQ" scheme="http://yoursite.com/categories/rabbitMQ/"/>
+    
+    
+      <category term="rabbitMQ" scheme="http://yoursite.com/tags/rabbitMQ/"/>
+    
+  </entry>
   
   <entry>
     <title>LocalDate&amp;LocalDateTime常用API互相转换</title>
@@ -1980,327 +2036,6 @@ public class DemoMQResourceTest {
       <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
     
       <category term="rabbitMQ" scheme="http://yoursite.com/tags/rabbitMQ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于Spring Boot自定义Mybatis配置实例</title>
-    <link href="http://yoursite.com/2016/06/26/custom-mybatis-config/"/>
-    <id>http://yoursite.com/2016/06/26/custom-mybatis-config/</id>
-    <published>2016-06-25T18:52:38.000Z</published>
-    <updated>2016-06-25T20:26:08.258Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
-</blockquote>
-<a id="more"></a>
-<p>由于我是基于Spring Boot的来说明mybatis的使用，所以首先我们需要配置好mybatis。</p>
-<h2 id="依赖包"><a href="#依赖包" class="headerlink" title="依赖包"></a>依赖包</h2><pre><code>&lt;!--依赖--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
-    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
-    &lt;version&gt;9.4.1208&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
-    &lt;version&gt;3.4.1&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
-    &lt;version&gt;1.3.0&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;4.2.6.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
-    &lt;artifactId&gt;druid&lt;/artifactId&gt;
-    &lt;version&gt;1.0.20&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.h2database&lt;/groupId&gt;
-    &lt;artifactId&gt;h2&lt;/artifactId&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
-    &lt;version&gt;1.4.192&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><h2 id="配置文件准备"><a href="#配置文件准备" class="headerlink" title="配置文件准备"></a>配置文件准备</h2><p>在 src/main/resources/下面添加如下properties文件：</p>
-<ul>
-<li><p>application.properties</p>
-<pre><code>spring.profiles.active=@profiles.active@
-jdbc.url=${jdbc.url}
-jdbc.username= ${jdbc.username}
-jdbc.password= ${jdbc.password}
-jdbc.driver=${jdbc.driver}
-jdbc.poolMaximumActiveConnections=${jdbc.poolMaximumActiveConnections}
-jdbc.poolMaximumIdleConnections=${jdbc.poolMaximumIdleConnections}
-</code></pre></li>
-<li><p>application-develop.properties(测试用)</p>
-<pre><code>jdbc.url=jdbc:h2:mem:demo-db;MODE=PostgreSQL;INIT=RUNSCRIPT FROM &apos;./src/test/resources/sql/demo.sql&apos;
-jdbc.username= sa
-jdbc.password= sa
-jdbc.driver= org.h2.Driver
-jdbc.poolMaximumActiveConnections=20
-jdbc.poolMaximumIdleConnections=0
-</code></pre></li>
-<li><p>application-production.properties（生产用）</p>
-<pre><code>jdbc.url=jdbc:postgresql://192.168.100.117:5432/db_demo?characterEncoding#UTF-8
-jdbc.username= postgres
-jdbc.password= postgres
-jdbc.driver=org.postgresql.Driver
-jdbc.poolMaximumActiveConnections=30
-jdbc.poolMaximumIdleConnections=0
-</code></pre></li>
-</ul>
-<h2 id="Mybatis自定义配置文件实现"><a href="#Mybatis自定义配置文件实现" class="headerlink" title="Mybatis自定义配置文件实现"></a>Mybatis自定义配置文件实现</h2><p>在src/main/java/com.jmust.service.demo下创建”MybatisConfiguration.java”文件</p>
-<pre><code>import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-
-@Configuration
-@MapperScan(basePackages = {&quot;com.jmust.service.demo.resource.mapper&quot;})
-public class MybatisConfiguration {
-
-    @Autowired
-    private Environment env;
-
-    @Autowired
-    private DataSource pooledDataSource;
-    private static Log logger = LogFactory.getLog(MybatisConfiguration.class);
-
-    @PostConstruct
-    @Bean
-    public DataSource dataSource() {
-        DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setPassword(env.getProperty(&quot;jdbc.password&quot;));
-        druidDataSource.setUsername(env.getProperty(&quot;jdbc.username&quot;));
-        druidDataSource.setUrl(env.getProperty(&quot;jdbc.url&quot;));
-        druidDataSource.setDriverClassName(env.getProperty(&quot;jdbc.driver&quot;));
-        druidDataSource.setMaxActive(Integer.parseInt(env.getProperty(&quot;jdbc.poolMaximumActiveConnections&quot;)));
-        return druidDataSource;
-    }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory() {
-        try {
-            SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-            sessionFactory.setDataSource(pooledDataSource);
-            sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
-                    .getResources(&quot;classpath:mapping/*.xml&quot;));
-
-            return sessionFactory.getObject();
-        } catch (Exception e) {
-            logger.error(&quot;not install sessionFactory&quot;, e);
-            throw new RuntimeException(&quot;not install sessionFactory&quot;);
-        }
-    }
-
-    @Bean
-    public DataSourceTransactionManager transaction() {
-        return new DataSourceTransactionManager(pooledDataSource);
-    }
-}
-</code></pre><h2 id="Mybatis代码生成"><a href="#Mybatis代码生成" class="headerlink" title="Mybatis代码生成"></a>Mybatis代码生成</h2><ul>
-<li>1、生成xxxMapper.java接口文件(src/main/com.jmust.service.demo.resource.mapper)，该文件主要作用是映射到xxxMapper.xml文件中的操作标签的（比如insert对应xml文件中的<insert>）</insert></li>
-<li><pre><code>import com.jmust.service.demo.resource.entity.Demo;
-import org.springframework.stereotype.Repository;
-import java.util.Date;
-
-@Repository
-public interface DemoMapper {
-    Demo select(long customerId);   
-    boolean insert(Demo demoPojo);  
-    boolean update(Demo demoPojo);
-}
-</code></pre></li>
-<li><p>2、生成xxxMapper.xml文件(src/main/resources/mapping/)，该文件的主要作用就是操作数据（插入、更改、删除……）语句的维护及管理</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE mapper
-PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-
-&lt;mapper namespace=&quot;com.jmust.service.demo.resource.mapper.DemoMapper&quot;&gt;
-
-&lt;resultMap id=&quot;demoPojo&quot; type=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
-    &lt;result column=&quot;customer_id&quot; property=&quot;customerId&quot;/&gt;
-    &lt;result column=&quot;total_times&quot; property=&quot;totalTimes&quot;/&gt;
-    &lt;result column=&quot;continue_days&quot; property=&quot;continueDays&quot;/&gt;
-    &lt;result column=&quot;last_time&quot; property=&quot;lastTime&quot;/&gt;
-&lt;/resultMap&gt;
-</code></pre></li>
-</ul>
-<pre><code>    &lt;select id=&quot;select&quot; resultMap=&quot;demoPojo&quot; parameterType=&quot;long&quot;&gt;
-        SELECT * FROM demo
-        WHERE customer_id = #{customerId}
-    &lt;/select&gt;
-
-    &lt;insert id=&quot;insert&quot; parameterType=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
-        insert into demo(customer_id,total_times,continue_days,last_time)
-        values
-        (#{customerId},1,#{continueDays},#{lastTime},#{awardType})
-    &lt;/insert&gt;
-
-    &lt;update id=&quot;update&quot; parameterType=&quot;com.jmust.service.demo.resource.entity.Demo&quot;&gt;
-        update demo
-        &lt;set&gt;
-            &lt;if test=&quot;continueDays != null&quot;&gt;
-                continue_days = #{continueDays},
-            &lt;/if&gt;
-            &lt;if test=&quot;awardType != null&quot;&gt;
-                award_type = #{awardType},
-            &lt;/if&gt;
-            &lt;if test=&quot;lastTime != null&quot;&gt;
-                last_time = #{lastTime}
-            &lt;/if&gt;
-        &lt;/set&gt;
-        where customer_id = #{customerId}
-    &lt;/update&gt;
-
-&lt;/mapper&gt;
-</code></pre><ul>
-<li><p>3、自定义接口类（DemoResources）src/main/com.jmust.service.demo.resource，定义操作契约</p>
-<pre><code>import com.jmust.service.demo.resource.entity.Demo;
-import java.util.Date;
-
-public interface DemoResources {
-     Demo queryDemo(long customerId);
-     void update(Demo demoinPojo);
-     void insert(Demo demoPojo);
-}
-</code></pre></li>
-<li><p>4、实现接口类，业务逻辑包含在内(src/main/com.jmust.service.demo.resource)</p>
-<pre><code>import com.jmust.contract.ExtendedStatusRuntimeException;
-import com.jmust.contract.ResourceUnavailableException;
-import com.jmust.service.demo.DemoStatus;
-import com.jmust.service.demo.resource.entity.Demo;
-import com.jmust.service.demo.resource.mapper.DemoMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
-
-@Component
-public class DemoResourcesImpl implements DemoResources{
-    @Autowired
-    private DemoMapper demoMapper;
-    @Override
-    public Demo queryDemo(long customerId) {
-        try {
-            return demoMapper.select(customerId);
-        }catch (Exception e){
-            throw new ResourceUnavailableException(&quot;Database fail select Demo&quot;,e);
-        }
-    }
-
-    @Override
-    public void update(Demo demoPojo) {
-        try {
-            if(!demoMapper.update(demoPojo)){
-                throw new ExtendedStatusRuntimeException(101, &quot;Demo process  fail  ,because Demo   update fail&quot;);
-            }
-        }catch (Exception e){
-            throw new ResourceUnavailableException(&quot;Database fail update demoPojo&quot;,e);
-        }
-    }
-
-    @Override
-    public void insert(Demo demo) {
-        try {
-            if(!demoMapper.insert(demo)){
-                throw new ExtendedStatusRuntimeException(102, &quot;demo process  fail  ,because demo insert  fail&quot;);
-            }
-        }catch (DuplicateKeyException e){
-            if(!DemoMapper.update(demo)){
-                throw new ExtendedStatusRuntimeException(102, &quot;demo process  fail  &quot; +
-                        &quot;,because demo update  fail&quot;);
-            }
-        }catch (Exception e){
-            throw new ResourceUnavailableException(&quot;Database fail insert demoPojo &quot;,e);
-        }
-    }
-
-}
-</code></pre></li>
-</ul>
-<h2 id="项目测试"><a href="#项目测试" class="headerlink" title="项目测试"></a>项目测试</h2><pre><code>import com.jmust.server.profile.ProfileDevelop;
-import com.jmust.server.profile.ProfileTest;
-import com.jmust.service.demo.DemoConstants;
-import com.jmust.service.demo.MybatisConfiguration;
-import com.jmust.service.demo.resource.entity.Demo;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-@ProfileTest
-@ProfileDevelop
-@ContextConfiguration(classes = {MybatisConfiguration.class, DemoResourcesImpl.class})
-@TestPropertySource(value = &quot;classpath:application.properties&quot;)
-public class DemoPojoResourcesTest extends AbstractTestNGSpringContextTests {
-    private Long concurrent = System.currentTimeMillis();
-    private int customerId = 11;
-
-    @Autowired
-    private DemoResources cm;
-
-    @BeforeClass
-    public void insert() {
-        Demo demoPojo = new Demo();
-        demoPojo.setCustomerId(customerId);
-        demoPojo.setCreateTime(new Timestamp(concurrent));
-        demoPojo.setAwardTypeEnum(&quot;&quot;);
-        demoPojo.setTotalTimes(0);
-        cm.insert(demoPojo);
-    }
-
-    @Test
-    public void queryDemo() {
-        Demo demoPojo = cm.queryDemo(customerId);
-        assertThat(demoPojo.getCustomerId()).isEqualTo(customerId);
-        assertThat(demoPojo.getCreateTime()).isEqualTo(new Timestamp(concurrent));
-        assertThat(demoPojo.getTotalTimes()).isEqualTo(1);
-    }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的 Java对象）映射成数据库中的记录。随着2013年开源以来，目前业内使用的也越来越多。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="mybatis" scheme="http://yoursite.com/categories/mybatis/"/>
-    
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
-    
-      <category term="mybatis" scheme="http://yoursite.com/tags/mybatis/"/>
     
   </entry>
   
