@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/10/13/%E3%80%90%E5%A4%87%E5%BF%98%E3%80%91LocalDate&LocalDateTime%E5%B8%B8%E7%94%A8API%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/</loc>
+    
+    <lastmod>2018-10-13T01:48:15.066Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/09/09/docker/Docker%E6%9E%84%E5%BB%BAMariadb%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     
     <lastmod>2018-09-09T04:30:01.180Z</lastmod>
