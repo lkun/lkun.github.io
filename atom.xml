@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-19T16:08:42.956Z</updated>
+  <updated>2018-10-19T16:13:29.067Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Redis-Cluster集群模式下使用Pipeline批量操作</title>
-    <link href="http://yoursite.com/2018/10/19/redis/Redis%20Cluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline%EF%BC%9F/"/>
-    <id>http://yoursite.com/2018/10/19/redis/Redis Cluster下如何支持Pipeline？/</id>
+    <link href="http://yoursite.com/2018/10/19/redis/Redis%20Cluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline/"/>
+    <id>http://yoursite.com/2018/10/19/redis/Redis Cluster下如何支持Pipeline/</id>
     <published>2018-10-19T15:30:01.000Z</published>
-    <updated>2018-10-19T16:08:42.956Z</updated>
+    <updated>2018-10-19T16:13:29.067Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<b>redis Pipeline（管道机制）</b>可以解决。<br>Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
