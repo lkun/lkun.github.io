@@ -82,6 +82,77 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/10/19/redis/Redis Cluster下如何支持Pipeline？/" title="Redis-Cluster集群模式下使用Pipeline批量操作" itemprop="url">Redis-Cluster集群模式下使用Pipeline批量操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-10-19T15:30:01.000Z" itemprop="datePublished"> 发表于 2018-10-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<B>redis Pipeline（管道机制）</B>可以解决。<br>Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
+</blockquote>
+<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><B> Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 </B>
+
+
+<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><B> 当然不了…….</B>
+
+
+<h3 id="那该如何"><a href="#那该如何" class="headerlink" title="那该如何"></a>那该如何</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/10/19/redis/Redis Cluster下如何支持Pipeline？/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Redis/">Redis</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class" itemprop="url">【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</a>
   </h1>
   <p class="article-author">By
@@ -277,67 +348,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/UML/">UML</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/UML/">UML</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2018/09/09/pack/gradle/gradle-to-maven/" title="gradle项目打包到maven仓库" itemprop="url">gradle项目打包到maven仓库</a>
   </h1>
   <p class="article-author">By
@@ -377,6 +387,67 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/maven/">maven</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/UML/">UML</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/UML/">UML</a>
   </div>
 
 </div>
@@ -690,83 +761,6 @@
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/15/非Maven的Jar转成Maven的Jar方法/" title="如何将jar手动安装到maven私服" itemprop="url">如何将jar手动安装到maven私服</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-15T07:00:38.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="如何将非maven格式jar转成maven格式的jar？"><a href="#如何将非maven格式jar转成maven格式的jar？" class="headerlink" title="如何将非maven格式jar转成maven格式的jar？"></a>如何将非maven格式jar转成maven格式的jar？</h1><blockquote>
-<p>目前java项目当中还是依然存在很多不是用maven去管理的项目，但是我们又有很多maven去管理的项目需要引用不是maven管理的项目，怎么办？当然是将不是maven项目管理的jar包转换成maven管理格式的jar包啦。</p>
-</blockquote>
-<h3 id="Install到本地repo命令"><a href="#Install到本地repo命令" class="headerlink" title="Install到本地repo命令"></a>Install到本地repo命令</h3><pre><code>mvn install:install-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar
-</code></pre><h3 id="deploy到nexus-repo命令"><a href="#deploy到nexus-repo命令" class="headerlink" title="deploy到nexus repo命令"></a>deploy到nexus repo命令</h3><pre><code>mvn deploy:deploy-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar 
--DrepositoryId=your-nexus-releases-repo 
--Durl=http://yourcorp.com:8081/nexus/content/repositories/yourreleaserepo
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Maven/">Maven</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Maven/">Maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -821,6 +815,10 @@
 		
 		  
 			<li><a href="/categories/React/" title="React">React<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		  
 		
 		  
@@ -905,7 +903,7 @@
 			
 		
 			
-				<li><a href="/tags/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			
@@ -933,11 +931,11 @@
 			
 		
 			
-				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
+				<li><a href="/tags/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
 			
 		
 			

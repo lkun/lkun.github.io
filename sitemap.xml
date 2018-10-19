@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/10/19/redis/Redis%20Cluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline%EF%BC%9F/</loc>
+    
+    <lastmod>2018-10-19T16:08:42.956Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/10/13/%E3%80%90springboot-rabbitmq%E7%9A%84%E5%9D%91%E3%80%91org.springframework.amqp.AmqpException%20No%20method%20found%20for%20class/</loc>
     
     <lastmod>2018-10-13T02:38:28.863Z</lastmod>

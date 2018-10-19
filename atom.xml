@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-13T02:38:28.863Z</updated>
+  <updated>2018-10-19T16:08:42.956Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis-Cluster集群模式下使用Pipeline批量操作</title>
+    <link href="http://yoursite.com/2018/10/19/redis/Redis%20Cluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline%EF%BC%9F/"/>
+    <id>http://yoursite.com/2018/10/19/redis/Redis Cluster下如何支持Pipeline？/</id>
+    <published>2018-10-19T15:30:01.000Z</published>
+    <updated>2018-10-19T16:08:42.956Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<b>redis Pipeline（管道机制）</b>可以解决。<br>Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
+</blockquote>
+<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><b> Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 </b>
+
+
+<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><b> 当然不了…….</b>
+
+
+<h3 id="那该如何"><a href="#那该如何" class="headerlink" title="那该如何"></a>那该如何</h3><a id="more"></a>
+<p>通过一下n步即可达到redis cluster也可以支持Pipeline。</p>
+<ul>
+<li>读取redis初始化配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">@ConfigurationProperties(prefix = &quot;spring.redis.cluster&quot;)</span><br><span class="line">public RedisClusterProperties redisClusterProperties() &#123;</span><br><span class="line">    return new RedisClusterProperties();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建JedisConnectionFactory</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisConnectionFactory jedisConnectionFactory() &#123;</span><br><span class="line">    Set&lt;String&gt; clusterNodes = clusterNodes();</span><br><span class="line">    JedisPoolConfig jedisPoolConfig = jedisPoolConfig();</span><br><span class="line">    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes), jedisPoolConfig);</span><br><span class="line">    jedisConnectionFactory.setPassword(redisClusterProperties.getPassword());</span><br><span class="line">    jedisConnectionFactory.setDatabase(redisClusterProperties.getDatabase());</span><br><span class="line"></span><br><span class="line">    return jedisConnectionFactory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建JedisCluster</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisCluster redisCluster() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        JedisCluster cluster = new JedisCluster(</span><br><span class="line">                getHostAndPorts(),</span><br><span class="line">                redisClusterProperties.getConnectionTimeout(),</span><br><span class="line">                redisClusterProperties.getSoTimeout(),</span><br><span class="line">                redisClusterProperties.getMaxAttempts(),</span><br><span class="line">                redisClusterProperties.getPassword(), jedisConnectionFactory().getPoolConfig());</span><br><span class="line"></span><br><span class="line">        return cluster;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;Redis配置初始化出现错误：&quot;, e);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<b> 以上只是支持正常redis cluster的相关操作</b>
+
+<ul>
+<li>定义 <b>nodeMap</b>和<b>slotHostMap</b>全局静态变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static Map&lt;String, JedisPool&gt; nodeMap = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line">public static TreeMap&lt;Long, String&gt; slotHostMap = new TreeMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将以上  创建JedisCluster相关代码更改为如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisCluster redisCluster() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        JedisCluster cluster = new JedisCluster(</span><br><span class="line">                getHostAndPorts(),</span><br><span class="line">                redisClusterProperties.getConnectionTimeout(),</span><br><span class="line">                redisClusterProperties.getSoTimeout(),</span><br><span class="line">                redisClusterProperties.getMaxAttempts(),</span><br><span class="line">                redisClusterProperties.getPassword(), jedisConnectionFactory().getPoolConfig());</span><br><span class="line">        &lt;B&gt;</span><br><span class="line">            nodeMap = cluster.getClusterNodes();</span><br><span class="line">            String anyHost = nodeMap.keySet().iterator().next();</span><br><span class="line">            slotHostMap = getSlotHostMap(anyHost);</span><br><span class="line">        &lt;/B&gt;</span><br><span class="line"></span><br><span class="line">        return cluster;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;Redis配置初始化出现错误：&quot;, e);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Jedis对象返回</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static Jedis getJedis(String key) &#123;</span><br><span class="line">    //根据key获取key分布在哪个slot上</span><br><span class="line">    int slot = JedisClusterCRC16.getSlot(key);</span><br><span class="line">    Map.Entry&lt;Long, String&gt; entry = slotHostMap.lowerEntry(Long.valueOf(slot));</span><br><span class="line">    return nodeMap.get(entry.getValue()).getResource();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Jedis是可以操作Pipeline的</p>
+<ul>
+<li>操作实例</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">Jedis jedis = getJedis(&quot;test&quot;);</span><br><span class="line">Pipelined pipelined = jedis.pipelined();</span><br><span class="line">for(int i=0; i&lt;100; i++&gt;)&#123;</span><br><span class="line">    pipelined.set(&quot;test&quot; , i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pipelined.sync();</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="辅助代码"><a href="#辅助代码" class="headerlink" title="辅助代码"></a>辅助代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">private JedisPoolConfig jedisPoolConfig() &#123;</span><br><span class="line">    JedisPoolConfig config = new JedisPoolConfig();</span><br><span class="line">    config.setMaxTotal(redisClusterProperties.getMaxTotal());</span><br><span class="line">    config.setMaxIdle(redisClusterProperties.getMaxIdle());</span><br><span class="line">    config.setMinIdle(redisClusterProperties.getMinIdle());</span><br><span class="line">    config.setMaxWaitMillis(redisClusterProperties.getMaxWaitMillis());</span><br><span class="line">    config.setTestOnCreate(redisClusterProperties.isTestOnCreate());</span><br><span class="line">    config.setTestOnBorrow(redisClusterProperties.isTestOnBorrow());</span><br><span class="line">    config.setTestOnReturn(redisClusterProperties.isTestOnReturn());</span><br><span class="line"></span><br><span class="line">    return config;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private Set&lt;String&gt; clusterNodes() &#123;</span><br><span class="line">    Set&lt;String&gt; nodes = new HashSet&lt;&gt;();</span><br><span class="line">    String[] hostArray = redisClusterProperties.getClusterNodes().split(&quot;,&quot;);</span><br><span class="line">    for (String host : hostArray) &#123;</span><br><span class="line">        nodes.add(host);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return nodes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private Set&lt;HostAndPort&gt; getHostAndPorts() &#123;</span><br><span class="line">    Set&lt;String&gt; nodes = clusterNodes();</span><br><span class="line">    Set&lt;HostAndPort&gt; hostAndPortSet = new HashSet&lt;&gt;();</span><br><span class="line">    for (String node : nodes) &#123;</span><br><span class="line">        String[] ipAndPort = node.split(&quot;:&quot;);</span><br><span class="line">        hostAndPortSet.add(new HostAndPort(ipAndPort[0], Integer.parseInt(ipAndPort[1])));</span><br><span class="line">    &#125;</span><br><span class="line">    return hostAndPortSet;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private TreeMap&lt;Long, String&gt; getSlotHostMap(String anyHostAndPortStr) &#123;</span><br><span class="line">    TreeMap&lt;Long, String&gt; tree = new TreeMap&lt;&gt;();</span><br><span class="line">    String[] parts = anyHostAndPortStr.split(&quot;:&quot;);</span><br><span class="line">    HostAndPort anyHostAndPort = new HostAndPort(parts[0], Integer.parseInt(parts[1]));</span><br><span class="line">    JedisPool jedisPool = null;</span><br><span class="line">    try &#123;</span><br><span class="line">        jedisPool = new JedisPool(jedisPoolConfig(), anyHostAndPort.getHost(), anyHostAndPort.getPort(), redisClusterProperties.getConnectionTimeout(), redisClusterProperties.getPassword());</span><br><span class="line">        List&lt;Object&gt; list = jedisPool.getResource().clusterSlots();</span><br><span class="line">        for (Object object : list) &#123;</span><br><span class="line">            List&lt;Object&gt; list1 = (List&lt;Object&gt;) object;</span><br><span class="line">            List&lt;Object&gt; master = (List&lt;Object&gt;) list1.get(2);</span><br><span class="line">            String hostAndPort = new String((byte[]) master.get(0)) + &quot;:&quot; + master.get(1);</span><br><span class="line">            tree.put((Long) list1.get(0), hostAndPort);</span><br><span class="line">            tree.put((Long) list1.get(1), hostAndPort);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;getSlotHostMap出现异常：&quot;, e);</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        if (!Objects.isNull(jedisPool)) &#123;</span><br><span class="line">            jedisPool.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return tree;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：&lt;B&gt;redis Pipeline（管道机制）&lt;/B&gt;可以解决。&lt;br&gt;Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;问题来了&quot;&gt;&lt;a href=&quot;#问题来了&quot; class=&quot;headerlink&quot; title=&quot;问题来了&quot;&gt;&lt;/a&gt;问题来了&lt;/h3&gt;&lt;B&gt; Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 &lt;/B&gt;
+
+
+&lt;h3 id=&quot;难道就放弃了&quot;&gt;&lt;a href=&quot;#难道就放弃了&quot; class=&quot;headerlink&quot; title=&quot;难道就放弃了&quot;&gt;&lt;/a&gt;难道就放弃了&lt;/h3&gt;&lt;B&gt; 当然不了…….&lt;/B&gt;
+
+
+&lt;h3 id=&quot;那该如何&quot;&gt;&lt;a href=&quot;#那该如何&quot; class=&quot;headerlink&quot; title=&quot;那该如何&quot;&gt;&lt;/a&gt;那该如何&lt;/h3&gt;
+    
+    </summary>
+    
+      <category term="Redis" scheme="http://yoursite.com/categories/Redis/"/>
+    
+    
+      <category term="Redis" scheme="http://yoursite.com/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</title>
@@ -135,29 +208,6 @@
   </entry>
   
   <entry>
-    <title>（UML）那么多箭头指来指去，什么意思嘛？</title>
-    <link href="http://yoursite.com/2018/09/09/pack/UML/UML%E7%AE%AD%E5%A4%B4%E5%90%AB%E4%B9%89/"/>
-    <id>http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/</id>
-    <published>2018-09-09T03:52:38.000Z</published>
-    <updated>2018-09-09T04:27:07.371Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483663&amp;amp;idx=1&amp;amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;amp;chksm
-    
-    </summary>
-    
-      <category term="UML" scheme="http://yoursite.com/categories/UML/"/>
-    
-    
-      <category term="UML" scheme="http://yoursite.com/tags/UML/"/>
-    
-  </entry>
-  
-  <entry>
     <title>gradle项目打包到maven仓库</title>
     <link href="http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/"/>
     <id>http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/</id>
@@ -189,6 +239,29 @@
     
     
       <category term="maven" scheme="http://yoursite.com/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（UML）那么多箭头指来指去，什么意思嘛？</title>
+    <link href="http://yoursite.com/2018/09/09/pack/UML/UML%E7%AE%AD%E5%A4%B4%E5%90%AB%E4%B9%89/"/>
+    <id>http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/</id>
+    <published>2018-09-09T03:52:38.000Z</published>
+    <updated>2018-09-09T04:27:07.371Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483663&amp;amp;idx=1&amp;amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;amp;chksm
+    
+    </summary>
+    
+      <category term="UML" scheme="http://yoursite.com/categories/UML/"/>
+    
+    
+      <category term="UML" scheme="http://yoursite.com/tags/UML/"/>
     
   </entry>
   
@@ -965,89 +1038,6 @@ _book的文件目录，而这个目录中的文件，即是生成的静态
   </entry>
   
   <entry>
-    <title>Flume--日志收集系统之初见</title>
-    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
-    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
-    <published>2016-08-18T14:00:38.000Z</published>
-    <updated>2016-08-30T15:31:27.584Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
-<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
-<li>简单</li>
-</ul>
-<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
-<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
-<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
-<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
-<ul>
-<li>复杂</li>
-</ul>
-<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
-<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
-<li><p>Event</p>
-<blockquote>
-<p>An event is a singular unit of data that can be transported by Flume NG. </p>
-</blockquote>
-</li>
-<li><p>Source</p>
-<blockquote>
-<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
-</blockquote>
-</li>
-<li><p>Sink</p>
-<blockquote>
-<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
-</blockquote>
-</li>
-<li><p>Channel</p>
-<blockquote>
-<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
-</blockquote>
-</li>
-<li><p>Source and Sink Runners</p>
-</li>
-<li><p>Agent</p>
-<blockquote>
-<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
-</blockquote>
-</li>
-<li><p>Configuration Provider</p>
-</li>
-<li><p>Client</p>
-<blockquote>
-<p>生产数据，运行在一个独立的线程。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
-<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
-</blockquote>
-<p><img src="image/flume1.jpg" alt="flume1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
-&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Flume部署及应用实例</title>
     <link href="http://yoursite.com/2016/08/18/Flume%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B/"/>
     <id>http://yoursite.com/2016/08/18/Flume部署及应用实例/</id>
@@ -1185,6 +1175,89 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
     
       <category term="Flume" scheme="http://yoursite.com/categories/Flume/"/>
     
+    
+      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Flume--日志收集系统之初见</title>
+    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
+    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
+    <published>2016-08-18T14:00:38.000Z</published>
+    <updated>2016-08-30T15:31:27.584Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
+<li>简单</li>
+</ul>
+<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
+<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
+<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
+<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
+<ul>
+<li>复杂</li>
+</ul>
+<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
+<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
+<li><p>Event</p>
+<blockquote>
+<p>An event is a singular unit of data that can be transported by Flume NG. </p>
+</blockquote>
+</li>
+<li><p>Source</p>
+<blockquote>
+<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
+</blockquote>
+</li>
+<li><p>Sink</p>
+<blockquote>
+<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
+</blockquote>
+</li>
+<li><p>Channel</p>
+<blockquote>
+<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
+</blockquote>
+</li>
+<li><p>Source and Sink Runners</p>
+</li>
+<li><p>Agent</p>
+<blockquote>
+<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
+</blockquote>
+</li>
+<li><p>Configuration Provider</p>
+</li>
+<li><p>Client</p>
+<blockquote>
+<p>生产数据，运行在一个独立的线程。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
+<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
+</blockquote>
+<p><img src="image/flume1.jpg" alt="flume1"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
+&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
       <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
     
@@ -1853,189 +1926,6 @@ spring.http.encoding.force=true #force the configured encoding
     
     
       <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于Spring Boot自定义RabbitMQ配置实例</title>
-    <link href="http://yoursite.com/2016/06/26/custom-rabbitmq-config/"/>
-    <id>http://yoursite.com/2016/06/26/custom-rabbitmq-config/</id>
-    <published>2016-06-25T18:53:01.000Z</published>
-    <updated>2016-06-25T20:25:55.677Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：</p>
-</blockquote>
-<a id="more"></a>
-<p>由于我是基于Spring Boot的来说明rabbitMQ的使用，所以首先我们需要配置好rabbitMQ。</p>
-<h2 id="依赖包"><a href="#依赖包" class="headerlink" title="依赖包"></a>依赖包</h2><pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-amqp&lt;/artifactId&gt;
-    &lt;version&gt;${springboot.version}&lt;/version&gt;
-    &lt;exclusions&gt;
-        &lt;exclusion&gt;
-            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-    &lt;/exclusions&gt;
-&lt;/dependency&gt;
-</code></pre><h2 id="配置文件准备"><a href="#配置文件准备" class="headerlink" title="配置文件准备"></a>配置文件准备</h2><p>在 src/main/resources/下面添加如下properties文件：</p>
-<ul>
-<li><p>application.properties</p>
-<pre><code>spring.profiles.active=@profiles.active@
-rabbitMQ.host=${rabbitMQ.host}
-rabbitMQ.port=${rabbitMQ.port}
-rabbitMQ.username=${rabbitMQ.username}
-rabbitMQ.password=${rabbitMQ.password}
-rabbitMQ.exchange=${rabbitMQ.exchange}
-</code></pre></li>
-<li><p>application-develop.properties(测试用)</p>
-<pre><code>rabbitMQ.host=192.168.100.117
-rabbitMQ.port=5672
-rabbitMQ.username=guest
-rabbitMQ.password=guest
-rabbitMQ.exchange=xxx.xxx.xxx
-</code></pre></li>
-<li><p>application-production.properties（生产用）</p>
-<pre><code>rabbitMQ.host=192.168.100.117
-rabbitMQ.port=5672
-rabbitMQ.username=guest
-rabbitMQ.password=guest
-rabbitMQ.exchange=xxx.xxx.xxx
-</code></pre></li>
-</ul>
-<h2 id="RabbitMQ自定义配置文件实现"><a href="#RabbitMQ自定义配置文件实现" class="headerlink" title="RabbitMQ自定义配置文件实现"></a>RabbitMQ自定义配置文件实现</h2><p>在src/main/java/com.jmust.service.demo下创建”RabbitMQConfiguration.java”文件</p>
-<pre><code>import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-
-@Configuration
-public class RabbitMQConfiguration {
-    @Autowired
-    private Environment env;
-
-    @Bean
-    public RabbitTemplate instance() {
-        com.rabbitmq.client.ConnectionFactory rabbitConnectionFactory = new com.rabbitmq.client.ConnectionFactory();
-        rabbitConnectionFactory.setUsername(env.getProperty(&quot;rabbitMQ.username&quot;));
-        rabbitConnectionFactory.setPassword(env.getProperty(&quot;rabbitMQ.password&quot;));
-        rabbitConnectionFactory.setHost(env.getProperty(&quot;rabbitMQ.host&quot;));
-        rabbitConnectionFactory.setPort(Integer.parseInt(env.getProperty(&quot;rabbitMQ.port&quot;)));
-
-        ConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitConnectionFactory);
-        RabbitTemplate rabbitTemplate = new RabbitTemplate();
-        rabbitTemplate.setConnectionFactory(connectionFactory);
-        rabbitTemplate.setExchange(env.getProperty(&quot;rabbitMQ.exchange&quot;));
-        return rabbitTemplate;
-    }
-}
-</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
-<li><p>1、自定义接口类（DemoMQResource）src/main/com.jmust.service.demo.resource，定义操作契约</p>
-<pre><code>import com.jmust.service.demo.resource.entity.DemoToMQ;
-
-    @FunctionalInterface
-    public interface DemoMQResource {
-
-        void sendDemoMQ(DemoToMQ demoToMQ);
-    }
-</code></pre></li>
-<li><p>2、实现接口类，业务逻辑包含在内(src/main/com.jmust.service.demo.resource)</p>
-<pre><code>import com.jmust.server.profile.ProfileProduction;
-import com.jmust.service.demo.LogFailMqUtil;
-import com.jmust.service.demo.resource.entity.DemoToMQ;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageDeliveryMode;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
-
-@Component
-@ProfileProduction
-public class DemoMQResourceImpl implements DemoMQResource {
-
-    private static Logger logger = LoggerFactory.getLogger(DemoMQResourceImpl.class);
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
-    @Override
-    public void sendDemoMQ(DemoToMQ demoToMQ) {
-        //发送mq
-        MessageProperties messageProperties = new MessageProperties();
-        messageProperties.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
-        messageProperties.setContentEncoding(&quot;JSON&quot;);
-        messageProperties.setContentType(
-                &quot;xxx.xxx.xxx, xxx.xxx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot;);
-
-        String body = demoToMQ.toString();
-        Message message = new Message(body.getBytes(StandardCharsets.UTF_8), messageProperties);
-        try {
-            rabbitTemplate.send(message);
-            logger.info(&quot;send success to mq:{}&quot;, body);
-        } catch (Exception e) {
-            logger.error(&quot;send fail to mq:&quot;, e);
-        }
-    }
-}
-</code></pre></li>
-</ul>
-<h2 id="项目测试"><a href="#项目测试" class="headerlink" title="项目测试"></a>项目测试</h2><pre><code>import com.jmust.service.demo.resource.entity.DemoToMQ;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-
-public class DemoMQResourceTest {
-
-    @InjectMocks
-    private DemoMQResourceImpl demoMQResourceImpl;
-
-    @Mock
-    private RabbitTemplate rabbitTemplate;
-
-    @BeforeClass
-    public void init() {
-        demoMQResourceImpl = new DemoMQResourceImpl();
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void sendMq() {
-        doThrow(new RuntimeException(&quot;send  mq  is  validate&quot;)).when(rabbitTemplate).send(any(Message.class));
-        demoMQResourceImpl.sendDemoMQ(new DemoToMQ());
-    }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。下面通过一个实例来说明一下怎么去使用它，怎么体现出它的优势所在：&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="rabbitMQ" scheme="http://yoursite.com/categories/rabbitMQ/"/>
-    
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
-    
-      <category term="rabbitMQ" scheme="http://yoursite.com/tags/rabbitMQ/"/>
     
   </entry>
   
