@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-19T16:20:24.690Z</updated>
+  <updated>2018-10-21T14:25:50.999Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,21 +16,120 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Redis-Cluster集群模式下使用Pipeline批量操作</title>
-    <link href="http://yoursite.com/2018/10/19/redis/Redis%20Cluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline/"/>
-    <id>http://yoursite.com/2018/10/19/redis/Redis Cluster下如何支持Pipeline/</id>
-    <published>2018-10-19T15:30:01.000Z</published>
-    <updated>2018-10-19T16:20:24.690Z</updated>
+    <title>Redis集群搭建</title>
+    <link href="http://yoursite.com/2018/10/21/redis/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
+    <id>http://yoursite.com/2018/10/21/redis/Redis集群搭建/</id>
+    <published>2018-10-21T15:30:01.000Z</published>
+    <updated>2018-10-21T14:25:50.999Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
-<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<b>redis Pipeline（管道机制）</b>可以解决。<br>Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
+    <content type="html"><![CDATA[<h1 id="redis单机模式搭建教程"><a href="#redis单机模式搭建教程" class="headerlink" title="redis单机模式搭建教程"></a>redis单机模式搭建教程</h1><h2 id="安装gcc"><a href="#安装gcc" class="headerlink" title="安装gcc"></a>安装gcc</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br></pre></td></tr></table></figure>
+<h2 id="把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压"><a href="#把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压" class="headerlink" title="把下载好的redis-4.0.11.tar.gz放在 /usr/local/software 目录下，解压"></a>把下载好的redis-4.0.11.tar.gz放在 <code>/usr/local/software</code> 目录下，解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-4.0.11.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="进入解压好的redis-4-0-11目录下，执行"><a href="#进入解压好的redis-4-0-11目录下，执行" class="headerlink" title="进入解压好的redis-4.0.11目录下，执行"></a>进入解压好的redis-4.0.11目录下，执行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="进入redis-4-0-11-src目录下进行安装，查看是否存在-redis-server-和-redis-cli-等命令"><a href="#进入redis-4-0-11-src目录下进行安装，查看是否存在-redis-server-和-redis-cli-等命令" class="headerlink" title="进入redis-4.0.11/src目录下进行安装，查看是否存在 redis-server 和 redis-cli 等命令"></a>进入redis-4.0.11/src目录下进行安装，查看是否存在 <code>redis-server</code> 和 <code>redis-cli</code> 等命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h2 id="建立两个文件夹存放redis命令和配置文件"><a href="#建立两个文件夹存放redis命令和配置文件" class="headerlink" title="建立两个文件夹存放redis命令和配置文件"></a>建立两个文件夹存放redis命令和配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/redis/etc</span><br><span class="line">mkdir -p /usr/local/redis/bin</span><br></pre></td></tr></table></figure>
+<h2 id="把redis-4-0-11下的redis-conf-复制到-usr-local-redis-etc-目录下"><a href="#把redis-4-0-11下的redis-conf-复制到-usr-local-redis-etc-目录下" class="headerlink" title="把redis-4.0.11下的redis.conf 复制到/usr/local/redis/etc 目录下"></a>把redis-4.0.11下的redis.conf 复制到<code>/usr/local/redis/etc</code> 目录下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/software/redis-4.0.11/redis.conf /usr/local/redis/etc/</span><br></pre></td></tr></table></figure>
+<h2 id="移动redis-4-0-11-src里的几个文件到-usr-local-redis-bin-目录下"><a href="#移动redis-4-0-11-src里的几个文件到-usr-local-redis-bin-目录下" class="headerlink" title="移动redis-4.0.11/src里的几个文件到/usr/local/redis/bin 目录下"></a>移动redis-4.0.11/src里的几个文件到<code>/usr/local/redis/bin</code> 目录下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-rdb redis-trib.rb redis-sentinel redis-server redis-cli /usr/local/redis/bin/</span><br></pre></td></tr></table></figure>
+<h2 id="启动并指定配置文件"><a href="#启动并指定配置文件" class="headerlink" title="启动并指定配置文件"></a>启动并指定配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="验证是否启动成功"><a href="#验证是否启动成功" class="headerlink" title="验证是否启动成功"></a>验证是否启动成功</h2><h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep redis</span><br></pre></td></tr></table></figure>
+<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunpl | grep 6379</span><br></pre></td></tr></table></figure>
+<h2 id="进入redis客户端"><a href="#进入redis客户端" class="headerlink" title="进入redis客户端"></a>进入redis客户端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/redis/bin/redis-cli</span><br></pre></td></tr></table></figure>
+<h2 id="退出redis客户端"><a href="#退出redis客户端" class="headerlink" title="退出redis客户端"></a>退出redis客户端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit / quit</span><br></pre></td></tr></table></figure>
+<h2 id="退出redis服务"><a href="#退出redis服务" class="headerlink" title="退出redis服务"></a>退出redis服务</h2><ul>
+<li>pkill redis-server</li>
+<li>kill 进程号</li>
+<li>/usr/local/redis/bin/redis-cli shutdown</li>
+</ul>
+<h1 id="redis集群模式搭建教程"><a href="#redis集群模式搭建教程" class="headerlink" title="redis集群模式搭建教程"></a>redis集群模式搭建教程</h1><blockquote>
+<p>redis 集群至少需要<strong>3个master节点</strong></p>
 </blockquote>
-<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><b> Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 </b>
-
-
-<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><b> 当然不了…….</b>
-
-
+<h2 id="在-usr-local下创建文件夹-redis-cluster-，然后在其下分别创建6个文件夹"><a href="#在-usr-local下创建文件夹-redis-cluster-，然后在其下分别创建6个文件夹" class="headerlink" title="在 /usr/local下创建文件夹 redis-cluster ，然后在其下分别创建6个文件夹"></a>在 <code>/usr/local</code>下创建文件夹 <code>redis-cluster</code> ，然后在其下分别创建6个文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/redis-cluster</span><br><span class="line">cd redis-cluster/ &amp;&amp; mkdir 8001 &amp;&amp; mkdir 8002 &amp;&amp; mkdir 8003 &amp;&amp; mkdir 8004 &amp;&amp; mkdir 8005 &amp;&amp; mkdir 8006</span><br></pre></td></tr></table></figure>
+<h2 id="把之前的redis-conf配置文件copy到8001下"><a href="#把之前的redis-conf配置文件copy到8001下" class="headerlink" title="把之前的redis.conf配置文件copy到8001下"></a>把之前的redis.conf配置文件copy到8001下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp etc/redis.conf ../redis-cluster/8001/</span><br></pre></td></tr></table></figure>
+<p>修改内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(1) daemonize yes</span><br><span class="line">(2) port 8001 (分别对每个机器的端口号)</span><br><span class="line">(3) bind 192.168.1.123 (必须要绑定当前的机器IP)</span><br><span class="line">(4) dir /usr/local/redis-cluster/8001/ (指定数据文件存放的位置，必须要指定不同的目录位置，不然会丢失数据)</span><br><span class="line">(5) cluster-enabled yes (启动集群模式)</span><br><span class="line">(6) cluster-config-file nodes-8001.conf (这里8xx最好和port对应上) </span><br><span class="line">(7) cluster-node-timeout 5000</span><br><span class="line">(8) appendonly yes</span><br></pre></td></tr></table></figure>
+<h2 id="把修改后的配置文件-，-分别copy到各个文件夹下，注意每个文件要修改第2-、4、6项里的端口号"><a href="#把修改后的配置文件-，-分别copy到各个文件夹下，注意每个文件要修改第2-、4、6项里的端口号" class="headerlink" title="把修改后的配置文件 ， 分别copy到各个文件夹下，注意每个文件要修改第2 、4、6项里的端口号"></a>把修改后的配置文件 ， 分别copy到各个文件夹下，注意每个文件要修改第2 、4、6项里的端口号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cp redis.conf ../8002/</span><br><span class="line">cp redis.conf ../8003/</span><br><span class="line">cp redis.conf ../8004/</span><br><span class="line">cp redis.conf ../8005/</span><br><span class="line">cp redis.conf ../8006/</span><br><span class="line"></span><br><span class="line">进入到对应的 redis.conf </span><br><span class="line"></span><br><span class="line">:%s/8001/8002/g</span><br><span class="line"></span><br><span class="line">:%s/8001/8003/g</span><br><span class="line"></span><br><span class="line">:%s/8001/8004/g</span><br><span class="line"></span><br><span class="line">:%s/8001/8005/g</span><br><span class="line"></span><br><span class="line">:%s/8001/8006/g</span><br></pre></td></tr></table></figure>
+<h2 id="由于redis集群需要使用ruby命令，所以需要安装ruby"><a href="#由于redis集群需要使用ruby命令，所以需要安装ruby" class="headerlink" title="由于redis集群需要使用ruby命令，所以需要安装ruby"></a>由于redis集群需要使用ruby命令，所以需要安装ruby</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(1) yum install centos-release-scl-rh</span><br><span class="line">(2) yum install rh-ruby23  -y</span><br><span class="line">(3) scl  enable  rh-ruby23 bash</span><br><span class="line">(4) yum install rubygems</span><br><span class="line">(5) gem install redis --version 4.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="启动6个redis实例"><a href="#启动6个redis实例" class="headerlink" title="启动6个redis实例"></a>启动6个redis实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8001/redis.conf</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8002/redis.conf</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8003/redis.conf</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8004/redis.conf</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8005/redis.conf</span><br><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis-cluster/8006/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="执行redis-trib-rb命令创建整个redis集群"><a href="#执行redis-trib-rb命令创建整个redis集群" class="headerlink" title="执行redis-trib.rb命令创建整个redis集群"></a>执行redis-trib.rb命令创建整个redis集群</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1 127.0.0.1:8001 127.0.0.1:8002 127.0.0.1:8003 127.0.0.1:8004 127.0.0.1:8005 127.0.0.1:8006</span><br></pre></td></tr></table></figure>
+<h2 id="验证集群"><a href="#验证集群" class="headerlink" title="验证集群"></a>验证集群</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1) /usr/local/redis/bin/redis-cli -c -h 127.0.0.1 -p 8001</span><br><span class="line">(2) cluster info  / cluster nodes</span><br><span class="line">(3) 关闭集群则需要逐个进行关闭，使用命令：/usr/local/redis/bin/redis-cli -c -h 127.0.0.1 -p 8001 shutdown</span><br></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;redis单机模式搭建教程&quot;&gt;&lt;a href=&quot;#redis单机模式搭建教程&quot; class=&quot;headerlink&quot; title=&quot;redis单机模式搭建教程&quot;&gt;&lt;/a&gt;redis单机模式搭建教程&lt;/h1&gt;&lt;h2 id=&quot;安装gcc&quot;&gt;&lt;a href=&quot;#安装gcc&quot; class=&quot;headerlink&quot; title=&quot;安装gcc&quot;&gt;&lt;/a&gt;安装gcc&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install gcc&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压&quot;&gt;&lt;a href=&quot;#把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压&quot; class=&quot;headerlink&quot; title=&quot;把下载好的redis-4.0.11.tar.gz放在 /usr/local/software 目录下，解压&quot;&gt;&lt;/a&gt;把下载好的redis-4.0.11.tar.gz放在 &lt;code&gt;/usr/local/software&lt;/code&gt; 目录下，解压&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -zxvf redis-4.0.11.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;进入解压好的redis-4-0-11目录下，执行&quot;&gt;&lt;a href=&quot;#进入解压好的redis-4-0-11目录下，执行&quot; class=&quot;headerlink&quot; title=&quot;进入解压好的redis-4.0.11目录下，执行&quot;&gt;&lt;/a&gt;进入解压好的redis-4.0.11目录下，执行&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;make&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Redis" scheme="http://yoursite.com/categories/Redis/"/>
+    
+    
+      <category term="Redis" scheme="http://yoursite.com/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么使用Redis实现队列</title>
+    <link href="http://yoursite.com/2018/10/20/redis/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
+    <id>http://yoursite.com/2018/10/20/redis/为什么使用Redis实现队列/</id>
+    <published>2018-10-20T01:45:46.301Z</published>
+    <updated>2018-10-21T14:26:16.148Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="队列主要作用"><a href="#队列主要作用" class="headerlink" title="队列主要作用"></a>队列主要作用</h3><ul>
+<li>流量削峰填谷<blockquote>
+<p>秒杀或者系统高峰场景，会出现同时大量的流量涌进来，假如系统对应的mysql最多只能承受2000/s,同时进来的请求数高达8000/s,以这种情况，mysql必然会被冲垮了，那怎么办呢？使用队列来缓冲流量，8000/s的请求全部丢到队列中，然后再根据系统能承受的范围内消费处理，即可很好的保护系统不被瞬时的流量冲垮！</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>异步化<blockquote>
+<p>同步处理，系统A（20ms） + 系统B(80ms) + 系统C(300ms) + 系统D(200ms)=600ms;异步处理，系统A（20ms） + 发送3条消息到3个不同的队列（5ms）=25ms;响应用户异步比同步快了20多倍！</p>
+</blockquote>
+</li>
+<li>解耦<blockquote>
+<p>比如用户注册（A系统），注册成功后需要 发短信通知用户已注册（短信网关系统） 送用户5000体验金（会员中心系统） 送20块现金（用户账户）……,系统彼此都是独立的，当然不希望在A系统同步请求以上几个系统，首先用户体验极差，系统不可控因素增加，系统复杂度增加,不利于系统的维护；既然有那么多的不好，如果用户注册成功后，直接丢一条消息出去，需要使用到这条消息的系统自己进行获取处理，那岂不是很好，不管日后增加多一个系统，减少一个系统，对于A系统来说完全是没有任何的影响！</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="为什么用Redis来实现轻量级队列呢？"><a href="#为什么用Redis来实现轻量级队列呢？" class="headerlink" title="为什么用Redis来实现轻量级队列呢？"></a>为什么用Redis来实现轻量级队列呢？</h3><ul>
+<li>MQ比较重（搭建MQ服务器，集群，基本什么功能都齐全），过重的组件服务会成倍的增加维护工作量</li>
+<li>Redis提供的list数据结构非常适合做消息队列</li>
+<li>Redis入队和出队的消费效率比RabbitMQ要高几倍</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;队列主要作用&quot;&gt;&lt;a href=&quot;#队列主要作用&quot; class=&quot;headerlink&quot; title=&quot;队列主要作用&quot;&gt;&lt;/a&gt;队列主要作用&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;流量削峰填谷&lt;blockquote&gt;
+&lt;p&gt;秒杀或者系统高峰场景，会出现同时大量的流量涌进来，假如系统对应的mysql最多只能承受2000/s,同时进来的请求数高达8000/s,以这种情况，mysql必然会被冲垮了，那怎么办呢？使用队列来缓冲流量，8000/s的请求全部丢到队列中，然后再根据系统能承受的范围内消费处理，即可很好的保护系统不被瞬时的流量冲垮！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Redis" scheme="http://yoursite.com/categories/Redis/"/>
+    
+    
+      <category term="Redis" scheme="http://yoursite.com/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RedisCluster集群模式下使用Pipeline批量操作</title>
+    <link href="http://yoursite.com/2018/10/19/redis/RedisCluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline/"/>
+    <id>http://yoursite.com/2018/10/19/redis/RedisCluster下如何支持Pipeline/</id>
+    <published>2018-10-19T15:30:01.000Z</published>
+    <updated>2018-10-21T14:29:14.494Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="RedisCluster集群模式下使用Pipeline批量操作-Java"><a href="#RedisCluster集群模式下使用Pipeline批量操作-Java" class="headerlink" title="RedisCluster集群模式下使用Pipeline批量操作-Java"></a>RedisCluster集群模式下使用Pipeline批量操作-Java</h2><blockquote>
+<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<strong>redis Pipeline（管道机制）</strong>eline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
+</blockquote>
+<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><p>Pipeline功能居然不支持了</p>
+<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><p>当然不了…….</p>
 <h3 id="那该如何"><a href="#那该如何" class="headerlink" title="那该如何"></a>那该如何</h3><a id="more"></a>
 <p>通过一下n步即可达到redis cluster也可以支持Pipeline。</p>
 <ul>
@@ -45,16 +144,15 @@
 <li>创建JedisCluster</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisCluster redisCluster() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        JedisCluster cluster = new JedisCluster(</span><br><span class="line">                getHostAndPorts(),</span><br><span class="line">                redisClusterProperties.getConnectionTimeout(),</span><br><span class="line">                redisClusterProperties.getSoTimeout(),</span><br><span class="line">                redisClusterProperties.getMaxAttempts(),</span><br><span class="line">                redisClusterProperties.getPassword(), jedisConnectionFactory().getPoolConfig());</span><br><span class="line"></span><br><span class="line">        return cluster;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;Redis配置初始化出现错误：&quot;, e);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<b> 以上只是支持正常redis cluster的相关操作</b>
-
+<p>以上只是支持正常redis cluster的相关操作</p>
 <ul>
-<li>定义 <b>nodeMap</b>和<b>slotHostMap</b>全局静态变量</li>
+<li>定义 <code>nodeMap</code>和<code>slotHostMap</code>全局静态变量</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static Map&lt;String, JedisPool&gt; nodeMap = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line">public static TreeMap&lt;Long, String&gt; slotHostMap = new TreeMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
 <ul>
 <li>将以上  创建JedisCluster相关代码更改为如下：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisCluster redisCluster() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        JedisCluster cluster = new JedisCluster(</span><br><span class="line">                getHostAndPorts(),</span><br><span class="line">                redisClusterProperties.getConnectionTimeout(),</span><br><span class="line">                redisClusterProperties.getSoTimeout(),</span><br><span class="line">                redisClusterProperties.getMaxAttempts(),</span><br><span class="line">                redisClusterProperties.getPassword(), jedisConnectionFactory().getPoolConfig());</span><br><span class="line">        &lt;B&gt;</span><br><span class="line">            nodeMap = cluster.getClusterNodes();</span><br><span class="line">            String anyHost = nodeMap.keySet().iterator().next();</span><br><span class="line">            slotHostMap = getSlotHostMap(anyHost);</span><br><span class="line">        &lt;/B&gt;</span><br><span class="line"></span><br><span class="line">        return cluster;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;Redis配置初始化出现错误：&quot;, e);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JedisCluster redisCluster() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        JedisCluster cluster = new JedisCluster(</span><br><span class="line">                getHostAndPorts(),</span><br><span class="line">                redisClusterProperties.getConnectionTimeout(),</span><br><span class="line">                redisClusterProperties.getSoTimeout(),</span><br><span class="line">                redisClusterProperties.getMaxAttempts(),</span><br><span class="line">                redisClusterProperties.getPassword(), jedisConnectionFactory().getPoolConfig());</span><br><span class="line">    </span><br><span class="line">            nodeMap = cluster.getClusterNodes();</span><br><span class="line">            String anyHost = nodeMap.keySet().iterator().next();</span><br><span class="line">            slotHostMap = getSlotHostMap(anyHost);</span><br><span class="line">        </span><br><span class="line">        return cluster;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        logger.error(&quot;Redis配置初始化出现错误：&quot;, e);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>Jedis对象返回</li>
 </ul>
@@ -68,15 +166,11 @@
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：&lt;B&gt;redis Pipeline（管道机制）&lt;/B&gt;可以解决。&lt;br&gt;Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。&lt;/p&gt;
+      &lt;h2 id=&quot;RedisCluster集群模式下使用Pipeline批量操作-Java&quot;&gt;&lt;a href=&quot;#RedisCluster集群模式下使用Pipeline批量操作-Java&quot; class=&quot;headerlink&quot; title=&quot;RedisCluster集群模式下使用Pipeline批量操作-Java&quot;&gt;&lt;/a&gt;RedisCluster集群模式下使用Pipeline批量操作-Java&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：&lt;strong&gt;redis Pipeline（管道机制）&lt;/strong&gt;eline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;问题来了&quot;&gt;&lt;a href=&quot;#问题来了&quot; class=&quot;headerlink&quot; title=&quot;问题来了&quot;&gt;&lt;/a&gt;问题来了&lt;/h3&gt;&lt;B&gt; Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 &lt;/B&gt;
-
-
-&lt;h3 id=&quot;难道就放弃了&quot;&gt;&lt;a href=&quot;#难道就放弃了&quot; class=&quot;headerlink&quot; title=&quot;难道就放弃了&quot;&gt;&lt;/a&gt;难道就放弃了&lt;/h3&gt;&lt;B&gt; 当然不了…….&lt;/B&gt;
-
-
+&lt;h3 id=&quot;问题来了&quot;&gt;&lt;a href=&quot;#问题来了&quot; class=&quot;headerlink&quot; title=&quot;问题来了&quot;&gt;&lt;/a&gt;问题来了&lt;/h3&gt;&lt;p&gt;Pipeline功能居然不支持了&lt;/p&gt;
+&lt;h3 id=&quot;难道就放弃了&quot;&gt;&lt;a href=&quot;#难道就放弃了&quot; class=&quot;headerlink&quot; title=&quot;难道就放弃了&quot;&gt;&lt;/a&gt;难道就放弃了&lt;/h3&gt;&lt;p&gt;当然不了…….&lt;/p&gt;
 &lt;h3 id=&quot;那该如何&quot;&gt;&lt;a href=&quot;#那该如何&quot; class=&quot;headerlink&quot; title=&quot;那该如何&quot;&gt;&lt;/a&gt;那该如何&lt;/h3&gt;
     
     </summary>
@@ -208,6 +302,29 @@
   </entry>
   
   <entry>
+    <title>（UML）那么多箭头指来指去，什么意思嘛？</title>
+    <link href="http://yoursite.com/2018/09/09/pack/UML/UML%E7%AE%AD%E5%A4%B4%E5%90%AB%E4%B9%89/"/>
+    <id>http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/</id>
+    <published>2018-09-09T03:52:38.000Z</published>
+    <updated>2018-09-09T04:27:07.371Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483663&amp;amp;idx=1&amp;amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;amp;chksm
+    
+    </summary>
+    
+      <category term="UML" scheme="http://yoursite.com/categories/UML/"/>
+    
+    
+      <category term="UML" scheme="http://yoursite.com/tags/UML/"/>
+    
+  </entry>
+  
+  <entry>
     <title>gradle项目打包到maven仓库</title>
     <link href="http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/"/>
     <id>http://yoursite.com/2018/09/09/pack/gradle/gradle-to-maven/</id>
@@ -239,29 +356,6 @@
     
     
       <category term="maven" scheme="http://yoursite.com/tags/maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>（UML）那么多箭头指来指去，什么意思嘛？</title>
-    <link href="http://yoursite.com/2018/09/09/pack/UML/UML%E7%AE%AD%E5%A4%B4%E5%90%AB%E4%B9%89/"/>
-    <id>http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/</id>
-    <published>2018-09-09T03:52:38.000Z</published>
-    <updated>2018-09-09T04:27:07.371Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;amp;mid=2247483663&amp;amp;idx=1&amp;amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;amp;chksm
-    
-    </summary>
-    
-      <category term="UML" scheme="http://yoursite.com/categories/UML/"/>
-    
-    
-      <category term="UML" scheme="http://yoursite.com/tags/UML/"/>
     
   </entry>
   
@@ -456,43 +550,6 @@ app.use(createLoading());
   </entry>
   
   <entry>
-    <title>React 项目生成</title>
-    <link href="http://yoursite.com/2017/08/05/React%20%E9%A1%B9%E7%9B%AE%E7%94%9F%E6%88%90/"/>
-    <id>http://yoursite.com/2017/08/05/React 项目生成/</id>
-    <published>2017-08-05T06:23:51.000Z</published>
-    <updated>2017-08-05T06:35:19.814Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li>安装node环境，cmd   <code>node -v</code>  检查是否安装</li>
-<li>安装yeoman来生成项目基本框架 <code>npm install -g yo</code></li>
-<li>运行cmd <code>yo --version</code> 查看版本号</li>
-<li>进去 <a href="http://yeoman.io" target="_blank" rel="external">yeoman官网</a> 找到generators</li>
-<li>利用generator-react-webpack搭建 <a href="https://github.com/react-webpack-generators/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a></li>
-<li>安装 <code>npm install -g generator-react-webpack</code></li>
-<li>查看版本 <code>npm ls -g --depth=1 2&gt;/dev/null | grep generator-</code></li>
-<li>生成项目 <code>yo react-webpack gallery-by-react</code></li>
-<li>将站点启动 <code>grunt serve</code></li>
-<li>打开 <code>https://chrome.google.com/webstore/</code> 应用商店安装 <code>React devloper Tools</code></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;安装node环境，cmd   &lt;code&gt;node -v&lt;/code&gt;  检查是否安装&lt;/li&gt;
-&lt;li&gt;安装yeoman来生成项目基本框架 &lt;code&gt;npm install -g yo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;运行cmd &lt;code&gt;yo --ver
-    
-    </summary>
-    
-      <category term="React" scheme="http://yoursite.com/categories/React/"/>
-    
-    
-      <category term="React" scheme="http://yoursite.com/tags/React/"/>
-    
-  </entry>
-  
-  <entry>
     <title>LDAP 默认返回1000用户的坑</title>
     <link href="http://yoursite.com/2017/08/05/LDAP%20%E9%BB%98%E8%AE%A4%E8%BF%94%E5%9B%9E1000%E7%94%A8%E6%88%B7%E7%9A%84%E5%9D%91/"/>
     <id>http://yoursite.com/2017/08/05/LDAP 默认返回1000用户的坑/</id>
@@ -536,6 +593,43 @@ app.use(createLoading());
     
     
       <category term="ldap" scheme="http://yoursite.com/tags/ldap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React 项目生成</title>
+    <link href="http://yoursite.com/2017/08/05/React%20%E9%A1%B9%E7%9B%AE%E7%94%9F%E6%88%90/"/>
+    <id>http://yoursite.com/2017/08/05/React 项目生成/</id>
+    <published>2017-08-05T06:23:51.000Z</published>
+    <updated>2017-08-05T06:35:19.814Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>安装node环境，cmd   <code>node -v</code>  检查是否安装</li>
+<li>安装yeoman来生成项目基本框架 <code>npm install -g yo</code></li>
+<li>运行cmd <code>yo --version</code> 查看版本号</li>
+<li>进去 <a href="http://yeoman.io" target="_blank" rel="external">yeoman官网</a> 找到generators</li>
+<li>利用generator-react-webpack搭建 <a href="https://github.com/react-webpack-generators/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a></li>
+<li>安装 <code>npm install -g generator-react-webpack</code></li>
+<li>查看版本 <code>npm ls -g --depth=1 2&gt;/dev/null | grep generator-</code></li>
+<li>生成项目 <code>yo react-webpack gallery-by-react</code></li>
+<li>将站点启动 <code>grunt serve</code></li>
+<li>打开 <code>https://chrome.google.com/webstore/</code> 应用商店安装 <code>React devloper Tools</code></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;安装node环境，cmd   &lt;code&gt;node -v&lt;/code&gt;  检查是否安装&lt;/li&gt;
+&lt;li&gt;安装yeoman来生成项目基本框架 &lt;code&gt;npm install -g yo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;运行cmd &lt;code&gt;yo --ver
+    
+    </summary>
+    
+      <category term="React" scheme="http://yoursite.com/categories/React/"/>
+    
+    
+      <category term="React" scheme="http://yoursite.com/tags/React/"/>
     
   </entry>
   
@@ -1038,6 +1132,89 @@ _book的文件目录，而这个目录中的文件，即是生成的静态
   </entry>
   
   <entry>
+    <title>Flume--日志收集系统之初见</title>
+    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
+    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
+    <published>2016-08-18T14:00:38.000Z</published>
+    <updated>2016-08-30T15:31:27.584Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
+<li>简单</li>
+</ul>
+<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
+<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
+<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
+<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
+<ul>
+<li>复杂</li>
+</ul>
+<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
+<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
+<li><p>Event</p>
+<blockquote>
+<p>An event is a singular unit of data that can be transported by Flume NG. </p>
+</blockquote>
+</li>
+<li><p>Source</p>
+<blockquote>
+<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
+</blockquote>
+</li>
+<li><p>Sink</p>
+<blockquote>
+<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
+</blockquote>
+</li>
+<li><p>Channel</p>
+<blockquote>
+<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
+</blockquote>
+</li>
+<li><p>Source and Sink Runners</p>
+</li>
+<li><p>Agent</p>
+<blockquote>
+<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
+</blockquote>
+</li>
+<li><p>Configuration Provider</p>
+</li>
+<li><p>Client</p>
+<blockquote>
+<p>生产数据，运行在一个独立的线程。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
+<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
+</blockquote>
+<p><img src="image/flume1.jpg" alt="flume1"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
+&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Flume部署及应用实例</title>
     <link href="http://yoursite.com/2016/08/18/Flume%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B/"/>
     <id>http://yoursite.com/2016/08/18/Flume部署及应用实例/</id>
@@ -1175,89 +1352,6 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
     
       <category term="Flume" scheme="http://yoursite.com/categories/Flume/"/>
     
-    
-      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Flume--日志收集系统之初见</title>
-    <link href="http://yoursite.com/2016/08/18/Flume--%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%A7%81/"/>
-    <id>http://yoursite.com/2016/08/18/Flume--日志收集系统之初见/</id>
-    <published>2016-08-18T14:00:38.000Z</published>
-    <updated>2016-08-30T15:31:27.584Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
-<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="架构图及数据流模型："><a href="#架构图及数据流模型：" class="headerlink" title="架构图及数据流模型："></a>架构图及数据流模型：</h3><ul>
-<li>简单</li>
-</ul>
-<p><img src="http://img2.tuicool.com/3QjQ32.jpg!web" alt="flume1"></p>
-<p>Flume的数据流由事件(Event)贯穿始终。事件是Flume的基本数据单位，它携带日志数据(字节数组形式)并且携带有头信息，这些Event由Agent外部的Source，比如上图中的Web Server生成。当Source捕获事件后会进行特定的格式化，然后Source会把事件推入(单个或多个)Channel中。你可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。Sink负责持久化日志或者把事件推向另一个Source。<br>很直白的设计，其中值得注意的是，Flume提供了大量内置的Source、Channel和Sink类型。不同类型的Source,Channel和Sink可以自由组合。组合方式基于用户设置的配置文件，非常灵活。比如：Channel可以把事件暂存在内存里，也可以持久化到本地硬盘上。Sink可以把日志写入HDFS, HBase，甚至是另外一个Source等等。    </p>
-<p>Flume支持用户建立多级流，也就是说，多个agent可以协同工作，并且支持Fan-in、Fan-out、Contextual Routing、Backup Routes。如下图所示：</p>
-<p><img src="http://static.oschina.net/uploads/img/201407/08014622_pD3e.png" alt="flume3"></p>
-<ul>
-<li>复杂</li>
-</ul>
-<p><img src="http://img0.tuicool.com/3iQ73aj.jpg!web" alt="Flume2"></p>
-<h3 id="8大组件（-components）"><a href="#8大组件（-components）" class="headerlink" title="8大组件（ components）"></a>8大组件（ components）</h3><ul>
-<li><p>Event</p>
-<blockquote>
-<p>An event is a singular unit of data that can be transported by Flume NG. </p>
-</blockquote>
-</li>
-<li><p>Source</p>
-<blockquote>
-<p>A source of data from which Flume NG receives data.从Client收集数据，传递给Channel。</p>
-</blockquote>
-</li>
-<li><p>Sink</p>
-<blockquote>
-<p>A sink is the counterpart to the source in that it is a destination for data in Flume NG . 从Channel收集数据，运行在一个独立线程。进行相应的存储文件系统，数据库，或者提交到远程服务器。</p>
-</blockquote>
-</li>
-<li><p>Channel</p>
-<blockquote>
-<p>A channel is a conduit for events between a source and a sink. 连接 sources 和 sinks ，这个有点像一个队列。主要提供一个队列的功能，对source提供中的数据进行简单的缓存。</p>
-</blockquote>
-</li>
-<li><p>Source and Sink Runners</p>
-</li>
-<li><p>Agent</p>
-<blockquote>
-<p>Flume NG generalizes the notion of an agent. An agent is any physical JVM running Flume NG. 使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks。</p>
-</blockquote>
-</li>
-<li><p>Configuration Provider</p>
-</li>
-<li><p>Client</p>
-<blockquote>
-<p>生产数据，运行在一个独立的线程。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="Flume整体架构介绍"><a href="#Flume整体架构介绍" class="headerlink" title="Flume整体架构介绍"></a>Flume整体架构介绍</h3><blockquote>
-<p>Flume架构整体上看就是 source–&gt;channel–&gt;sink 的三层架构,，类似生产者和消费者的架构，他们之间通过queue（channel）传输，解耦。看图：</p>
-</blockquote>
-<p><img src="image/flume1.jpg" alt="flume1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.&lt;/p&gt;
-&lt;p&gt;大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，&lt;br&gt;它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://yoursite.com/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
       <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
     
@@ -1533,399 +1627,6 @@ return oper;
       <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="factory" scheme="http://yoursite.com/tags/factory/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git使用教程---针对刚入职的同事</title>
-    <link href="http://yoursite.com/2016/07/10/Git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
-    <id>http://yoursite.com/2016/07/10/Git使用教程/</id>
-    <published>2016-07-10T03:23:51.000Z</published>
-    <updated>2016-07-10T13:39:52.621Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、关于版本控制-GIT-SVN"><a href="#一、关于版本控制-GIT-SVN" class="headerlink" title="一、关于版本控制(GIT/SVN)"></a>一、关于版本控制(GIT/SVN)</h3><p>两者都是优秀的版本管理工具</p>
-<ul>
-<li>Git<blockquote>
-<p>git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；</p>
-</blockquote>
-</li>
-<li>Svn<blockquote>
-<p>svn集中式：只有在服务器上有一个代码管理仓库；</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="二、Git使用"><a href="#二、Git使用" class="headerlink" title="二、Git使用"></a>二、Git使用</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><blockquote>
-<p>使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>master分支：只有一个，作为主分支；</li>
-<li>dev分支：项目当前版本的开发分支，程序员会基于此分支 来切 本地分支，进行开发。</li>
-<li><p>其他的分支：项目每个版本，在开发测试完成后，最终的稳定代码。每当一个版本的开发测试完成后，都会将当前版本的稳定代码合并到master分支。</p>
-</li>
-<li><p>说明：假如在开发当前版本时，发现dev7.0.0版本线上出现了bug。此时，就可以基于dev7.0.0分支，进行修复，这是维护其它版本分支最大的好处。</p>
-</li>
-</ul>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p> 先安装好Git，配置好SSH，配置SSH的好处就是，本地向服务器push代码时就不用总是填写用户名和密码了，具体操作再说。</p>
-<h5 id="1-拉取代码"><a href="#1-拉取代码" class="headerlink" title="(1) 拉取代码"></a>(1) 拉取代码</h5><ul>
-<li>git clone 克隆代码</li>
-</ul>
-<blockquote>
-<p>该命令后会在本地生成一个目录，与origin的版本库同名，目录下面包含 .git文件（默认是隐藏的），和服务器上master分支的代码（也有可能没有，因为master分支上一般没有权限获取）；要注意此时是在master分支上的，可以使用 $ git branch 命令查看！ 但是我们是要切dev分支上的代码！</p>
-</blockquote>
-<pre><code>   lvkun@PC-LVK ~
-$ git clone 项目地址
-</code></pre><ul>
-<li>git checkout dev1.0.0</li>
-</ul>
-<blockquote>
-<p>该命令是将本地版本库（local）切换到dev1.0.0分支，建立local与origin对应分支.此分支可以直接与origin对应分支进行通信。如执行代码的上传(push)和更新（pull）操作. ps(也可以使用 $ git checkout -b dev1.0.0 origin/dev命令代替)    </p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git checkout dev1.0.0
-</code></pre><ul>
-<li><p>git pull</p>
-<blockquote>
-<p>该命令将origin/dev1.0.0分支上的代码，pull或更新到local/dev1.0.0 分支上。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git pull
-</code></pre></li>
-<li><p>git checkout -b 自己的开发分支（feature/项目名_功能_xxx）</p>
-</li>
-</ul>
-<blockquote>
-<p>该命令，基于dev1.0.0分支，创建新分支 feature/example_test_local,并切换到 feature/example_test_local分支，一定要创建新分支进行开发，决不能基于本地dev1.0.0分支开发，最后就可以将代码导入开发工具了！此时执行 $ git branch 命令应该可以看到 dev1.0.0 和feature/example_test_local 两个分支。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git checkout -b feature/项目名_功能_xxx
-</code></pre><h5 id="2-代码提交"><a href="#2-代码提交" class="headerlink" title="(2) 代码提交"></a>(2) 代码提交</h5><blockquote>
-<p>分析：如果一切正常，我们目前应该是在基于本地dev1.0.0分支基础上创建的feature/example_test_local分支上，前面已经说过，本地只有dev1.0.0分支才能与服务器dev分支进行通信，执行代码的pull和push操作。那么我们要做的就是 将 feature/example_test_local分支上的代码，提交到本地dev1.0.0分支上，之后切换到dev1.0.0分支，执行push命令，就ok了！！强烈建议，最好不要将自己的feature/example_test_local这个分支推到自己的远程分之后，直接再推这个分支到远程的dev1.0.0的分支上，如果这样子操作，很可能出现代码拉取下来报错。</p>
-</blockquote>
-<ul>
-<li>git status</li>
-</ul>
-<blockquote>
-<p>此命令可以查看当前分支上有哪些文件改动了，建议首先执行一下，查看改动的文件，避免提交不需要提交的文件。如果想恢复改动的文件，执行 $ git checkout — 文件路径/文件名 。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git status
-</code></pre><ul>
-<li>git add .</li>
-</ul>
-<blockquote>
-<p>该命令将分支上改动的文件（即工作区改动文件），添加到暂存区，如果增加了新文件最好执行以下这个命令，否则会少上传自己新添的文件，拉取下来报错。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git add .
-</code></pre><ul>
-<li>git commit -m “修改说明”</li>
-</ul>
-<blockquote>
-<p>将暂存区的文件提交到版本库(dev1.0.0本地版本库)</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git commit -m &quot;xxxxx&quot;
-</code></pre><ul>
-<li>git checkout dev1.0.0</li>
-</ul>
-<blockquote>
-<p>切换到本地分支 dev1.0.0</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git checkout dev1.0.0
-</code></pre><ul>
-<li>git pull</li>
-</ul>
-<blockquote>
-<p>该命令将origin/dev1.0.0分支上的代码，更新到local/dev1.0.0 分支上。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git pull
-</code></pre><ul>
-<li>git checkout feature/example_test_local</li>
-</ul>
-<blockquote>
-<p>该命令切换到本地feature/example_test_local分支</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git checkout feature/example_test_local
-</code></pre><ul>
-<li>git rebase dev1.0.0</li>
-</ul>
-<blockquote>
-<p>该命令将 dev1.0.0分支上的最新代码，合并到 本地feature/example_test_local分支上。此时很可能会遇到文件冲突的问题，需要到冲突所在的文件下手动修改，修改好后，执行 gitadd.执行 git rebase –continue，此时应该可以成功合并。</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git rebase dev1.0.0
-</code></pre><ul>
-<li>git push orgin head:refs/for/dev1.0.0</li>
-</ul>
-<blockquote>
-<p>此命令将本地local分支上修改的代码提交到服务器上</p>
-</blockquote>
-<pre><code>lvkun@PC-LVK ~
-$ git push orgin head:refs/for/dev1.0.0
-</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p>在git的使用过程中，提交到远程的dev1.0.0分支的时候，一定要保证代码没有任何的报错，否则的话，到时候大家合并的时候都报错，这是个很严重的问题。</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、关于版本控制-GIT-SVN&quot;&gt;&lt;a href=&quot;#一、关于版本控制-GIT-SVN&quot; class=&quot;headerlink&quot; title=&quot;一、关于版本控制(GIT/SVN)&quot;&gt;&lt;/a&gt;一、关于版本控制(GIT/SVN)&lt;/h3&gt;&lt;p&gt;两者都是优秀的版本管理工具&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Git&lt;blockquote&gt;
-&lt;p&gt;git是分布式：服务器和每个开发人员都拥有一个本地的代码管理仓库，进行本地的代码管理；&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;Svn&lt;blockquote&gt;
-&lt;p&gt;svn集中式：只有在服务器上有一个代码管理仓库；&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;二、Git使用&quot;&gt;&lt;a href=&quot;#二、Git使用&quot; class=&quot;headerlink&quot; title=&quot;二、Git使用&quot;&gt;&lt;/a&gt;二、Git使用&lt;/h3&gt;&lt;h4 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;使用git进行项目管理和开发，一般情况下，会在服务端（origin）创建一个仓库进行代码的管理，仓库会维护三大块分支。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="git" scheme="http://yoursite.com/categories/git/"/>
-    
-    
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>模仿HttpEncodingConfiguration创建自定义自动配置,application.properties中的信息自动加载</title>
-    <link href="http://yoursite.com/2016/06/26/my-auto-config/"/>
-    <id>http://yoursite.com/2016/06/26/my-auto-config/</id>
-    <published>2016-06-26T11:09:33.000Z</published>
-    <updated>2016-06-26T14:45:28.237Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Spring Boot封装好的自动配置很简单，在用得很轻松的同时，有没有想过，我们自己的项目中也根据自己的需求写一个具备Spring Boot自动配置功能的冲动呢？首先，来说说Http编码配置的例子，然后参考这个例子，我们自己来实现一个自动配置的功能。</p>
-</blockquote>
-<h2 id="Http编码配置"><a href="#Http编码配置" class="headerlink" title="Http编码配置"></a>Http编码配置</h2><ul>
-<li><p>添加配置，即在 application.properties 上添加：</p>
-<pre><code>#HTTP encoding (HttpEncodingProperties)
-spring.http.encoding.charset=UTF-8  # the encoding of HTTP request/response
-spring.http.encoding.enabled=true #enabled http encoding support
-spring.http.encoding.force=true #force the configured encoding
-</code></pre></li>
-</ul>
-<a id="more"></a>
-<blockquote>
-<p>当然，不一定要”application.properties”这样的文件名，我们可以新建一个”application-myauto.properties”文件，只需要在 @ConfigurationProperties 的属性 locations 里指定properties的位置即可，且需要在入口类上配置。下面举个例子：</p>
-</blockquote>
-<pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-@Component
-@ConfigurationProperties(prefix = &quot;spring.http.encoding&quot;,locations = {&quot;classpath:config/application-myauto.properties&quot;}) //1
-public class MyAutoSettings {
-    private String name;
-    private Long age;
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Long getAge() {
-        return age;
-    }
-    public void setAge(Long age) {
-        this.age = age;
-    }
-}
-</code></pre><ul>
-<li><p>Spring Boot实现HttpEncoding自动配置的源码如下：</p>
-<pre><code>import org.springframework.boot.context.properties.ConfigurationProperties;
-
-@ConfigurationProperties(prefix = &quot;spring.http.encoding&quot;)//在 application.properties 配置的时候前缀是 spring.http.encoding
-public class HttpEncodingProperties {
-    public static final Charset DEFAULT_CHARSET = Charset.forName(&quot;UTF-8&quot;);//默认编码方式为UTF-8,若修改可使用 spring.http.encoding.charset=编码
-    private Charset charset = DEFAULT_CHARSET;
-    private boolean force = true;//设置 forceEncoding,默认为true，若修改可使用 spring.http.encoding.force=false
-
-    public Charset getCharset() {    
-        return this.charset;
-    }
-    public void setCharset(Charset charset) {
-        this.charset = charset;
-    }
-    ....
-}
-</code></pre></li>
-<li><p>配置Bean，根据条件配置CharsetEncodingFilter的Bean</p>
-<pre><code>@Configuration
-@EnableConfigurationProperties(HttpEncodingProperties.class)//开启属性注入，通过@EnableConfigurationProperties 声明，使用 @Autowired注入
-@ConditionalOnClass(CharacterEncodingFilter.class)//当CharacterEncodingFilter在类路径的条件下
-@ConditionalOnProperties(prefix = &quot;spring.http.encoding&quot;,value = &quot;enabled&quot;,matchIfMissing = true)//当设置 spring.http.encoding = enabled 的情况下，如果没有设置则默认为true,即条件符合；
-public class HttpEncodingAutoConfiguration {
-
-    @Autowired
-    private HttpEncodingProperties httpEncodingProperties;
-
-    @Bean // 像使用Java 配置的方式配置CharacterEncodingFilter 这个Bean
-    @ConditionalOnMissingBean(CharacterEncodingFilter.class)//当容器中没有这个Bean的时候新建Bean
-    public CharacterEncodingFilter characterEncodingFilter() {
-        CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
-        filter.setEncoding(this.httpEncodingProperties.getCharset().name());
-        filter.setForceEncoding(this.httpEncodingProperties.isForce());
-        return filter;
-    }
-}
-</code></pre></li>
-</ul>
-<h2 id="MyAutoConfig配置"><a href="#MyAutoConfig配置" class="headerlink" title="MyAutoConfig配置"></a>MyAutoConfig配置</h2><blockquote>
-<p>下面就来创建一个我们自己项目的自动配置。</p>
-</blockquote>
-<ul>
-<li><p>依赖</p>
-<pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-autoconfigure&lt;/artifactId&gt;
-    &lt;version&gt;1.3.5.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre></li>
-<li><p>属性配置</p>
-<p>  1.application.properties中填入：</p>
-<pre><code>app.name=jmust
-app.source=wx
-</code></pre><p>  2.配置类</p>
-<pre><code>@ConfigurationProperties(prefix=&quot;app&quot;)
-public class MyAutoPrpperties {
-    private static final String NAME = &quot;jmust&quot;;
-    private String name = NAME;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-</code></pre><p>  在 application.properties 中通过 app.name= 来设置，默认为 app.name = jmust</p>
-</li>
-<li><p>判断依据</p>
-</li>
-</ul>
-<pre><code>/**
- * Created by LK on 2016/6/26.
- */
-public class MyAutoService {
-    private String name;
-
-    public String sayName(){
-        return &quot;zzz&quot;+ name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-</code></pre><ul>
-<li><p>自动配置</p>
-<pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- * Created by LK on 2016/6/26.
- */
-
-@Configuration
-@EnableConfigurationProperties(MyAutoProperties.class)
-@ConditionalOnClass(MyAutoService.class)
-@ConditionalOnProperty(prefix=&quot;app&quot;,value = &quot;enabled&quot;,matchIfMissing = true)
-public class MyAutoServiceAutoConfiguration {
-
-    @Autowired
-    private MyAutoProperties myAutoProperties;
-
-    @Bean
-    @ConditionalOnMissingBean(MyAutoService.class)
-    public MyAutoService myAutoService(){
-        MyAutoService myAutoService = new MyAutoService();
-        myAutoService.setName(myAutoProperties.getName());
-        return myAutoService;
-    }
-}
-</code></pre></li>
-<li><p>注册配置</p>
-</li>
-</ul>
-<blockquote>
-<p>如果想自动配置生效，需要注册自动配置类。在src/main/resources 下新建META-INF/spring.factories,在spring.factories中填如下内容注册：</p>
-</blockquote>
-<pre><code>org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.jmust.service.demo.MyAutoServiceAutoConfiguration
-</code></pre><ul>
-<li><p>使用    </p>
-<pre><code>import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * Created by LK on 2016/6/26.
- */
-@RestController
-@SpringBootApplication
-public class DemoApplication {
-
-    @Autowired
-    private MyAutoService myAutoService;
-
-    @RequestMapping(&quot;/&quot;)
-    public String index(){
-        return myAutoService.sayName();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class,args);
-    }
-}
-</code></pre><p>  在项目中可以直接注入MyAutoService的Bean,但是项目中我们并没有配置这个 Bean,这就是通过自动配置完成的。</p>
-</li>
-<li><p>效果</p>
-<p>  访问 <a href="http://localhost:8080,就会出现你在application.properties中对应name的内容了。" target="_blank" rel="external">http://localhost:8080,就会出现你在application.properties中对应name的内容了。</a></p>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Spring Boot封装好的自动配置很简单，在用得很轻松的同时，有没有想过，我们自己的项目中也根据自己的需求写一个具备Spring Boot自动配置功能的冲动呢？首先，来说说Http编码配置的例子，然后参考这个例子，我们自己来实现一个自动配置的功能。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;Http编码配置&quot;&gt;&lt;a href=&quot;#Http编码配置&quot; class=&quot;headerlink&quot; title=&quot;Http编码配置&quot;&gt;&lt;/a&gt;Http编码配置&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加配置，即在 application.properties 上添加：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#HTTP encoding (HttpEncodingProperties)
-spring.http.encoding.charset=UTF-8  # the encoding of HTTP request/response
-spring.http.encoding.enabled=true #enabled http encoding support
-spring.http.encoding.force=true #force the configured encoding
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Spring-Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
     
   </entry>
   

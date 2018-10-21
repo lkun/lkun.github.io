@@ -82,7 +82,138 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/10/19/redis/Redis Cluster下如何支持Pipeline/" title="Redis-Cluster集群模式下使用Pipeline批量操作" itemprop="url">Redis-Cluster集群模式下使用Pipeline批量操作</a>
+      <a href="/2018/10/21/redis/Redis集群搭建/" title="Redis集群搭建" itemprop="url">Redis集群搭建</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-10-21T15:30:01.000Z" itemprop="datePublished"> 发表于 2018-10-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="redis单机模式搭建教程"><a href="#redis单机模式搭建教程" class="headerlink" title="redis单机模式搭建教程"></a>redis单机模式搭建教程</h1><h2 id="安装gcc"><a href="#安装gcc" class="headerlink" title="安装gcc"></a>安装gcc</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br></pre></td></tr></table></figure>
+<h2 id="把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压"><a href="#把下载好的redis-4-0-11-tar-gz放在-usr-local-software-目录下，解压" class="headerlink" title="把下载好的redis-4.0.11.tar.gz放在 /usr/local/software 目录下，解压"></a>把下载好的redis-4.0.11.tar.gz放在 <code>/usr/local/software</code> 目录下，解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-4.0.11.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="进入解压好的redis-4-0-11目录下，执行"><a href="#进入解压好的redis-4-0-11目录下，执行" class="headerlink" title="进入解压好的redis-4.0.11目录下，执行"></a>进入解压好的redis-4.0.11目录下，执行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/10/21/redis/Redis集群搭建/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Redis/">Redis</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/10/20/redis/为什么使用Redis实现队列/" title="为什么使用Redis实现队列" itemprop="url">为什么使用Redis实现队列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-10-20T01:45:46.301Z" itemprop="datePublished"> 发表于 2018-10-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="队列主要作用"><a href="#队列主要作用" class="headerlink" title="队列主要作用"></a>队列主要作用</h3><ul>
+<li>流量削峰填谷<blockquote>
+<p>秒杀或者系统高峰场景，会出现同时大量的流量涌进来，假如系统对应的mysql最多只能承受2000/s,同时进来的请求数高达8000/s,以这种情况，mysql必然会被冲垮了，那怎么办呢？使用队列来缓冲流量，8000/s的请求全部丢到队列中，然后再根据系统能承受的范围内消费处理，即可很好的保护系统不被瞬时的流量冲垮！</p>
+</blockquote>
+</li>
+</ul>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/10/20/redis/为什么使用Redis实现队列/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Redis/">Redis</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/10/19/redis/RedisCluster下如何支持Pipeline/" title="RedisCluster集群模式下使用Pipeline批量操作" itemprop="url">RedisCluster集群模式下使用Pipeline批量操作</a>
   </h1>
   <p class="article-author">By
        
@@ -95,21 +226,17 @@
 </header>
     <div class="article-content">
         
-        <blockquote>
-<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<B>redis Pipeline（管道机制）</B>可以解决。<br>Pipeline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
+        <h2 id="RedisCluster集群模式下使用Pipeline批量操作-Java"><a href="#RedisCluster集群模式下使用Pipeline批量操作-Java" class="headerlink" title="RedisCluster集群模式下使用Pipeline批量操作-Java"></a>RedisCluster集群模式下使用Pipeline批量操作-Java</h2><blockquote>
+<p>在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：<strong>redis Pipeline（管道机制）</strong>eline指的是管道技术，指的是客户端允许将多个请求依次发给服务器，过程中而不需要等待请求的回复，在最后再一并读取结果即可。</p>
 </blockquote>
-<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><B> Redis3.0版本引入了cluster  ， 这么好用的Pipeline功能居然不支持了 </B>
-
-
-<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><B> 当然不了…….</B>
-
-
+<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><p>Pipeline功能居然不支持了</p>
+<h3 id="难道就放弃了"><a href="#难道就放弃了" class="headerlink" title="难道就放弃了"></a>难道就放弃了</h3><p>当然不了…….</p>
 <h3 id="那该如何"><a href="#那该如何" class="headerlink" title="那该如何"></a>那该如何</h3>
         
         
         <p class="article-more-link">
           
-            <a href="/2018/10/19/redis/Redis Cluster下如何支持Pipeline/#more">阅读全文</a>
+            <a href="/2018/10/19/redis/RedisCluster下如何支持Pipeline/#more">阅读全文</a>
           
        </p>
     </div>
@@ -348,6 +475,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/UML/">UML</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/UML/">UML</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/09/09/pack/gradle/gradle-to-maven/" title="gradle项目打包到maven仓库" itemprop="url">gradle项目打包到maven仓库</a>
   </h1>
   <p class="article-author">By
@@ -387,67 +575,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/maven/">maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/UML/">UML</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/UML/">UML</a>
   </div>
 
 </div>
@@ -521,78 +648,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/react/">react</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/05/React 项目生成/" title="React 项目生成" itemprop="url">React 项目生成</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-05T06:23:51.000Z" itemprop="datePublished"> 发表于 2017-08-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>安装node环境，cmd   <code>node -v</code>  检查是否安装</li>
-<li>安装yeoman来生成项目基本框架 <code>npm install -g yo</code></li>
-<li>运行cmd <code>yo --version</code> 查看版本号</li>
-<li>进去 <a href="http://yeoman.io" target="_blank" rel="external">yeoman官网</a> 找到generators</li>
-<li>利用generator-react-webpack搭建 <a href="https://github.com/react-webpack-generators/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a></li>
-<li>安装 <code>npm install -g generator-react-webpack</code></li>
-<li>查看版本 <code>npm ls -g --depth=1 2&gt;/dev/null | grep generator-</code></li>
-<li>生成项目 <code>yo react-webpack gallery-by-react</code></li>
-<li>将站点启动 <code>grunt serve</code></li>
-<li>打开 <code>https://chrome.google.com/webstore/</code> 应用商店安装 <code>React devloper Tools</code></li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/React/">React</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/React/">React</a>
   </div>
 
 </div>
@@ -697,73 +752,9 @@
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/20/JVM调优（常用参数）总结/" title="JVM调优总结 -Xms -Xmx -Xmn -Xss" itemprop="url">JVM调优总结 -Xms -Xmx -Xmn -Xss</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-20T10:30:01.000Z" itemprop="datePublished"> 发表于 2017-05-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="堆大小设置"><a href="#堆大小设置" class="headerlink" title="堆大小设置"></a>堆大小设置</h3><blockquote>
-<p>JVM 中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。32位系统下，一般限制在1.5G~2G；64为操作系统对内存无限制。</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2017/05/20/JVM调优（常用参数）总结/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/JVM/">JVM</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/JVM/">JVM</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -818,7 +809,7 @@
 		  
 		
 		  
-			<li><a href="/categories/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
 		  
 		
 		  
@@ -887,6 +878,10 @@
 			
 		
 			
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
 			
 		
@@ -900,10 +895,6 @@
 		
 			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			
