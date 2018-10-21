@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2018/10/19/redis/RedisCluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline/</loc>
+    <loc>http://yoursite.com/2018/10/19/RedisCluster%E4%B8%8B%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81Pipeline/</loc>
     
-    <lastmod>2018-10-21T14:37:53.075Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/10/21/redis/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2018-10-21T14:37:49.894Z</lastmod>
+    <lastmod>2018-10-21T15:06:43.699Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/10/20/redis/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</loc>
+    <loc>http://yoursite.com/2018/10/21/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     
-    <lastmod>2018-10-21T14:37:44.077Z</lastmod>
+    <lastmod>2018-10-21T15:06:38.951Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/10/20/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</loc>
+    
+    <lastmod>2018-10-21T15:06:32.619Z</lastmod>
     
   </url>
   

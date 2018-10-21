@@ -15,11 +15,11 @@
 在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：redis Pipeline（管道机制）eline指的是管道技术，指的是客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RedisCluster集群模式下使用Pipeline批量操作">
-<meta property="og:url" content="http://yoursite.com/2018/10/19/redis/RedisCluster下如何支持Pipeline/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/10/19/RedisCluster下如何支持Pipeline/index.html">
 <meta property="og:site_name" content="lkun's">
 <meta property="og:description" content="RedisCluster集群模式下使用Pipeline批量操作-Java
 在工作中无意中发现居然有些系统在完成某个功能（登录），竟然对redis产生近80次读写操作！对于这样子的读写操作，redis很快便导致系统延时过高，吞吐量低下；有没有什么办法或者redis指令可以将以上操作进行合并操作，提升系统性能和吞吐量呢？答案是：redis Pipeline（管道机制）eline指的是管道技术，指的是客">
-<meta property="og:updated_time" content="2018-10-21T14:37:53.075Z">
+<meta property="og:updated_time" content="2018-10-21T15:06:43.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RedisCluster集群模式下使用Pipeline批量操作">
 <meta name="twitter:description" content="RedisCluster集群模式下使用Pipeline批量操作-Java
@@ -83,7 +83,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/10/19/redis/RedisCluster下如何支持Pipeline/" title="RedisCluster集群模式下使用Pipeline批量操作" itemprop="url">RedisCluster集群模式下使用Pipeline批量操作</a>
+      <a href="/2018/10/19/RedisCluster下如何支持Pipeline/" title="RedisCluster集群模式下使用Pipeline批量操作" itemprop="url">RedisCluster集群模式下使用Pipeline批量操作</a>
   </h1>
   <p class="article-author">By
        
@@ -147,13 +147,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/redis/">redis</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -162,7 +162,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2018/10/19/redis/RedisCluster下如何支持Pipeline/" data-title="RedisCluster集群模式下使用Pipeline批量操作 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2018/10/19/RedisCluster下如何支持Pipeline/" data-title="RedisCluster集群模式下使用Pipeline批量操作 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -176,7 +176,7 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/10/20/redis/为什么使用Redis实现队列/" title="为什么使用Redis实现队列">
+ <a href="/2018/10/20/为什么使用Redis实现队列/" title="为什么使用Redis实现队列">
   <strong>上一篇：</strong><br/>
   <span>
   为什么使用Redis实现队列</span>
@@ -255,6 +255,8 @@
 		  
 		
 		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
 		
 		  
 			<li><a href="/categories/SSL/" title="SSL">SSL<sup>1</sup></a></li>
@@ -301,8 +303,6 @@
 		  
 		
 		  
-			<li><a href="/categories/redis/" title="redis">redis<sup>3</sup></a></li>
-		  
 		
 		  
 			<li><a href="/categories/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
@@ -326,11 +326,11 @@
 			
 		
 			
-				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
 			
 		
 			
@@ -346,7 +346,7 @@
 			
 		
 			
-				<li><a href="/tags/SSL/" title="SSL">SSL<sup>1</sup></a></li>
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			

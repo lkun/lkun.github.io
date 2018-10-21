@@ -16,12 +16,12 @@
 秒杀或者系统高峰场景，会出现同时大量的流量涌进来，假如系统对应的mysql最多只能承受2000/s,同时进来的请求数高达8000/s,以这种情况，mysql必然会被冲垮了，那怎么办呢？使用队列来缓冲流量，8000/s的请求全部丢到队列中，然后再根据系统能承受的范围内消费处理，即可很好的保护系统不被瞬时的流量冲垮！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么使用Redis实现队列">
-<meta property="og:url" content="http://yoursite.com/2018/10/20/redis/为什么使用Redis实现队列/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/10/20/为什么使用Redis实现队列/index.html">
 <meta property="og:site_name" content="lkun's">
 <meta property="og:description" content="队列主要作用
 流量削峰填谷
 秒杀或者系统高峰场景，会出现同时大量的流量涌进来，假如系统对应的mysql最多只能承受2000/s,同时进来的请求数高达8000/s,以这种情况，mysql必然会被冲垮了，那怎么办呢？使用队列来缓冲流量，8000/s的请求全部丢到队列中，然后再根据系统能承受的范围内消费处理，即可很好的保护系统不被瞬时的流量冲垮！">
-<meta property="og:updated_time" content="2018-10-21T14:37:44.077Z">
+<meta property="og:updated_time" content="2018-10-21T15:06:32.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么使用Redis实现队列">
 <meta name="twitter:description" content="队列主要作用
@@ -86,7 +86,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/10/20/redis/为什么使用Redis实现队列/" title="为什么使用Redis实现队列" itemprop="url">为什么使用Redis实现队列</a>
+      <a href="/2018/10/20/为什么使用Redis实现队列/" title="为什么使用Redis实现队列" itemprop="url">为什么使用Redis实现队列</a>
   </h1>
   <p class="article-author">By
        
@@ -135,13 +135,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/redis/">redis</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -150,7 +150,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2018/10/20/redis/为什么使用Redis实现队列/" data-title="为什么使用Redis实现队列 | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2018/10/20/为什么使用Redis实现队列/" data-title="为什么使用Redis实现队列 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -164,7 +164,7 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/10/21/redis/Redis集群搭建/" title="Redis集群搭建">
+ <a href="/2018/10/21/Redis集群搭建/" title="Redis集群搭建">
   <strong>上一篇：</strong><br/>
   <span>
   Redis集群搭建</span>
@@ -173,7 +173,7 @@
 
 
 <div class="next">
-<a href="/2018/10/19/redis/RedisCluster下如何支持Pipeline/"  title="RedisCluster集群模式下使用Pipeline批量操作">
+<a href="/2018/10/19/RedisCluster下如何支持Pipeline/"  title="RedisCluster集群模式下使用Pipeline批量操作">
  <strong>下一篇：</strong><br/> 
  <span>RedisCluster集群模式下使用Pipeline批量操作
 </span>
@@ -243,6 +243,8 @@
 		  
 		
 		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
 		
 		  
 			<li><a href="/categories/SSL/" title="SSL">SSL<sup>1</sup></a></li>
@@ -289,8 +291,6 @@
 		  
 		
 		  
-			<li><a href="/categories/redis/" title="redis">redis<sup>3</sup></a></li>
-		  
 		
 		  
 			<li><a href="/categories/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
@@ -314,11 +314,11 @@
 			
 		
 			
-				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
 			
 		
 			
@@ -334,7 +334,7 @@
 			
 		
 			
-				<li><a href="/tags/SSL/" title="SSL">SSL<sup>1</sup></a></li>
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			
