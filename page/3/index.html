@@ -82,6 +82,82 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/24/设计模式-简单工厂/" title="设计模式--简单工厂" itemprop="url">设计模式--简单工厂</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-24T11:41:38.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>简单工厂模式，  就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。</p>
+</blockquote>
+<p>下面以一个计算器的实现举例，简单工厂模式的场景描述：</p>
+<blockquote>
+<p>+-*/ 等运算不希望混合在一起，因为以后需要扩展的时候，比如说增加一个平方的运算，不希望在同一个方法里面或者同一个类里面去修改，因为这样子的危险性太高了，如果因为增加一个平方的运算，从而影响之前的运算，那肯定不是我们所希望的，所以有简单工厂模式的出现，下面主要是以贴代码为主：</p>
+</blockquote>
+<h3 id="测试AppMain"><a href="#测试AppMain" class="headerlink" title="测试AppMain"></a>测试AppMain</h3><pre><code>public static void main(String[] args) throws Exception {
+    Operation operation = OperationFactory.createOperate(&quot;-&quot;);
+    operation.setNumberA(3);
+    operation.setNumberB(2);
+    double result = operation.getResult();
+    System.out.println(result);
+}
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/07/24/设计模式-简单工厂/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/设计模式/">设计模式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/10/Git使用教程/" title="Git使用教程---针对刚入职的同事" itemprop="url">Git使用教程---针对刚入职的同事</a>
   </h1>
   <p class="article-author">By
@@ -122,13 +198,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/git/">git</a>
+  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/工程管理/">工程管理</a>
   </div>
 
 </div>
@@ -258,13 +334,13 @@ spring.http.encoding.force=true #force the configured encoding
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/rabbitMQ/">rabbitMQ</a>
+  <a class="article-category-link" href="/categories/分布式中间件/">分布式中间件</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/rabbitMQ/">rabbitMQ</a>
+  <span></span> <a href="/tags/分布式中间件/">分布式中间件</a>
   </div>
 
 </div>
@@ -322,13 +398,13 @@ spring.http.encoding.force=true #force the configured encoding
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+  <a class="article-category-link" href="/categories/应用框架/">应用框架</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a><a href="/tags/mybatis/">mybatis</a>
+  <span></span> <a href="/tags/应用框架/">应用框架</a>
   </div>
 
 </div>
@@ -388,13 +464,13 @@ spring.http.encoding.force=true #force the configured encoding
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/mockito/">mockito</a>
+  <a class="article-category-link" href="/categories/质量控制/">质量控制</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mockito-testng/">mockito testng</a>
+  <span></span> <a href="/tags/质量控制/">质量控制</a>
   </div>
 
 </div>
@@ -591,89 +667,13 @@ server.context-path=/helloworld
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Maven/">Maven</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/18/hello-world/" title="Github+HEXO搭建一个独立博客教程" itemprop="url">Github+HEXO搭建一个独立博客教程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>知道Github Pages + Hexo的好，就很想把它分享给身边的朋友，所以我写了这篇博客，让大家在搭建的过程中少走弯路，下面就将这个安装的流程写了下来。</p>
-</blockquote>
-<h3 id="为什么选择GitHub-Pages"><a href="#为什么选择GitHub-Pages" class="headerlink" title="为什么选择GitHub Pages?"></a>为什么选择GitHub Pages?</h3><ul>
-<li>1、github pages有300M免费空间，资料自己管理，保存可靠；</li>
-<li>2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；</li>
-<li>3、顺便看看github工作原理，最好的团队协作流程；</li>
-<li>4、github是趋势；</li>
-<li>5、你不觉得一个文科生用github很geek吗？瞬间跻身技术界；</li>
-<li>6、就算github被墙了，我可以搬到国内的gitcafe中去</li>
-</ul>
-<h3 id="GitHub-Pages是什么？"><a href="#GitHub-Pages是什么？" class="headerlink" title="GitHub Pages是什么？"></a>GitHub Pages是什么？</h3><p>GitHub Pages本用于介绍托管在GitHub的项目， 不过，由于他的空间免费稳定，用来做搭建一个博客再好不过了</p>
-<blockquote>
-<p>github Pages可以被认为是用户编写的、托管在github上的静态网页。</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/18/hello-world/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/HEXO/">HEXO</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/HEXO/">HEXO</a>
+  <span></span> <a href="/tags/工程管理/">工程管理</a>
   </div>
 
 </div>
@@ -731,13 +731,13 @@ server.context-path=/helloworld
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
+  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/GitHub-HEXO/">GitHub+HEXO</a>
+  <span></span> <a href="/tags/工程管理/">工程管理</a>
   </div>
 
 </div>
@@ -780,15 +780,13 @@ server.context-path=/helloworld
 		<ul>
 		
 		  
-			<li><a href="/categories/Flume/" title="Flume">Flume<sup>1</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>1</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
-		  
 		
 		  
-			<li><a href="/categories/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
+		
 		  
 		
 		  
@@ -796,81 +794,87 @@ server.context-path=/helloworld
 		  
 		
 		  
-			<li><a href="/categories/JVM/" title="JVM">JVM<sup>1</sup></a></li>
-		  
 		
 		  
 			<li><a href="/categories/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/Maven/" title="Maven">Maven<sup>3</sup></a></li>
-		  
 		
 		  
-			<li><a href="/categories/Other/" title="Other">Other<sup>1</sup></a></li>
-		  
 		
-		  
-			<li><a href="/categories/React/" title="React">React<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/SSL/" title="SSL">SSL<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>3</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/UML/" title="UML">UML<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/ldap/" title="ldap">ldap<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/maven/" title="maven">maven<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/mockito/" title="mockito">mockito<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/react/" title="react">react<sup>1</sup></a></li>
 		  
 		
 		  
 		
 		  
-			<li><a href="/categories/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
+		
+		  
+			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/分布式中间件/" title="分布式中间件">分布式中间件<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端技术/" title="前端技术">前端技术<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/工程管理/" title="工程管理">工程管理<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/建模/" title="建模">建模<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/源码分析/" title="源码分析">源码分析<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/质量控制/" title="质量控制">质量控制<sup>1</sup></a></li>
 		  
 		
 		</ul>
@@ -883,23 +887,23 @@ server.context-path=/helloworld
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>5</sup></a></li>
+				<li><a href="/tags/工程管理/" title="工程管理">工程管理<sup>8</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Maven/" title="Maven">Maven<sup>3</sup></a></li>
+				<li><a href="/tags/分布式中间件/" title="分布式中间件">分布式中间件<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/rabbitMQ/" title="rabbitMQ">rabbitMQ<sup>2</sup></a></li>
+				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Flume/" title="Flume">Flume<sup>2</sup></a></li>
+				<li><a href="/tags/前端技术/" title="前端技术">前端技术<sup>2</sup></a></li>
 			
 		
 			
@@ -907,59 +911,49 @@ server.context-path=/helloworld
 			
 		
 			
+				<li><a href="/tags/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/质量控制/" title="质量控制">质量控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/HTTPS/" title="HTTPS">HTTPS<sup>1</sup></a></li>
+		
 			
 		
 			
-				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>1</sup></a></li>
-			
 		
 			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
 		
-			
-				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/ldap/" title="ldap">ldap<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/GitBook/" title="GitBook">GitBook<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/JVM/" title="JVM">JVM<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/mockito-testng/" title="mockito testng">mockito testng<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/GitHub-HEXO/" title="GitHub+HEXO">GitHub+HEXO<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/博客/" title="博客">博客<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/react/" title="react">react<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/strategy/" title="strategy">strategy<sup>1</sup></a></li>
 			
 		
 		</ul>
