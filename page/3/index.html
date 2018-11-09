@@ -82,6 +82,84 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/07/24/设计模式-策略/" title="设计模式--策略模式" itemprop="url">设计模式--策略模式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-24T12:00:38.000Z" itemprop="datePublished"> 发表于 2016-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>策略模式 ，实现某一个功能有多种算法或者策略，我们可以根据环境或者条件的不同选择不同的算法或者策略来完成该功能。如查找、排序等，一种常用的方法是硬编码(Hard Coding)在一个类中，如需要提供多种查找算法，可以将这些算法写到一个类中，在该类中提供多个方法，每一个方法对应一个具体的查找算法；当然也可以将这些查找算法封装在一个统一的方法中，通过if…else…或者case等条件判断语句来进行选择。这两种实现方法我们都可以称之为硬编码，如果需要增加一种新的查找算法，需要修改封装算法类的源代码；更换查找算法，也需要修改客户端调用代码。在这个算法类中封装了大量查找算法，该类代码将较复杂，维护较为困难。如果我们将这些策略包含在客户端，这种做法更不可取，将导致客户端程序庞大而且难以维护，如果存在大量可供选择的算法时问题将变得更加严重。—抄自百度</p>
+</blockquote>
+<h3 id="测试-AppMain"><a href="#测试-AppMain" class="headerlink" title="测试 AppMain"></a>测试 AppMain</h3><pre><code>public static void main(String[] args) {
+    CashContext cashContext = new CashContext();
+    Class&lt;?&gt; cashRebateClass = null;
+    String className = &quot;com.sample.demo.designmodule.strategy.shop.CashRebate&quot;;
+
+    try{
+        /**
+         *
+         */
+        cashRebateClass = Class.forName(className);
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/07/24/设计模式-策略/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/设计模式/">设计模式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/24/设计模式-简单工厂/" title="设计模式--简单工厂" itemprop="url">设计模式--简单工厂</a>
   </h1>
   <p class="article-author">By
@@ -695,70 +773,6 @@ server.context-path=/helloworld
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ " itemprop="url">为什么选择用github+hexo来搭建自己的博客？ </a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/18/my-new-post/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/工程管理/">工程管理</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -848,7 +862,7 @@ server.context-path=/helloworld
 		  
 		
 		  
-			<li><a href="/categories/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>1</sup></a></li>
+			<li><a href="/categories/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>2</sup></a></li>
 		  
 		
 		  
@@ -907,19 +921,11 @@ server.context-path=/helloworld
 			
 		
 			
+				<li><a href="/tags/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
 			
 		
 			
@@ -927,7 +933,15 @@ server.context-path=/helloworld
 			
 		
 			
+				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/质量控制/" title="质量控制">质量控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
 			
 		
 			
@@ -935,7 +949,7 @@ server.context-path=/helloworld
 			
 		
 			
-				<li><a href="/tags/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
+				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
 			
 		
 			
