@@ -82,27 +82,33 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/appassembler-maven-plugin/" title="appassembler-maven-plugin插件的作用以及使用" itemprop="url">appassembler-maven-plugin插件的作用以及使用</a>
+      <a href="/2016/06/19/Spring-Boot-Config/" title="Spring Boot 配置文件" itemprop="url">Spring Boot 配置文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T13:02:13.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-19T13:37:56.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
     
   </p>
 </header>
     <div class="article-content">
         
         <blockquote>
-<p>appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。</p>
+<p>Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。<br>Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。<br>Spring Boot 的全局配置文件的作用是对一些默认配置的配置值进行修改。</p>
 </blockquote>
+<h3 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h3><blockquote>
+<p>将Tomcat的默认端口号8080修改为9090，并将默认的访问路径”/“修改为”/helloworld”。<br>  可以在application.properties 中添加：</p>
+</blockquote>
+<pre><code>server.port=9090
+server.context-path=/helloworld
+</code></pre>
         
         
         <p class="article-more-link">
           
-            <a href="/2016/06/18/appassembler-maven-plugin/#more">阅读全文</a>
+            <a href="/2016/06/19/Spring-Boot-Config/#more">阅读全文</a>
           
        </p>
     </div>
@@ -111,13 +117,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
+  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/工程管理/">工程管理</a>
+  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
   </div>
 
 </div>
@@ -146,27 +152,27 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ " itemprop="url">为什么选择用github+hexo来搭建自己的博客？ </a>
+      <a href="/2016/06/18/appassembler-maven-plugin/" title="appassembler-maven-plugin插件的作用以及使用" itemprop="url">appassembler-maven-plugin插件的作用以及使用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    <time datetime="2016-06-18T13:02:13.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
     
   </p>
 </header>
     <div class="article-content">
         
         <blockquote>
-<p>这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。</p>
+<p>appassembler-maven-plugin可以自动生成跨平台的启动脚本，省去了手工写脚本的麻烦，而且还可以生成jsw的后台运行程序。appassembler的配置比较简单，在pom.xml的配置文件加入插件配置。</p>
 </blockquote>
         
         
         <p class="article-more-link">
           
-            <a href="/2016/06/18/my-new-post/#more">阅读全文</a>
+            <a href="/2016/06/18/appassembler-maven-plugin/#more">阅读全文</a>
           
        </p>
     </div>
@@ -240,6 +246,70 @@
         
         
         <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/工程管理/">工程管理</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/18/my-new-post/" title="为什么选择用github+hexo来搭建自己的博客？ " itemprop="url">为什么选择用github+hexo来搭建自己的博客？ </a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-18T03:23:51.000Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>这几年来自己也写了很多的博客，都在很多的博客网站上写过，总之自己就是不大喜欢，本身写博客是记录自己在工作中所遇到的难点以及技术，其实写博客就是对自己工作以及对知识的一个归纳，可以放松身心的。但是如果一个博客网站看上去很不爽，那么就会严重的影响到自己写博客的热情，甚至会厌恶写博客。然而，最近看了公司大牛Sky Ao的博客之后，才发现原来还会有一个这么好的写博客和分享博客的方式。</p>
+</blockquote>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/18/my-new-post/#more">阅读全文</a>
           
        </p>
     </div>
@@ -373,7 +443,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
 		  
 		
 		  
@@ -454,6 +524,10 @@
 			
 		
 			
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>2</sup></a></li>
 			
 		
@@ -467,10 +541,6 @@
 		
 			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
 			
 		
 			

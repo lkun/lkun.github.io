@@ -147,6 +147,74 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/08/18/Flume部署及应用实例/" title="Flume部署及应用实例" itemprop="url">Flume部署及应用实例</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-18T14:00:38.000Z" itemprop="datePublished"> 发表于 2016-08-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Flume部署及应用实例"><a href="#Flume部署及应用实例" class="headerlink" title="Flume部署及应用实例"></a>Flume部署及应用实例</h1><h3 id="版本下载"><a href="#版本下载" class="headerlink" title="版本下载"></a>版本下载</h3><p><a href="http://www.apache.org/dyn/closer.lua/flume/1.6.0/apache-flume-1.6.0-bin.tar.gz">Flume下载地址</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>将下载下来的apache-flume-1.6.0-bin.tar.gz包解压（tar -zxvf apache-flume-1.6.0-bin.tar.gz）到 /opt/目录下面</li>
+<li><p>/etc/profile文件下添加</p>
+<pre><code>export FLUME_HOME=/opt/apache-flume-1.6.0-bin
+export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/08/18/Flume部署及应用实例/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/源码分析/">源码分析</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/07/24/设计模式-策略/" title="设计模式--策略模式" itemprop="url">设计模式--策略模式</a>
   </h1>
   <p class="article-author">By
@@ -704,76 +772,6 @@ jmust.age=Hello World
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/19/Spring-Boot-Config/" title="Spring Boot 配置文件" itemprop="url">Spring Boot 配置文件</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-19T13:37:56.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>Spring Boot 使用一个全局的配置文件 applications.properties,放置在 src/main/resources 目录或者类路径下面的 /config下。<br>Spring Boot 不仅支持常规的 properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候具有面向对象的特征。<br>Spring Boot 的全局配置文件的作用是对一些默认配置的配置值进行修改。</p>
-</blockquote>
-<h3 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h3><blockquote>
-<p>将Tomcat的默认端口号8080修改为9090，并将默认的访问路径”/“修改为”/helloworld”。<br>  可以在application.properties 中添加：</p>
-</blockquote>
-<pre><code>server.port=9090
-server.context-path=/helloworld
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/19/Spring-Boot-Config/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Spring-Boot/">Spring-Boot</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Spring-Boot/">Spring-Boot</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -795,7 +793,7 @@ server.context-path=/helloworld
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
 		  
 		
 		  
@@ -876,6 +874,10 @@ server.context-path=/helloworld
 			
 		
 			
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>2</sup></a></li>
 			
 		
@@ -889,10 +891,6 @@ server.context-path=/helloworld
 		
 			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
 			
 		
 			

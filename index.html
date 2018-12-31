@@ -82,6 +82,76 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/12/31/docker/外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用/" title="外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用" itemprop="url">外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-12-31T09:20:38.000Z" itemprop="datePublished"> 发表于 2018-12-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
+<p> 为方便测试使用，通常我们选择在Windows主机中安装虚拟机这（这里选的是VMware Workstation），在虚拟机中部署Docker容器。而我们部署在Docker中的容器外部网络（和Windows同一层的网络）是无法访问的。</p>
+</blockquote>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="机器准备"><a href="#机器准备" class="headerlink" title="机器准备"></a>机器准备</h3><p>Windows</p>
+<p>虚拟机-VMware</p>
+<h3 id="IP准备"><a href="#IP准备" class="headerlink" title="IP准备"></a>IP准备</h3><p>Windows IP：192.168.10.103</p>
+<p>虚拟机(CentOS7) IP：192.168.93.128</p>
+<p>Docker容器 IP：172.17.0.3</p>
+<h3 id="宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能能够跨网络实现172-17-0-3与192-168-93-128的通信"><a href="#宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能能够跨网络实现172-17-0-3与192-168-93-128的通信" class="headerlink" title="(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能能够跨网络实现172.17.0.3与192.168.93.128的通信"></a>(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能能够跨网络实现172.17.0.3与192.168.93.128的通信</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name html -p 8082:80 -v /data/html:/usr/share/nginx/html:ro <span class="_">-d</span> nginx</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/12/31/docker/外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/DevOps/">DevOps</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/12/31/docker/从搭建docker环境到跑起来的静态站点/" title="从搭建docker环境到跑起来的静态站点" itemprop="url">从搭建docker环境到跑起来的静态站点</a>
   </h1>
   <p class="article-author">By
@@ -657,73 +727,6 @@
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/09/09/pack/gradle/gradle-to-maven/" title="gradle项目打包到maven仓库" itemprop="url">gradle项目打包到maven仓库</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="gradle项目打包到maven仓库"><a href="#gradle项目打包到maven仓库" class="headerlink" title="gradle项目打包到maven仓库"></a>gradle项目打包到maven仓库</h2><p>引入插件：</p>
-<p>apply plugin: ‘java’</p>
-<p>apply plugin: “jacoco”</p>
-<p>//maven-publish 插件  提交到本地仓库<br>apply plugin: ‘java-library’</p>
-<p>apply plugin: ‘maven’</p>
-<p>apply plugin: ‘org.springframework.boot’</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2018/09/09/pack/gradle/gradle-to-maven/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/工程管理/">工程管理</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -745,7 +748,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
 		  
 		
 		  
@@ -826,6 +829,10 @@
 			
 		
 			
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/源码分析/" title="源码分析">源码分析<sup>2</sup></a></li>
 			
 		
@@ -839,10 +846,6 @@
 		
 			
 				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
 			
 		
 			
