@@ -96,14 +96,14 @@
     <div class="article-content">
         
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
-<p> 为方便测试使用，通常我们选择在Windows主机中安装虚拟机这（这里选的是VMware Workstation），在虚拟机中部署Docker容器。而我们部署在Docker中的容器外部网络（和Windows同一层的网络）是无法访问的。</p>
+<p> 为方便测试使用，通常我们选择在Windows主机中安装虚拟机（VMware Workstation），在虚拟机中部署Docker容器。而我们部署在Docker中的容器外部网络（和Windows同一层的网络）是无法访问的。</p>
 </blockquote>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="机器准备"><a href="#机器准备" class="headerlink" title="机器准备"></a>机器准备</h3><p>Windows</p>
 <p>虚拟机-VMware</p>
 <h3 id="IP准备"><a href="#IP准备" class="headerlink" title="IP准备"></a>IP准备</h3><p>Windows IP：192.168.10.103</p>
 <p>虚拟机(CentOS7) IP：192.168.93.128</p>
 <p>Docker容器 IP：172.17.0.3</p>
-<h3 id="宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能能够跨网络实现172-17-0-3与192-168-93-128的通信"><a href="#宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能能够跨网络实现172-17-0-3与192-168-93-128的通信" class="headerlink" title="(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能能够跨网络实现172.17.0.3与192.168.93.128的通信"></a>(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能能够跨网络实现172.17.0.3与192.168.93.128的通信</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name html -p 8082:80 -v /data/html:/usr/share/nginx/html:ro <span class="_">-d</span> nginx</span><br></pre></td></tr></table></figure>
+<h3 id="宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能-能够跨网络实现172-17-0-3与192-168-93-128的通信"><a href="#宿主机器与容器之间访问-创建容器时可以选择docker自带的端口映射功能-能够跨网络实现172-17-0-3与192-168-93-128的通信" class="headerlink" title="(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能,能够跨网络实现172.17.0.3与192.168.93.128的通信"></a>(宿主机器与容器之间访问)创建容器时可以选择docker自带的端口映射功能,能够跨网络实现172.17.0.3与192.168.93.128的通信</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name html -p 8082:80 -v /data/html:/usr/share/nginx/html:ro <span class="_">-d</span> nginx</span><br></pre></td></tr></table></figure>
         
         
         <p class="article-more-link">
@@ -918,8 +918,8 @@
 	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Lkun Comes from PPmoney. <br/>
-			This is my blog,believe it or not.</p>
+		<p> Hello,I&#39;m Lvkun,come from PPmoney. <br/>
+			This is my blog.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
