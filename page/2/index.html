@@ -82,6 +82,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/建模/">建模</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/建模/">建模</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/26/react+dva+antd实现CRUD简单功能/" title="react+dva+antd实现CRUD简单功能" itemprop="url">react+dva+antd实现CRUD简单功能</a>
   </h1>
   <p class="article-author">By
@@ -374,7 +435,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/15/非Maven的Jar转成Maven的Jar方法/" title="如何将jar手动安装到maven私服" itemprop="url">如何将jar手动安装到maven私服</a>
+      <a href="/2016/10/15/批量修改项目版本号方法（Maven）/" title="批量修改项目版本号方法（Maven）" itemprop="url">批量修改项目版本号方法（Maven）</a>
   </h1>
   <p class="article-author">By
        
@@ -387,23 +448,10 @@
 </header>
     <div class="article-content">
         
-        <h1 id="如何将非maven格式jar转成maven格式的jar？"><a href="#如何将非maven格式jar转成maven格式的jar？" class="headerlink" title="如何将非maven格式jar转成maven格式的jar？"></a>如何将非maven格式jar转成maven格式的jar？</h1><blockquote>
-<p>目前java项目当中还是依然存在很多不是用maven去管理的项目，但是我们又有很多maven去管理的项目需要引用不是maven管理的项目，怎么办？当然是将不是maven项目管理的jar包转换成maven管理格式的jar包啦。</p>
+        <h1 id="批量修改项目版本号方法（Maven）"><a href="#批量修改项目版本号方法（Maven）" class="headerlink" title="批量修改项目版本号方法（Maven）"></a>批量修改项目版本号方法（Maven）</h1><blockquote>
+<p>基于Maven管理的项目，目前一般的做法都是，如果项目还是处于开发阶段，我们为了方便maven管理，我们一般都是版本号xxx-SNAPSHOT ,为什么这么做呢？假如说，我们等版本稳定了怎么办呢？我们不可能打开每一个pom.xml文件修改每一个版本号把？这太浪费时间和精力了，我们肯定不这么做，下面介绍一种批量更改版本号的方法。</p>
 </blockquote>
-<h3 id="Install到本地repo命令"><a href="#Install到本地repo命令" class="headerlink" title="Install到本地repo命令"></a>Install到本地repo命令</h3><pre><code>mvn install:install-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar
-</code></pre><h3 id="deploy到nexus-repo命令"><a href="#deploy到nexus-repo命令" class="headerlink" title="deploy到nexus repo命令"></a>deploy到nexus repo命令</h3><pre><code>mvn deploy:deploy-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar 
--DrepositoryId=your-nexus-releases-repo 
--Durl=http://yourcorp.com:8081/nexus/content/repositories/yourreleaserepo
+<h3 id="更改Maven版本号方法"><a href="#更改Maven版本号方法" class="headerlink" title="更改Maven版本号方法"></a>更改Maven版本号方法</h3><pre><code>mvn versions:set -DnewVersion=指定版本号
 </code></pre>
         
         
@@ -451,7 +499,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/15/批量修改项目版本号方法（Maven）/" title="批量修改项目版本号方法（Maven）" itemprop="url">批量修改项目版本号方法（Maven）</a>
+      <a href="/2016/10/15/非Maven的Jar转成Maven的Jar方法/" title="如何将jar手动安装到maven私服" itemprop="url">如何将jar手动安装到maven私服</a>
   </h1>
   <p class="article-author">By
        
@@ -464,10 +512,23 @@
 </header>
     <div class="article-content">
         
-        <h1 id="批量修改项目版本号方法（Maven）"><a href="#批量修改项目版本号方法（Maven）" class="headerlink" title="批量修改项目版本号方法（Maven）"></a>批量修改项目版本号方法（Maven）</h1><blockquote>
-<p>基于Maven管理的项目，目前一般的做法都是，如果项目还是处于开发阶段，我们为了方便maven管理，我们一般都是版本号xxx-SNAPSHOT ,为什么这么做呢？假如说，我们等版本稳定了怎么办呢？我们不可能打开每一个pom.xml文件修改每一个版本号把？这太浪费时间和精力了，我们肯定不这么做，下面介绍一种批量更改版本号的方法。</p>
+        <h1 id="如何将非maven格式jar转成maven格式的jar？"><a href="#如何将非maven格式jar转成maven格式的jar？" class="headerlink" title="如何将非maven格式jar转成maven格式的jar？"></a>如何将非maven格式jar转成maven格式的jar？</h1><blockquote>
+<p>目前java项目当中还是依然存在很多不是用maven去管理的项目，但是我们又有很多maven去管理的项目需要引用不是maven管理的项目，怎么办？当然是将不是maven项目管理的jar包转换成maven管理格式的jar包啦。</p>
 </blockquote>
-<h3 id="更改Maven版本号方法"><a href="#更改Maven版本号方法" class="headerlink" title="更改Maven版本号方法"></a>更改Maven版本号方法</h3><pre><code>mvn versions:set -DnewVersion=指定版本号
+<h3 id="Install到本地repo命令"><a href="#Install到本地repo命令" class="headerlink" title="Install到本地repo命令"></a>Install到本地repo命令</h3><pre><code>mvn install:install-file 
+-DgroupId=com.microsoft.sqlserver 
+-DartifactId=sqljdbc 
+-Dversion=4.0.2206 
+-Dpackaging=jar 
+-Dfile=d:\sqljdbc-4.0.2206.jar
+</code></pre><h3 id="deploy到nexus-repo命令"><a href="#deploy到nexus-repo命令" class="headerlink" title="deploy到nexus repo命令"></a>deploy到nexus repo命令</h3><pre><code>mvn deploy:deploy-file 
+-DgroupId=com.microsoft.sqlserver 
+-DartifactId=sqljdbc 
+-Dversion=4.0.2206 
+-Dpackaging=jar 
+-Dfile=d:\sqljdbc-4.0.2206.jar 
+-DrepositoryId=your-nexus-releases-repo 
+-Durl=http://yourcorp.com:8081/nexus/content/repositories/yourreleaserepo
 </code></pre>
         
         
@@ -709,71 +770,6 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/08/18/Flume--日志收集系统之初见/" title="Flume--日志收集系统之初见" itemprop="url">Flume--日志收集系统之初见</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-08-18T14:00:38.000Z" itemprop="datePublished"> 发表于 2016-08-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
-<p>大体意思是说：Flume是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的日志系统，<br>它有一个简单灵活的架构，这一个架构基于一个数据流。它有可协调的信度机制和故障切换及恢复机制，因而稳健并且可以兼容错误。Flume使用一个简单可扩展的数据模型，这个数据模型允许在线分析的应用。</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/08/18/Flume--日志收集系统之初见/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/源码分析/">源码分析</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -795,13 +791,7 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>1</sup></a></li>
-		  
-		
-		  
-		
-		  
-		
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
 		  
 		
 		  
@@ -809,41 +799,11 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 		  
 		
 		  
-		
-		  
 			<li><a href="/categories/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
 		  
 		
 		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
 			<li><a href="/categories/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
-		  
-		
 		  
 		
 		  
@@ -872,8 +832,6 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 		
 		  
 			<li><a href="/categories/建模/" title="建模">建模<sup>1</sup></a></li>
-		  
-		
 		  
 		
 		  
@@ -918,11 +876,11 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 			
 		
 			
-				<li><a href="/tags/前端技术/" title="前端技术">前端技术<sup>2</sup></a></li>
+				<li><a href="/tags/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/并发编程及性能调优/" title="并发编程及性能调优">并发编程及性能调优<sup>2</sup></a></li>
+				<li><a href="/tags/前端技术/" title="前端技术">前端技术<sup>2</sup></a></li>
 			
 		
 			
@@ -930,23 +888,7 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 			
 		
 			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/质量控制/" title="质量控制">质量控制<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
 			
 		
 			
@@ -954,21 +896,27 @@ export PATH=$PATH:$FLUME_HOME/bin:$FLUME_HOME/conf
 			
 		
 			
-				<li><a href="/tags/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
 			
 		
 			
-		
+				<li><a href="/tags/质量控制/" title="质量控制">质量控制<sup>1</sup></a></li>
 			
 		
 			
-		
+				<li><a href="/tags/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
 			
 		
+			
+				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/巨坑/" title="巨坑">巨坑<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
 			
 		
 		</ul>
