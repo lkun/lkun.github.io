@@ -4,23 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>（UML）那么多箭头指来指去，什么意思嘛？ | lkun&#39;s</title>
+    <title>基于docker的mysql常用备份及恢复命令 | lkun&#39;s</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="lkun&#39;s">
     
 
     
-    <meta name="description" content="（UML）那么多箭头指来指去，什么意思嘛？">
+    <meta name="description" content="连接mysql
+normal
+1mysql -h192.168.93.128 -P3306 -uroot -p
+
+docker
+1docker run -it --rm --link kunlv-mysql:mysql mysql sh -c &amp;apos;exec mysql -h192.168.93.128 -P3306 -uroot -p&amp;apos;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（UML）那么多箭头指来指去，什么意思嘛？">
-<meta property="og:url" content="http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/index.html">
+<meta property="og:title" content="基于docker的mysql常用备份及恢复命令">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/基于docker的mysql常用备份及恢复命令/index.html">
 <meta property="og:site_name" content="lkun's">
-<meta property="og:description" content="（UML）那么多箭头指来指去，什么意思嘛？">
-<meta property="og:updated_time" content="2018-10-28T10:01:32.476Z">
+<meta property="og:description" content="连接mysql
+normal
+1mysql -h192.168.93.128 -P3306 -uroot -p
+
+docker
+1docker run -it --rm --link kunlv-mysql:mysql mysql sh -c &amp;apos;exec mysql -h192.168.93.128 -P3306 -uroot -p&amp;apos;">
+<meta property="og:updated_time" content="2019-03-02T16:43:33.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="（UML）那么多箭头指来指去，什么意思嘛？">
-<meta name="twitter:description" content="（UML）那么多箭头指来指去，什么意思嘛？">
+<meta name="twitter:title" content="基于docker的mysql常用备份及恢复命令">
+<meta name="twitter:description" content="连接mysql
+normal
+1mysql -h192.168.93.128 -P3306 -uroot -p
+
+docker
+1docker run -it --rm --link kunlv-mysql:mysql mysql sh -c &amp;apos;exec mysql -h192.168.93.128 -P3306 -uroot -p&amp;apos;">
 
     
     <link rel="alternative" href="/atom.xml" title="lkun&#39;s" type="application/atom+xml">
@@ -80,14 +95,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
+      <a href="/2019/03/03/基于docker的mysql常用备份及恢复命令/" title="基于docker的mysql常用备份及恢复命令" itemprop="url">基于docker的mysql常用备份及恢复命令</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
 		
   <p class="article-time">
-    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
+    <time datetime="2019-03-02T16:42:33.000Z" itemprop="datePublished"> 发表于 2019-03-03</time>
     
   </p>
 </header>
@@ -96,11 +111,57 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#连接mysql"><span class="toc-number">1.</span> <span class="toc-text">连接mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备份和恢复"><span class="toc-number">2.</span> <span class="toc-text">备份和恢复</span></a></li></ol>
 		
 		</div>
 		
-		<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+		<h3 id="连接mysql"><a href="#连接mysql" class="headerlink" title="连接mysql"></a>连接mysql</h3><ul>
+<li><p>normal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h192.168.93.128 -P3306 -uroot -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --rm --link kunlv-mysql:mysql mysql sh -c &apos;exec mysql -h192.168.93.128 -P3306 -uroot -p&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h3><ul>
+<li><p>normal</p>
+<ul>
+<li>数据库中所有的表结构及数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">备份 </span><br><span class="line">mysqldump -uroot -p123456 kunlv_xxx &gt; /home/sql/kunlv_xxx.sql</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">mysql -uroot -p kitty_backup &lt; /root/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只导数据不导结构</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -t -uroot -p123456 kunlv_xxx &gt;/home/sql/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只导结构不导数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump --opt -d -uroot -p123456 kunlv_xxx &gt;/home/sql/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>导出特定表的结构</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump --single-transaction -uroot -p123456 kunlv_xxx sys_user &gt; /home/sql/sys_user.sql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>docker</p>
+<ul>
+<li>数据库中所有的表结构及数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">备份 </span><br><span class="line">docker exec -it kunlv-mysql mysqldump -uroot -p123456 kunlv_xxx &gt; /home/sql/kunlv_xxx.sql</span><br><span class="line"></span><br><span class="line">恢复(全库) </span><br><span class="line">docker cp /home/kunlv_xxx.sql kunlv-mysql:/root/</span><br><span class="line">docker exec -ti kunlv-mysql /bin/bash</span><br><span class="line">mysql -uroot -p kitty_backup &lt; /root/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只导数据不导结构</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it kunlv-mysql mysqldump -t -uroot -p123456 kunlv_xxx &gt;/home/sql/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只导结构不导数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it kunlv-mysql mysqldump --opt -d -uroot -p123456 kunlv_xxx &gt;/home/sql/kunlv_xxx.sql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>导出特定表的结构</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it kunlv-mysql mysqldump --single-transaction -uroot -p123456 kunlv_xxx sys_user &gt; /home/sql/sys_user.sql</span><br><span class="line"></span><br><span class="line">docker cp /home/sql/sys_user.sql kunlv-mysql:/root/</span><br><span class="line">docker exec -ti kunlv-mysql /bin/bash</span><br><span class="line">mysql -uroot -p kitty_backup &lt; /root/sys_user.sql</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -108,13 +169,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/建模/">建模</a>
+  <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/建模/">建模</a>
+  <span></span> <a href="/tags/DevOps/">DevOps</a>
   </div>
 
 </div>
@@ -123,7 +184,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2018/09/09/pack/UML/UML箭头含义/" data-title="（UML）那么多箭头指来指去，什么意思嘛？ | lkun&#39;s" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2019/03/03/基于docker的mysql常用备份及恢复命令/" data-title="基于docker的mysql常用备份及恢复命令 | lkun&#39;s" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,18 +198,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/09/09/pack/gradle/gradle-to-maven/" title="gradle项目打包到maven仓库">
+ <a href="/2019/03/03/分布式锁应用场景分析及定义/" title="分布式锁应用场景分析及定义">
   <strong>上一篇：</strong><br/>
   <span>
-  gradle项目打包到maven仓库</span>
+  分布式锁应用场景分析及定义</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/08/26/react+dva+antd实现CRUD简单功能/"  title="react+dva+antd实现CRUD简单功能">
+<a href="/2018/12/31/docker/外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用/"  title="外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用">
  <strong>下一篇：</strong><br/> 
- <span>react+dva+antd实现CRUD简单功能
+ <span>外部网络通过端口映射访问部署在虚拟机里Docker中的Web应用
 </span>
 </a>
 </div>
@@ -163,7 +224,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#连接mysql"><span class="toc-number">1.</span> <span class="toc-text">连接mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备份和恢复"><span class="toc-number">2.</span> <span class="toc-text">备份和恢复</span></a></li></ol>
  
   </div>
 
