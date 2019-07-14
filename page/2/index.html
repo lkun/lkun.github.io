@@ -82,6 +82,75 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class" itemprop="url">【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-10-13T02:23:51.000Z" itemprop="datePublished"> 发表于 2018-10-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？</p>
+</blockquote>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp">官方例子</a></p>
+<h3 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h3><ul>
+<li>生产者</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Product </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">	@Scheduled(fixedDelay = 100L)</span><br><span class="line">	public void product() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(24545);</span><br><span class="line">        user.serName(&quot;lvk&quot;);</span><br><span class="line">        user.setAdress(&quot;GDGZTH&quot;);</span><br><span class="line">		this.rabbitTemplate.convertAndSend(&quot;queueName&quot;, user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/分布式中间件/">分布式中间件</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/分布式中间件/">分布式中间件</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/10/13/【备忘】LocalDate&LocalDateTime常用API互相转换/" title="LocalDate&amp;LocalDateTime常用API互相转换" itemprop="url">LocalDate&amp;LocalDateTime常用API互相转换</a>
   </h1>
   <p class="article-author">By
@@ -208,6 +277,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/建模/">建模</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/建模/">建模</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/09/09/pack/gradle/gradle-to-maven/" title="gradle项目打包到maven仓库" itemprop="url">gradle项目打包到maven仓库</a>
   </h1>
   <p class="article-author">By
@@ -275,67 +405,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/09/09/pack/UML/UML箭头含义/" title="（UML）那么多箭头指来指去，什么意思嘛？" itemprop="url">（UML）那么多箭头指来指去，什么意思嘛？</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2018-09-09T03:52:38.000Z" itemprop="datePublished"> 发表于 2018-09-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzc1MjE3MQ==&amp;mid=2247483663&amp;idx=1&amp;sn=bbf9381f529680041dfe41b2f08d30de&amp;chksm=f9512c0bce26a51d24e14cb7aa9b7c917743091bdcbb89eea17e195ff0660b656bb10f28ad88&amp;token=242075731&amp;lang=zh_CN#rd" target="_blank" rel="external">（UML）那么多箭头指来指去，什么意思嘛？</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/建模/">建模</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/建模/">建模</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2017/08/26/react+dva+antd实现CRUD简单功能/" title="react+dva+antd实现CRUD简单功能" itemprop="url">react+dva+antd实现CRUD简单功能</a>
   </h1>
   <p class="article-author">By
@@ -366,78 +435,6 @@
         <p class="article-more-link">
           
             <a href="/2017/08/26/react+dva+antd实现CRUD简单功能/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/前端技术/">前端技术</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/前端技术/">前端技术</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/05/React 项目生成/" title="React 项目生成" itemprop="url">React 项目生成</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-05T06:23:51.000Z" itemprop="datePublished"> 发表于 2017-08-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>安装node环境，cmd   <code>node -v</code>  检查是否安装</li>
-<li>安装yeoman来生成项目基本框架 <code>npm install -g yo</code></li>
-<li>运行cmd <code>yo --version</code> 查看版本号</li>
-<li>进去 <a href="http://yeoman.io" target="_blank" rel="external">yeoman官网</a> 找到generators</li>
-<li>利用generator-react-webpack搭建 <a href="https://github.com/react-webpack-generators/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a></li>
-<li>安装 <code>npm install -g generator-react-webpack</code></li>
-<li>查看版本 <code>npm ls -g --depth=1 2&gt;/dev/null | grep generator-</code></li>
-<li>生成项目 <code>yo react-webpack gallery-by-react</code></li>
-<li>将站点启动 <code>grunt serve</code></li>
-<li>打开 <code>https://chrome.google.com/webstore/</code> 应用商店安装 <code>React devloper Tools</code></li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
           
        </p>
     </div>
@@ -564,6 +561,78 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/05/React 项目生成/" title="React 项目生成" itemprop="url">React 项目生成</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-05T06:23:51.000Z" itemprop="datePublished"> 发表于 2017-08-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>安装node环境，cmd   <code>node -v</code>  检查是否安装</li>
+<li>安装yeoman来生成项目基本框架 <code>npm install -g yo</code></li>
+<li>运行cmd <code>yo --version</code> 查看版本号</li>
+<li>进去 <a href="http://yeoman.io" target="_blank" rel="external">yeoman官网</a> 找到generators</li>
+<li>利用generator-react-webpack搭建 <a href="https://github.com/react-webpack-generators/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a></li>
+<li>安装 <code>npm install -g generator-react-webpack</code></li>
+<li>查看版本 <code>npm ls -g --depth=1 2&gt;/dev/null | grep generator-</code></li>
+<li>生成项目 <code>yo react-webpack gallery-by-react</code></li>
+<li>将站点启动 <code>grunt serve</code></li>
+<li>打开 <code>https://chrome.google.com/webstore/</code> 应用商店安装 <code>React devloper Tools</code></li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端技术/">前端技术</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/前端技术/">前端技术</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/05/20/JVM调优（常用参数）总结/" title="JVM调优总结 -Xms -Xmx -Xmn -Xss" itemprop="url">JVM调优总结 -Xms -Xmx -Xmn -Xss</a>
   </h1>
   <p class="article-author">By
@@ -600,83 +669,6 @@
   <div class="article-tags">
   
   <span></span> <a href="/tags/并发编程及性能调优/">并发编程及性能调优</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/15/非Maven的Jar转成Maven的Jar方法/" title="如何将jar手动安装到maven私服" itemprop="url">如何将jar手动安装到maven私服</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-15T07:00:38.000Z" itemprop="datePublished"> 发表于 2016-10-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="如何将非maven格式jar转成maven格式的jar？"><a href="#如何将非maven格式jar转成maven格式的jar？" class="headerlink" title="如何将非maven格式jar转成maven格式的jar？"></a>如何将非maven格式jar转成maven格式的jar？</h1><blockquote>
-<p>目前java项目当中还是依然存在很多不是用maven去管理的项目，但是我们又有很多maven去管理的项目需要引用不是maven管理的项目，怎么办？当然是将不是maven项目管理的jar包转换成maven管理格式的jar包啦。</p>
-</blockquote>
-<h3 id="Install到本地repo命令"><a href="#Install到本地repo命令" class="headerlink" title="Install到本地repo命令"></a>Install到本地repo命令</h3><pre><code>mvn install:install-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar
-</code></pre><h3 id="deploy到nexus-repo命令"><a href="#deploy到nexus-repo命令" class="headerlink" title="deploy到nexus repo命令"></a>deploy到nexus repo命令</h3><pre><code>mvn deploy:deploy-file 
--DgroupId=com.microsoft.sqlserver 
--DartifactId=sqljdbc 
--Dversion=4.0.2206 
--Dpackaging=jar 
--Dfile=d:\sqljdbc-4.0.2206.jar 
--DrepositoryId=your-nexus-releases-repo 
--Durl=http://yourcorp.com:8081/nexus/content/repositories/yourreleaserepo
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/工程管理/">工程管理</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/工程管理/">工程管理</a>
   </div>
 
 </div>
@@ -783,7 +775,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>4</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>5</sup></a></li>
 		  
 		
 		  
@@ -860,11 +852,11 @@
 			
 		
 			
-				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>4</sup></a></li>
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
 			
 		
 			
@@ -884,11 +876,7 @@
 			
 		
 			
-				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
 			
 		
 			
@@ -896,11 +884,15 @@
 			
 		
 			
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
+				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
 			
 		
 			
@@ -908,7 +900,7 @@
 			
 		
 			
-				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
+				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
 			
 		
 		</ul>

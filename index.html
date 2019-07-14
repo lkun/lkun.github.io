@@ -82,6 +82,72 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/07/14/docker/Docker搭建redis-cluster集群/" title="Docker搭建redis-cluster集群" itemprop="url">Docker搭建redis-cluster集群</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
+		
+  <p class="article-time">
+    <time datetime="2019-07-14T04:20:38.000Z" itemprop="datePublished"> 发表于 2019-07-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Docker搭建redis-cluster集群"><a href="#Docker搭建redis-cluster集群" class="headerlink" title="Docker搭建redis-cluster集群"></a>Docker搭建redis-cluster集群</h1><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><blockquote>
+<p>(1) Centos 7+<br>(2) Docker 18.06.1-ce<br>(3) Redis 3.0.0以上</p>
+</blockquote>
+<h3 id="获取redis镜像"><a href="#获取redis镜像" class="headerlink" title="获取redis镜像"></a>获取redis镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull redis</span><br><span class="line">$ docker images</span><br></pre></td></tr></table></figure>
+<h3 id="创建redis容器"><a href="#创建redis容器" class="headerlink" title="创建redis容器"></a>创建redis容器</h3><h4 id="创建自定义docker-network"><a href="#创建自定义docker-network" class="headerlink" title="创建自定义docker network"></a>创建自定义docker network</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//创建自定义docker network</span><br><span class="line">$ docker network create net2 --subnet=172.19.0.1/24 --gateway=172.19.0.1</span><br><span class="line">//查看是否创建成功</span><br><span class="line">$ docker network inspect net2  | grep &quot;Gateway&quot; |  grep --color=auto -P &apos;(\d&#123;1,3&#125;.)&#123;3&#125;\d&#123;1,3&#125;&apos; -o</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2019/07/14/docker/Docker搭建redis-cluster集群/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/DevOps/">DevOps</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+	
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/03/03/分布式锁应用场景分析及定义/" title="分布式锁应用场景分析及定义" itemprop="url">分布式锁应用场景分析及定义</a>
   </h1>
   <p class="article-author">By
@@ -672,75 +738,6 @@
 
 
 
-   
-	
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/" title="【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class" itemprop="url">【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="lkun&#39;s" target="_blank" itemprop="author">lkun&#39;s</a>
-		
-  <p class="article-time">
-    <time datetime="2018-10-13T02:23:51.000Z" itemprop="datePublished"> 发表于 2018-10-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>都觉得springboot集成rabbitmq非常简单，springboot都提供了现成的stater出来了，不就是引入依赖包后，就几行代码就搞定的事情吗？</p>
-</blockquote>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-amqp/src/main/java/sample/amqp">官方例子</a></p>
-<h3 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h3><ul>
-<li>生产者</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Product </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">	@Scheduled(fixedDelay = 100L)</span><br><span class="line">	public void product() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(24545);</span><br><span class="line">        user.serName(&quot;lvk&quot;);</span><br><span class="line">        user.setAdress(&quot;GDGZTH&quot;);</span><br><span class="line">		this.rabbitTemplate.convertAndSend(&quot;queueName&quot;, user);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2018/10/13/【springboot-rabbitmq的坑】org.springframework.amqp.AmqpException No method found for class/#more">阅读全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/分布式中间件/">分布式中间件</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/分布式中间件/">分布式中间件</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -762,7 +759,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>4</sup></a></li>
+			<li><a href="/categories/DevOps/" title="DevOps">DevOps<sup>5</sup></a></li>
 		  
 		
 		  
@@ -839,11 +836,11 @@
 			
 		
 			
-				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
+				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>4</sup></a></li>
+				<li><a href="/tags/Spring-Boot/" title="Spring-Boot">Spring-Boot<sup>4</sup></a></li>
 			
 		
 			
@@ -863,11 +860,7 @@
 			
 		
 			
-				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
 			
 		
 			
@@ -875,11 +868,15 @@
 			
 		
 			
+				<li><a href="/tags/HEXO/" title="HEXO">HEXO<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Java基础篇/" title="Java基础篇">Java基础篇<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
+				<li><a href="/tags/建模/" title="建模">建模<sup>1</sup></a></li>
 			
 		
 			
@@ -887,7 +884,7 @@
 			
 		
 			
-				<li><a href="/tags/应用框架/" title="应用框架">应用框架<sup>1</sup></a></li>
+				<li><a href="/tags/网络协议/" title="网络协议">网络协议<sup>1</sup></a></li>
 			
 		
 		</ul>
